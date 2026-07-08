@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { Button } from "../../components/ui/Button";
 
 export type FieldType = "text" | "textarea" | "number" | "select" | "checkbox" | "date" | "image";
 
@@ -96,12 +97,7 @@ export function ResourceTable({
     <div>
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-2xl font-display font-extrabold">{title}</h1>
-        <button
-          onClick={openNew}
-          className="rounded-full bg-brand text-white px-5 py-2.5 text-sm font-bold hover:bg-brand-dark transition-colors"
-        >
-          + Thêm mới
-        </button>
+        <Button onClick={openNew}>+ Thêm mới</Button>
       </div>
 
       <div className="bg-white rounded-2xl border border-black/5 overflow-x-auto">
@@ -199,12 +195,10 @@ export function ResourceTable({
                 </label>
               ))}
               <div className="mt-2 flex gap-2 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm font-semibold text-neutral-500 hover:bg-neutral-100 rounded-xl">
+                <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)} className="!bg-neutral-100 !text-neutral-500 hover:!bg-neutral-200">
                   Hủy
-                </button>
-                <button type="submit" className="px-5 py-2 text-sm font-bold text-white bg-brand rounded-xl hover:bg-brand-dark">
-                  Lưu
-                </button>
+                </Button>
+                <Button type="submit" size="sm">Lưu</Button>
               </div>
             </form>
           </div>

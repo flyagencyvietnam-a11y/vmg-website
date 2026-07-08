@@ -36,10 +36,10 @@ export function FeatureStrip() {
 type Program = { name: string; desc: string; overlay: string; ageGroup: "kids" | "teens" | "adult" | "all" };
 
 const PROGRAMS: Program[] = [
-  { name: "Kindy & Kids", desc: "Kindy - E-Pioneer (3-5 tuổi) đến Kids - E-Contender/E-Genius (6-11 tuổi) – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-pink-400/80 to-brand/70", ageGroup: "kids" },
+  { name: "Kindy & Kids", desc: "Kindy - E-Pioneer (3-5 tuổi) đến Kids - E-Contender/E-Genius (6-11 tuổi) – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-accent-pink-soft/80 to-brand/70", ageGroup: "kids" },
   { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens" },
   { name: "IELTS Express", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/85 to-brand/95", ageGroup: "adult" },
-  { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.", overlay: "from-rose-500/80 to-pink-600/80", ageGroup: "adult" },
+  { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.", overlay: "from-accent-pink/80 to-accent-pink/90", ageGroup: "adult" },
 ];
 
 const FILTERS = [

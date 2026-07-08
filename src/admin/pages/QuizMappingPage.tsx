@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { Button } from "../../components/ui/Button";
 
 type Product = { id: string; code: string; name: string };
 type CrossSell = { id?: string; product_id: string; display_order: number };
@@ -143,8 +144,8 @@ export default function QuizMappingPage() {
             </div>
 
             <div className="flex gap-2 justify-end">
-              <button onClick={() => setEditingId(null)} className="px-4 py-2 text-sm font-semibold text-neutral-500 hover:bg-neutral-100 rounded-xl">Hủy</button>
-              <button onClick={save} className="px-5 py-2 text-sm font-bold text-white bg-brand rounded-xl hover:bg-brand-dark">Lưu</button>
+              <Button variant="ghost" size="sm" onClick={() => setEditingId(null)} className="!bg-neutral-100 !text-neutral-500 hover:!bg-neutral-200">Hủy</Button>
+              <Button size="sm" onClick={save}>Lưu</Button>
             </div>
           </div>
         </div>

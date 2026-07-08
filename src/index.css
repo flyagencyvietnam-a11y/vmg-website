@@ -11,6 +11,10 @@
   --color-cream: #fbf7ef;
   --color-lemon: #e9e24a;
   --color-plum: #3d2a6d;
+
+  /* Tertiary accent (formalized from ad-hoc Tailwind pink used on Kids/Teens cards) */
+  --color-accent-pink: #ec4899;
+  --color-accent-pink-soft: #f472b6;
 }
 
 body {
