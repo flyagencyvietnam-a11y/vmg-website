@@ -97,40 +97,43 @@ export function ProgramsSection() {
 
 /* ---------------- Online courses (TMĐT) ---------------- */
 
-const ONLINE_COURSES = [
-  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", cta: "Xem chi tiết" },
-  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", cta: "Xem chi tiết" },
-  { code: "GT", name: "Tiếng Anh Giao Tiếp", desc: "2 tháng, 5 cấp độ, 50% GVNN + 50% GVVN – xóa rào cản sợ nói tiếng Anh.", cta: "Xem chi tiết" },
-  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", cta: "Xem chi tiết" },
-  { code: "VSTEP", name: "VSTEP E-PATH", desc: "Ôn luyện VSTEP linh hoạt, chi phí tối ưu, học theo tiến độ riêng.", cta: "Xem chi tiết" },
-  { code: "EDU", name: "EduNext", desc: "Tiếng Anh dành cho giáo viên bộ môn – online 100%, tự học theo lộ trình.", cta: "Xem chi tiết" },
+const FEATURED_ONLINE_COURSES = [
+  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", tag: "Học nhanh, thấy kết quả rõ" },
+  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", tag: "Lộ trình đầy đủ 0 → IELTS" },
+  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", tag: "Chứng chỉ giảng dạy quốc tế" },
 ];
 
 export function OnlineCoursesSection() {
   return (
     <section id="hoc-online" className="bg-cream/60 py-16 md:py-24">
       <div className="container-vmg">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-brand">Học online</span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">6 khóa học online của VMG</h2>
-            <p className="mt-3 text-neutral-600">Học mọi lúc mọi nơi – từ luyện thi IELTS, VSTEP đến chứng chỉ TESOL và tiếng Anh giao tiếp.</p>
-          </div>
-          <a href="/hoc-online" className="text-sm font-semibold text-brand hover:underline whitespace-nowrap">Xem tất cả →</a>
+        <div className="max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand">Học online</span>
+          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">
+            Không đến được trung tâm? Học theo tiến độ riêng của bạn
+          </h2>
+          <p className="mt-3 text-neutral-600">
+            Cùng chương trình, cùng cam kết đầu ra – nhưng học mọi lúc mọi nơi, chủ động thời gian.
+          </p>
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ONLINE_COURSES.map((c) => (
+          {FEATURED_ONLINE_COURSES.map((c) => (
             <div key={c.code} className="rounded-3xl bg-white border border-black/5 p-6 flex flex-col shadow-sm hover:shadow-lg transition-shadow">
               <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-brand/10 text-brand px-2.5 py-1 rounded-full">
-                {c.code}
+                {c.tag}
               </span>
               <h3 className="mt-3 font-display font-bold text-lg">{c.name}</h3>
               <p className="mt-2 text-sm text-neutral-600 flex-1">{c.desc}</p>
               <a href="/hoc-online" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline w-fit">
-                {c.cta} →
+                Xem chi tiết →
               </a>
             </div>
           ))}
+        </div>
+        <div className="mt-8 flex justify-center">
+          <a href="/hoc-online" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
+            Xem tất cả 6 khóa học online →
+          </a>
         </div>
       </div>
     </section>
@@ -166,23 +169,39 @@ export function ValuesSection() {
   );
 }
 
-/* ---------------- Testimonials ---------------- */
+/* ---------------- Testimonials / Student stories ---------------- */
 
 export function Testimonials() {
+  const smallSlots = [
+    "[Cần nội dung thật: cảm nhận phụ huynh – chưa có dữ liệu]",
+    "[Cần nội dung thật: thành tích IELTS/Cambridge cụ thể – chưa có dữ liệu]",
+    "[Cần nội dung thật: cảm nhận học viên đi làm – chưa có dữ liệu]",
+    "[Cần nội dung thật: câu chuyện tiến bộ học viên – chưa có dữ liệu]",
+  ];
   return (
-    <section className="container-vmg py-16 md:py-24">
-      <div className="text-center max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-widest text-brand">Cảm nhận học viên</span>
-        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Được tin tưởng bởi nhiều gia đình</h2>
-      </div>
-      <div className="mt-10 grid md:grid-cols-3 gap-5">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="rounded-3xl bg-white border border-dashed border-black/15 p-6 flex flex-col items-center justify-center text-center min-h-[180px]">
-            <p className="text-sm text-neutral-400 leading-relaxed">
-              [Cần nội dung thật: cảm nhận học viên/phụ huynh – chưa có dữ liệu, xem CLAUDE.md mục 2]
+    <section className="bg-plum py-16 md:py-24">
+      <div className="container-vmg">
+        <div className="text-center max-w-2xl mx-auto">
+          <span className="text-xs font-bold uppercase tracking-widest text-gold-soft">Câu chuyện học viên</span>
+          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold text-white">
+            Được tin tưởng bởi nhiều gia đình – và những thành tích nói lên tất cả
+          </h2>
+          <p className="mt-3 text-white/70 text-sm">
+            Đây là khu vực sẽ hiển thị cảm nhận thật và thành tích thật của học viên VMG. Nội dung minh họa dưới đây là chỗ trống chờ dữ liệu.
+          </p>
+        </div>
+        <div className="mt-10 grid lg:grid-cols-3 gap-5">
+          <div className="lg:col-span-2 lg:row-span-2 rounded-3xl bg-white/5 border border-dashed border-white/25 p-8 flex flex-col items-center justify-center text-center min-h-[260px]">
+            <p className="text-sm text-white/50 leading-relaxed max-w-md">
+              [Cần nội dung thật: câu chuyện học viên nổi bật (ảnh + tên + thành tích + trích dẫn) – chưa có dữ liệu, xem CLAUDE.md mục 2]
             </p>
           </div>
-        ))}
+          {smallSlots.map((text, i) => (
+            <div key={i} className="rounded-3xl bg-white/5 border border-dashed border-white/25 p-6 flex flex-col items-center justify-center text-center min-h-[120px]">
+              <p className="text-xs text-white/50 leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

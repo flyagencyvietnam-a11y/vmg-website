@@ -17,14 +17,14 @@ type Answers = {
 };
 
 // Mock quiz_mapping — sẽ được thay bằng dữ liệu Supabase khi lên Lovable
-const MOCK_MAPPING: Record<string, { name: string; desc: string }> = {
-  "child|3-5|communication": { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi." },
-  "child|6-11|cambridge": { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiểu học với đầu ra Cambridge Starters/Movers/Flyers." },
-  "child|12-16|study-abroad": { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5." },
-  "self|exam|center": { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm." },
-  "self|exam|online": { name: "IELTS Express Online", desc: "Đối tác IDP + British Council – \"học đâu thi đó\", cam kết đầu ra từng cấp." },
-  "self|tesol|center": { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức." },
-  "abroad|explore": { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]" },
+const MOCK_MAPPING: Record<string, { name: string; desc: string; overlay: string; href: string }> = {
+  "child|3-5|communication": { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+  "child|6-11|cambridge": { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiểu học với đầu ra Cambridge Starters/Movers/Flyers.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+  "child|12-16|study-abroad": { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+  "self|exam|center": { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
+  "self|exam|online": { name: "IELTS Express Online", desc: "Đối tác IDP + British Council – \"học đâu thi đó\", cam kết đầu ra từng cấp.", overlay: "from-brand/90 to-brand/95", href: "/hoc-online" },
+  "self|tesol|center": { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
+  "abroad|explore": { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
 };
 
 function buildAnswerKey(a: Answers): string | null {
@@ -185,15 +185,32 @@ export function Quiz() {
             return (
               <div>
                 <ProgressNav onBack={() => setStep("q2")} onExit={reset} stepLabel="Kết quả gợi ý" />
-                <div className="rounded-2xl bg-white border border-neutral-200 p-5 md:p-6">
-                  <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
-                  <h4 className="text-xl md:text-2xl font-display font-extrabold">
-                    {match?.name ?? "VMG có nhiều chương trình phù hợp"}
-                  </h4>
-                  <p className="mt-2 text-sm text-neutral-600">
-                    {match?.desc ?? "Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn."}
-                  </p>
-                  <form className="mt-5 grid gap-3" onSubmit={(e) => e.preventDefault()}>
+
+                {match ? (
+                  <div className="relative rounded-3xl overflow-hidden shadow-md">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${match.overlay}`} />
+                    <div className="relative p-6 md:p-7 text-white">
+                      <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                        Gợi ý dành cho bạn
+                      </span>
+                      <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{match.name}</h4>
+                      <p className="mt-2 text-sm text-white/90">{match.desc}</p>
+                      <a href={match.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                        Xem chi tiết chương trình này →
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-2xl bg-white border border-neutral-200 p-5 md:p-6">
+                    <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
+                    <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có nhiều chương trình phù hợp</h4>
+                    <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn.</p>
+                  </div>
+                )}
+
+                <div className="mt-4 rounded-2xl bg-white border border-neutral-200 p-5 md:p-6">
+                  <div className="text-sm font-semibold text-neutral-700 mb-3">Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:</div>
+                  <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid sm:grid-cols-2 gap-3">
                       <input placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
                       <input placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
