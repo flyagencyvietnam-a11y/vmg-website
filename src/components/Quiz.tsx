@@ -20,12 +20,37 @@ type Recommendation = { name: string; desc: string; overlay: string; href: strin
 
 // Mock quiz_mapping — sẽ được thay bằng dữ liệu Supabase khi lên Lovable.
 // Mỗi kết quả gồm 1 khóa chính + các khóa cross-sell liên quan.
+// Phủ đủ 18 tổ hợp: child (3 tuổi x 3 mục tiêu) + self (3 mục tiêu x 2 hình thức) + abroad (3 giai đoạn).
 const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recommendation[] }> = {
+  // ---- Con của tôi (3-5 tuổi) ----
   "child|3-5|communication": {
     primary: { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
     crossSell: [
       { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè mỗi năm một chủ đề mới, có dã ngoại hàng tuần.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
       { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiếp theo khi bé lên 6–11 tuổi, đầu ra theo cấp Cambridge.", overlay: "from-pink-300/80 to-brand/70", href: "/ngoai-ngu" },
+    ],
+  },
+  "child|3-5|cambridge": {
+    primary: { name: "Kindy – E-Pioneer", desc: "Xây nền tảng tiếng Anh đầu đời trước khi bước vào lộ trình Cambridge chính thức.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Kids – E-Contender / E-Genius", desc: "Nơi có cam kết đầu ra Cambridge Starters/Movers/Flyers khi bé lên 6–11 tuổi.", overlay: "from-pink-300/80 to-brand/70", href: "/ngoai-ngu" },
+      { name: "Thi Cambridge (OSIR)", desc: "Tổ chức thi Cambridge từ Starters, mã trung tâm VN055.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+    ],
+  },
+  "child|3-5|study-abroad": {
+    primary: { name: "Kindy – E-Pioneer", desc: "Xây nền tảng tiếng Anh đầu đời cho hành trình dài hơi sau này.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiếp theo khi bé lên 6–11 tuổi.", overlay: "from-pink-300/80 to-brand/70", href: "/ngoai-ngu" },
+      { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè, làm quen môi trường học tập năng động.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
+    ],
+  },
+
+  // ---- Con của tôi (6-11 tuổi) ----
+  "child|6-11|communication": {
+    primary: { name: "Kids – E-Contender / E-Genius", desc: "Tiếng Anh tiểu học, phát triển giao tiếp tự nhiên song song đầu ra Cambridge.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè mỗi năm một chủ đề mới, có dã ngoại hàng tuần.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
+      { name: "Teens – NextGen IELTS", desc: "Lộ trình tiếp theo khi con lên cấp 2.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
     ],
   },
   "child|6-11|cambridge": {
@@ -35,6 +60,29 @@ const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recomme
       { name: "Teens – NextGen IELTS", desc: "Lộ trình tiếp theo khi con lên cấp 2, định hướng IELTS sớm.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
     ],
   },
+  "child|6-11|study-abroad": {
+    primary: { name: "Kids – E-Contender / E-Genius", desc: "Xây nền tảng tiếng Anh vững chắc trước khi bước vào lộ trình định hướng du học.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Teens – NextGen IELTS", desc: "Lộ trình tiếp theo hướng IELTS/du học khi con lên cấp 2.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+      { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè, làm quen môi trường học tập quốc tế hóa.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
+    ],
+  },
+
+  // ---- Con của tôi (12-16 tuổi) ----
+  "child|12-16|communication": {
+    primary: { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, phát triển giao tiếp học thuật song song định hướng IELTS.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè, tăng phản xạ giao tiếp thực tế.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
+      { name: "Du học hè – Mỹ / Úc / Canada", desc: "Trải nghiệm ngắn hạn để luyện giao tiếp trong môi trường quốc tế.", overlay: "from-sky-400/80 to-blue-500/80", href: "/du-hoc" },
+    ],
+  },
+  "child|12-16|cambridge": {
+    primary: { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng chứng chỉ quốc tế – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Thi Cambridge (OSIR)", desc: "Tổ chức thi Cambridge cấp độ PET/KET+ phù hợp học sinh lớn.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+      { name: "Thi IELTS (OSIR)", desc: "Hội đồng thi IELTS chuẩn quốc tế, tư vấn lịch thi và đăng ký.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+    ],
+  },
   "child|12-16|study-abroad": {
     primary: { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
     crossSell: [
@@ -42,11 +90,29 @@ const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recomme
       { name: "Du học dài hạn – VMP", desc: "Tư vấn ngành/trường, hồ sơ, visa cho Mỹ, Úc, Canada, Đài Loan.", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
     ],
   },
+
+  // ---- Bản thân tôi: giao tiếp công việc ----
+  "self|work|center": {
+    primary: { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc tại trung tâm, mỗi buổi một chủ đề thực tế.", overlay: "from-teal-500/85 to-cyan-600/85", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Tiếng Anh Giao Tiếp (GT, online)", desc: "2 tháng, 5 cấp độ, 50% GVNN + 50% GVVN – nếu bạn muốn học online linh hoạt hơn.", overlay: "from-brand/85 to-brand/95", href: "/hoc-online" },
+      { name: "ESL FlexTrack – Công sở", desc: "MOOC Corporate English: Grammar, Emails, Communication at work.", overlay: "from-sky-400/80 to-blue-500/80", href: "/hoc-online" },
+    ],
+  },
+  "self|work|online": {
+    primary: { name: "Tiếng Anh Giao Tiếp (GT)", desc: "2 tháng, 5 cấp độ, 50% GVNN + 50% GVVN – xóa rào cản sợ nói tiếng Anh.", overlay: "from-brand/85 to-brand/95", href: "/hoc-online" },
+    crossSell: [
+      { name: "ESL FlexTrack – Công sở", desc: "MOOC Corporate English: Grammar, Emails, Communication at work, có chứng nhận hoàn thành.", overlay: "from-sky-400/80 to-blue-500/80", href: "/hoc-online" },
+      { name: "ESL FlexTrack – Ngành nghề", desc: "1-1 online, xây dựng riêng theo ngành (VD Logistics), theo nhu cầu cá nhân.", overlay: "from-sky-500/80 to-indigo-500/80", href: "/hoc-online" },
+    ],
+  },
+
+  // ---- Bản thân tôi: luyện thi ----
   "self|exam|center": {
     primary: { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
     crossSell: [
       { name: "IELTS Speaking Booster 1.5", desc: "100% GVNN, chỉ tập trung Speaking, cam kết tăng 1.0 band trong 5 buổi/tuần.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
-      { name: "IELTS Mocktest (OSIR)", desc: "Thi thử chuẩn quốc tế, chấm chữa chi tiết kèm tư vấn lộ trình.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+      { name: "VSTEP Mastery", desc: "Lộ trình 8–12 tháng tại trung tâm, xây từ A1 đến B2, có cam kết đầu ra.", overlay: "from-sky-400/80 to-blue-500/80", href: "/ngoai-ngu" },
     ],
   },
   "self|exam|online": {
@@ -56,6 +122,8 @@ const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recomme
       { name: "VSTEP E-PATH", desc: "Ôn luyện VSTEP online linh hoạt nếu bạn cần thêm chứng chỉ trong nước.", overlay: "from-sky-400/80 to-blue-500/80", href: "/hoc-online" },
     ],
   },
+
+  // ---- Bản thân tôi: chứng chỉ TESOL ----
   "self|tesol|center": {
     primary: { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
     crossSell: [
@@ -63,11 +131,34 @@ const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recomme
       { name: "Thi IELTS / Cambridge (OSIR)", desc: "Bổ sung chứng chỉ ngoại ngữ cá nhân song song với chứng chỉ giảng dạy.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
     ],
   },
+  "self|tesol|online": {
+    primary: { name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", overlay: "from-brand/85 to-brand/95", href: "/hoc-online" },
+    crossSell: [
+      { name: "TESOL 120H / 140H (offline)", desc: "Nếu bạn muốn có phần teaching practice trực tiếp với trainer.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
+      { name: "Thi IELTS / Cambridge (OSIR)", desc: "Bổ sung chứng chỉ ngoại ngữ cá nhân song song với chứng chỉ giảng dạy.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+    ],
+  },
+
+  // ---- Tìm hiểu du học ----
   "abroad|explore": {
     primary: { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
     crossSell: [
       { name: "Du học hè – Mỹ / Úc / Canada", desc: "Trải nghiệm ngắn hạn 2–4 tuần trước khi quyết định lộ trình dài hạn.", overlay: "from-sky-400/80 to-blue-500/80", href: "/du-hoc" },
       { name: "IELTS Express", desc: "Chuẩn bị nền tảng ngôn ngữ cho hồ sơ du học.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
+    ],
+  },
+  "abroad|application": {
+    primary: { name: "Du học dài hạn – VMP", desc: "Tư vấn ngành/trường, hồ sơ nhập học, visa, luyện phỏng vấn, coaching essay. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
+    crossSell: [
+      { name: "IELTS Express", desc: "Chuẩn bị điểm số ngôn ngữ đáp ứng yêu cầu hồ sơ.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
+      { name: "SAT", desc: "4 cấp độ theo mục tiêu điểm, cần thiết cho hồ sơ apply Mỹ.", overlay: "from-indigo-500/80 to-violet-600/80", href: "/ngoai-ngu" },
+    ],
+  },
+  "abroad|scholarship": {
+    primary: { name: "Du học dài hạn – VMP", desc: "Đồng hành tìm học bổng, đặc biệt tại Mỹ – add-on học bổng quốc tế nhiều nhất. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
+    crossSell: [
+      { name: "SAT", desc: "4 cấp độ theo mục tiêu điểm – yếu tố quan trọng trong hồ sơ học bổng Mỹ.", overlay: "from-indigo-500/80 to-violet-600/80", href: "/ngoai-ngu" },
+      { name: "IELTS Express", desc: "Đáp ứng điều kiện ngôn ngữ cho hồ sơ học bổng.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
     ],
   },
 };
