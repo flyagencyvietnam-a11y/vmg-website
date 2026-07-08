@@ -5,6 +5,7 @@ import { Footer } from "./components/Footer";
 import {
   FeatureStrip,
   ProgramsSection,
+  OnlineCoursesSection,
   ValuesSection,
   Testimonials,
   StatsBar,
@@ -22,6 +23,7 @@ function App() {
         <Quiz />
         <FeatureStrip />
         <ProgramsSection />
+        <OnlineCoursesSection />
         <ValuesSection />
         <Testimonials />
         <StatsBar />

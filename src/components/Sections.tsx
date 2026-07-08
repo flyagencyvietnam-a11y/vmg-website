@@ -4,18 +4,26 @@ import { useState } from "react";
 
 export function FeatureStrip() {
   const items = [
-    { title: "Ngoại ngữ", desc: "Tiếng Anh mọi độ tuổi & Tiếng Trung (HSK) – từ mầm non đến người đi làm.", bg: "bg-brand text-white" },
-    { title: "Du học VMP", desc: "Du học hè & dài hạn: Mỹ, Úc, Canada, Đài Loan và hơn thế.", bg: "bg-cream text-neutral-800" },
-    { title: "Hướng nghiệp", desc: "Định hướng nghề nghiệp cho học sinh – chương trình sắp ra mắt.", bg: "bg-lemon text-neutral-800" },
-    { title: "10 trung tâm", desc: "Có mặt tại Đồng Nai và Bình Phước – tiện lợi, gần nhà.", bg: "bg-white border border-black/10 text-neutral-800" },
+    { title: "Ngoại ngữ", desc: "Tiếng Anh mọi độ tuổi & Tiếng Trung (HSK) – từ mầm non đến người đi làm.", bg: "bg-brand text-white", href: "#chuong-trinh" },
+    { title: "Du học VMP", desc: "Du học hè & dài hạn: Mỹ, Úc, Canada, Đài Loan và hơn thế.", bg: "bg-cream text-neutral-800", href: "/du-hoc" },
+    { title: "Hướng nghiệp", desc: "Định hướng nghề nghiệp cho học sinh – chương trình sắp ra mắt.", bg: "bg-lemon text-neutral-800", href: "/huong-nghiep" },
+    { title: "10 trung tâm", desc: "Có mặt tại Đồng Nai và Bình Phước – tiện lợi, gần nhà.", bg: "bg-white border border-black/10 text-neutral-800", href: "/he-thong-trung-tam" },
   ];
   return (
     <section className="container-vmg pt-12">
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((it, i) => (
           <div key={i} className={`${it.bg} rounded-3xl p-6 flex flex-col justify-between min-h-[170px] hover:-translate-y-1 transition-transform`}>
-            <h3 className="text-lg font-display font-bold">{it.title}</h3>
-            <p className={`mt-1 text-sm ${it.bg.includes("brand") ? "text-white/85" : "text-neutral-600"}`}>{it.desc}</p>
+            <div>
+              <h3 className="text-lg font-display font-bold">{it.title}</h3>
+              <p className={`mt-1 text-sm ${it.bg.includes("brand") ? "text-white/85" : "text-neutral-600"}`}>{it.desc}</p>
+            </div>
+            <a
+              href={it.href}
+              className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold ${it.bg.includes("brand") ? "text-white hover:text-white/80" : "text-brand hover:text-brand-dark"}`}
+            >
+              Tìm hiểu thêm →
+            </a>
           </div>
         ))}
       </div>
@@ -71,6 +79,9 @@ export function ProgramsSection() {
             <div className="relative h-full flex flex-col justify-end p-5 text-white">
               <h3 className="text-xl font-display font-extrabold">{p.name}</h3>
               <p className="mt-1 text-sm text-white/90">{p.desc}</p>
+              <a href="/ngoai-ngu" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
+                Tìm hiểu thêm →
+              </a>
             </div>
           </article>
         ))}
@@ -79,6 +90,48 @@ export function ProgramsSection() {
         <a href="#" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
           Xem tất cả chương trình →
         </a>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Online courses (TMĐT) ---------------- */
+
+const ONLINE_COURSES = [
+  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", cta: "Xem chi tiết" },
+  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", cta: "Xem chi tiết" },
+  { code: "GT", name: "Tiếng Anh Giao Tiếp", desc: "2 tháng, 5 cấp độ, 50% GVNN + 50% GVVN – xóa rào cản sợ nói tiếng Anh.", cta: "Xem chi tiết" },
+  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", cta: "Xem chi tiết" },
+  { code: "VSTEP", name: "VSTEP E-PATH", desc: "Ôn luyện VSTEP linh hoạt, chi phí tối ưu, học theo tiến độ riêng.", cta: "Xem chi tiết" },
+  { code: "EDU", name: "EduNext", desc: "Tiếng Anh dành cho giáo viên bộ môn – online 100%, tự học theo lộ trình.", cta: "Xem chi tiết" },
+];
+
+export function OnlineCoursesSection() {
+  return (
+    <section id="hoc-online" className="bg-cream/60 py-16 md:py-24">
+      <div className="container-vmg">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand">Học online</span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">6 khóa học online của VMG</h2>
+            <p className="mt-3 text-neutral-600">Học mọi lúc mọi nơi – từ luyện thi IELTS, VSTEP đến chứng chỉ TESOL và tiếng Anh giao tiếp.</p>
+          </div>
+          <a href="/hoc-online" className="text-sm font-semibold text-brand hover:underline whitespace-nowrap">Xem tất cả →</a>
+        </div>
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {ONLINE_COURSES.map((c) => (
+            <div key={c.code} className="rounded-3xl bg-white border border-black/5 p-6 flex flex-col shadow-sm hover:shadow-lg transition-shadow">
+              <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-brand/10 text-brand px-2.5 py-1 rounded-full">
+                {c.code}
+              </span>
+              <h3 className="mt-3 font-display font-bold text-lg">{c.name}</h3>
+              <p className="mt-2 text-sm text-neutral-600 flex-1">{c.desc}</p>
+              <a href="/hoc-online" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline w-fit">
+                {c.cta} →
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
