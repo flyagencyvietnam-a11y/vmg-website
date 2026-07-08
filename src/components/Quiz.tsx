@@ -18,13 +18,13 @@ type Answers = {
 
 // Mock quiz_mapping — sẽ được thay bằng dữ liệu Supabase khi lên Lovable
 const MOCK_MAPPING: Record<string, { name: string; desc: string }> = {
-  "child|3-5|communication": { name: "VMG Kids – Mầm non", desc: "Làm quen tiếng Anh qua trò chơi, âm nhạc, phản xạ tự nhiên cho bé 3–5 tuổi." },
-  "child|6-11|cambridge": { name: "VMG Kids – Cambridge Track", desc: "Lộ trình luyện thi Cambridge Starters–Movers–Flyers cho thiếu nhi." },
-  "child|12-16|study-abroad": { name: "VMG Teens – Du học Foundation", desc: "Chuẩn bị nền tảng tiếng Anh học thuật cho lộ trình du học cấp 3." },
-  "self|exam|center": { name: "IELTS Programs tại trung tâm", desc: "Luyện thi IELTS 0–7.5+ với giáo viên tại trung tâm VMG." },
-  "self|exam|online": { name: "IELTS Express Online", desc: "Luyện thi IELTS trực tuyến linh hoạt thời gian." },
-  "self|tesol|center": { name: "VMG TESOL", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế TESOL." },
-  "abroad|explore": { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học." },
+  "child|3-5|communication": { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi." },
+  "child|6-11|cambridge": { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiểu học với đầu ra Cambridge Starters/Movers/Flyers." },
+  "child|12-16|study-abroad": { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5." },
+  "self|exam|center": { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm." },
+  "self|exam|online": { name: "IELTS Express Online", desc: "Đối tác IDP + British Council – \"học đâu thi đó\", cam kết đầu ra từng cấp." },
+  "self|tesol|center": { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức." },
+  "abroad|explore": { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]" },
 };
 
 function buildAnswerKey(a: Answers): string | null {

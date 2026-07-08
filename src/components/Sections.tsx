@@ -4,9 +4,9 @@ import { useState } from "react";
 
 export function FeatureStrip() {
   const items = [
-    { title: "Ngoại ngữ", desc: "Anh, Nhật, Hàn, Trung – từ mầm non đến người đi làm.", bg: "bg-brand text-white" },
-    { title: "Du học VMP", desc: "Đối tác IDP Platinum, xử lý hồ sơ – học bổng trọn gói.", bg: "bg-cream text-neutral-800" },
-    { title: "Hướng nghiệp", desc: "Tư vấn ngành nghề, TESOL, kỹ năng mềm cho học sinh.", bg: "bg-lemon text-neutral-800" },
+    { title: "Ngoại ngữ", desc: "Tiếng Anh mọi độ tuổi & Tiếng Trung (HSK) – từ mầm non đến người đi làm.", bg: "bg-brand text-white" },
+    { title: "Du học VMP", desc: "Du học hè & dài hạn: Mỹ, Úc, Canada, Đài Loan và hơn thế.", bg: "bg-cream text-neutral-800" },
+    { title: "Hướng nghiệp", desc: "Định hướng nghề nghiệp cho học sinh – chương trình sắp ra mắt.", bg: "bg-lemon text-neutral-800" },
     { title: "10 trung tâm", desc: "Có mặt tại Đồng Nai và Bình Phước – tiện lợi, gần nhà.", bg: "bg-white border border-black/10 text-neutral-800" },
   ];
   return (
@@ -28,10 +28,10 @@ export function FeatureStrip() {
 type Program = { name: string; desc: string; overlay: string; ageGroup: "kids" | "teens" | "adult" | "all" };
 
 const PROGRAMS: Program[] = [
-  { name: "VMG Kids", desc: "Mầm non & Thiếu nhi – tiếng Anh qua trò chơi, âm nhạc, phản xạ sớm.", overlay: "from-pink-400/80 to-brand/70", ageGroup: "kids" },
-  { name: "VMG Teens", desc: "Thiếu niên 12–16: giao tiếp học thuật, IELTS Junior, Cambridge B1/B2.", overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens" },
-  { name: "IELTS Programs", desc: "Luyện thi IELTS từ 0 đến 7.5+ – cam kết đầu ra bằng văn bản.", overlay: "from-brand/85 to-brand/95", ageGroup: "adult" },
-  { name: "English for Adults", desc: "Giao tiếp công việc, luyện thi TOEIC/VSTEP cho người lớn.", overlay: "from-rose-500/80 to-pink-600/80", ageGroup: "adult" },
+  { name: "Kindy & Kids", desc: "Kindy - E-Pioneer (3-5 tuổi) đến Kids - E-Contender/E-Genius (6-11 tuổi) – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-pink-400/80 to-brand/70", ageGroup: "kids" },
+  { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens" },
+  { name: "IELTS Express", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/85 to-brand/95", ageGroup: "adult" },
+  { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.", overlay: "from-rose-500/80 to-pink-600/80", ageGroup: "adult" },
 ];
 
 const FILTERS = [
@@ -90,7 +90,7 @@ export function ValuesSection() {
   const items = [
     { title: "23 năm bền bỉ", desc: "Từ 2002 đến nay, đồng hành cùng nhiều thế hệ học viên tại Đồng Nai và Bình Phước.", dark: true },
     { title: "Đội ngũ tận tâm", desc: "Giáo viên bản ngữ và Việt Nam có chứng chỉ quốc tế, gắn bó lâu năm với VMG." },
-    { title: "Đối tác IDP Platinum", desc: "VMP by VMG – một trong số ít trung tâm đạt cấp độ đối tác cao nhất của IDP." },
+    { title: "Đối tác IELTS uy tín", desc: "IDP Platinum Partner, British Council và Cambridge Assessment English (mã VN055) – đồng hành các chương trình IELTS & khảo thí quốc tế." },
     { title: "Ấm áp – gần gũi", desc: "Trung tâm được phụ huynh tin cậy nhờ sự chăm sóc như gia đình." },
   ];
   return (
@@ -116,30 +116,18 @@ export function ValuesSection() {
 /* ---------------- Testimonials ---------------- */
 
 export function Testimonials() {
-  const items = [
-    { name: "Chị Ngọc Anh", role: "Phụ huynh học viên VMG Kids", quote: "Con mình từ nhút nhát đã tự tin nói chuyện với người nước ngoài chỉ sau 1 năm học tại VMG." },
-    { name: "Minh Khôi", role: "Học viên IELTS VMG – 7.5", quote: "Giáo viên tận tâm, lộ trình rõ ràng giúp mình đạt 7.5 IELTS sau 6 tháng ôn luyện." },
-    { name: "Anh Quốc Bảo", role: "Học viên English for Adults", quote: "Lớp học linh hoạt giờ giấc, rất phù hợp với người đi làm như mình." },
-  ];
   return (
     <section className="container-vmg py-16 md:py-24">
       <div className="text-center max-w-2xl mx-auto">
         <span className="text-xs font-bold uppercase tracking-widest text-brand">Cảm nhận học viên</span>
-        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Được tin tưởng bởi hàng ngàn gia đình</h2>
+        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Được tin tưởng bởi nhiều gia đình</h2>
       </div>
       <div className="mt-10 grid md:grid-cols-3 gap-5">
-        {items.map((t, i) => (
-          <div key={i} className="rounded-3xl bg-white border border-black/5 p-6 shadow-sm">
-            <p className="text-sm text-neutral-700 leading-relaxed">"{t.quote}"</p>
-            <div className="mt-5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-brand/10 grid place-items-center text-brand font-display font-bold">
-                {t.name.charAt(0)}
-              </div>
-              <div>
-                <div className="text-sm font-bold">{t.name}</div>
-                <div className="text-xs text-neutral-500">{t.role}</div>
-              </div>
-            </div>
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="rounded-3xl bg-white border border-dashed border-black/15 p-6 flex flex-col items-center justify-center text-center min-h-[180px]">
+            <p className="text-sm text-neutral-400 leading-relaxed">
+              [Cần nội dung thật: cảm nhận học viên/phụ huynh – chưa có dữ liệu, xem CLAUDE.md mục 2]
+            </p>
           </div>
         ))}
       </div>
@@ -153,7 +141,7 @@ export function StatsBar() {
   const stats = [
     { value: "23+", label: "Năm kinh nghiệm" },
     { value: "10", label: "Trung tâm" },
-    { value: "42.000+", label: "Học viên đã đồng hành" },
+    { value: "42.000+", label: "Học sinh trường đối tác (B2G)" },
     { value: "IDP", label: "Platinum Partner" },
     { value: "Cambridge", label: "Authorized" },
   ];
@@ -194,12 +182,6 @@ export function Partners() {
 /* ---------------- News ---------------- */
 
 export function NewsSection() {
-  const news = [
-    { date: "12/03/2026", title: "VMG khai trương trung tâm thứ 10 tại Bình Phước", tag: "Sự kiện" },
-    { date: "28/02/2026", title: "VMP by VMG đạt danh hiệu IDP Platinum Partner năm 2026", tag: "Thành tựu" },
-    { date: "05/02/2026", title: "Học viên IELTS VMG đạt 8.0 – hành trình từ 3.5 đến mục tiêu du học", tag: "Câu chuyện" },
-  ];
-  const gradients = ["from-brand/80 to-orange-500/70", "from-amber-400/80 to-brand/70", "from-pink-500/80 to-brand/80"];
   return (
     <section className="container-vmg py-16 md:py-24">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -210,14 +192,14 @@ export function NewsSection() {
         <a href="#" className="text-sm font-semibold text-brand hover:underline">Xem tất cả →</a>
       </div>
       <div className="mt-8 grid md:grid-cols-3 gap-5">
-        {news.map((n, i) => (
-          <article key={i} className="rounded-3xl overflow-hidden bg-white border border-black/5 hover:shadow-lg transition-shadow">
-            <div className={`aspect-[16/10] bg-gradient-to-br ${gradients[i]} grid place-items-center text-white font-display font-extrabold text-xl px-6 text-center`}>
-              VMG · {n.tag}
+        {[0, 1, 2].map((i) => (
+          <article key={i} className="rounded-3xl overflow-hidden bg-white border border-dashed border-black/15 flex flex-col">
+            <div className="aspect-[16/10] bg-neutral-100 grid place-items-center text-neutral-400 font-display font-semibold text-sm px-6 text-center">
+              [Chờ ảnh &amp; bài viết thật]
             </div>
             <div className="p-5">
-              <div className="text-xs text-neutral-500">{n.date}</div>
-              <h3 className="mt-1 font-semibold leading-snug">{n.title}</h3>
+              <div className="text-xs text-neutral-400">[Chờ cập nhật]</div>
+              <h3 className="mt-1 text-sm text-neutral-400 leading-snug">[Cần nội dung thật: tiêu đề bài viết – chưa có dữ liệu, xem CLAUDE.md mục 2]</h3>
             </div>
           </article>
         ))}

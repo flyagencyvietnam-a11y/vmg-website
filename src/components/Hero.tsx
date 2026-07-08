@@ -46,8 +46,8 @@ export function Hero() {
               </span>
             </div>
             <div className="hidden md:block absolute -bottom-4 -left-4 bg-white text-neutral-900 rounded-2xl px-4 py-3 shadow-lg">
-              <div className="text-2xl font-display font-extrabold text-brand">42.000+</div>
-              <div className="text-xs text-neutral-500">Học viên đã đồng hành</div>
+              <div className="text-2xl font-display font-extrabold text-brand">23+ năm</div>
+              <div className="text-xs text-neutral-500">Đồng hành cùng Đồng Nai &amp; Bình Phước</div>
             </div>
           </div>
         </div>
