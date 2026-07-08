@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Audience = "child" | "self" | "abroad" | "b2b";
 type ChildAge = "3-5" | "6-11" | "12-16";
@@ -66,8 +66,16 @@ export function Quiz() {
   const [answers, setAnswers] = useState<Answers>({});
   const [step, setStep] = useState<"audience" | "q1" | "q2" | "result" | "b2b">("audience");
   const reset = () => { setAnswers({}); setStep("audience"); };
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (step === "result") {
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [step]);
 
   return (
+    <>
     <section id="quiz" className="container-vmg py-14 md:py-20">
       <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
         <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-10 shadow-sm">
@@ -179,52 +187,16 @@ export function Quiz() {
             </div>
           )}
 
-          {step === "result" && (() => {
-            const key = buildAnswerKey(answers);
-            const match = key ? MOCK_MAPPING[key] : null;
-            return (
-              <div>
-                <ProgressNav onBack={() => setStep("q2")} onExit={reset} stepLabel="Kết quả gợi ý" />
-
-                {match ? (
-                  <div className="relative rounded-3xl overflow-hidden shadow-md">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${match.overlay}`} />
-                    <div className="relative p-6 md:p-7 text-white">
-                      <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
-                        Gợi ý dành cho bạn
-                      </span>
-                      <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{match.name}</h4>
-                      <p className="mt-2 text-sm text-white/90">{match.desc}</p>
-                      <a href={match.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
-                        Xem chi tiết chương trình này →
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="rounded-2xl bg-white border border-neutral-200 p-5 md:p-6">
-                    <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
-                    <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có nhiều chương trình phù hợp</h4>
-                    <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn.</p>
-                  </div>
-                )}
-
-                <div className="mt-4 rounded-2xl bg-white border border-neutral-200 p-5 md:p-6">
-                  <div className="text-sm font-semibold text-neutral-700 mb-3">Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:</div>
-                  <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      <input placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-                      <input placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-                    </div>
-                    <label className="flex items-start gap-2 text-xs text-neutral-500">
-                      <input type="checkbox" className="mt-0.5" />
-                      Tôi đồng ý với <a href="#" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
-                    </label>
-                    <button className="rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit">Nhận tư vấn miễn phí</button>
-                  </form>
-                </div>
+          {step === "result" && (
+            <div>
+              <ProgressNav onBack={() => setStep("q2")} onExit={reset} stepLabel="Hoàn tất" />
+              <div className="rounded-2xl border border-dashed border-brand/30 bg-white p-6 text-center">
+                <div className="text-2xl">✓</div>
+                <p className="mt-2 text-sm font-semibold text-neutral-800">Đã tìm thấy gợi ý phù hợp cho bạn!</p>
+                <p className="mt-1 text-xs text-neutral-500">Xem chi tiết chương trình được đề xuất ở phần bên dưới ↓</p>
               </div>
-            );
-          })()}
+            </div>
+          )}
         </div>
 
         <aside className="rounded-3xl bg-white border border-black/5 p-6 shadow-sm lg:sticky lg:top-24">
@@ -239,5 +211,58 @@ export function Quiz() {
         </aside>
       </div>
     </section>
+
+    {step === "result" && (() => {
+      const key = buildAnswerKey(answers);
+      const match = key ? MOCK_MAPPING[key] : null;
+      return (
+        <section ref={resultRef} id="quiz-ket-qua" className="container-vmg pb-16 md:pb-24 scroll-mt-24">
+          <div className="max-w-3xl mx-auto text-center">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand">Gợi ý dành riêng cho bạn</span>
+            <h2 className="mt-3 text-2xl md:text-3xl font-display font-extrabold">
+              Dựa trên câu trả lời của bạn, VMG đề xuất chương trình sau
+            </h2>
+          </div>
+
+          <div className="mt-8 max-w-3xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+            {match ? (
+              <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[220px]">
+                <div className={`absolute inset-0 bg-gradient-to-br ${match.overlay}`} />
+                <div className="relative h-full flex flex-col p-6 md:p-7 text-white">
+                  <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                    Gợi ý dành cho bạn
+                  </span>
+                  <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{match.name}</h4>
+                  <p className="mt-2 text-sm text-white/90 flex-1">{match.desc}</p>
+                  <a href={match.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                    Xem chi tiết chương trình này →
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7 flex flex-col justify-center min-h-[220px]">
+                <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
+                <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có nhiều chương trình phù hợp</h4>
+                <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn.</p>
+              </div>
+            )}
+
+            <div className="rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm">
+              <div className="text-sm font-semibold text-neutral-700 mb-3">Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:</div>
+              <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
+                <input placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+                <input placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+                <label className="flex items-start gap-2 text-xs text-neutral-500">
+                  <input type="checkbox" className="mt-0.5" />
+                  Tôi đồng ý với <a href="#" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
+                </label>
+                <button className="rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit">Nhận tư vấn miễn phí</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      );
+    })()}
+    </>
   );
 }
