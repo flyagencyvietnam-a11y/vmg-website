@@ -16,15 +16,60 @@ type Answers = {
   abroadStage?: AbroadStage;
 };
 
-// Mock quiz_mapping — sẽ được thay bằng dữ liệu Supabase khi lên Lovable
-const MOCK_MAPPING: Record<string, { name: string; desc: string; overlay: string; href: string }> = {
-  "child|3-5|communication": { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
-  "child|6-11|cambridge": { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiểu học với đầu ra Cambridge Starters/Movers/Flyers.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
-  "child|12-16|study-abroad": { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
-  "self|exam|center": { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
-  "self|exam|online": { name: "IELTS Express Online", desc: "Đối tác IDP + British Council – \"học đâu thi đó\", cam kết đầu ra từng cấp.", overlay: "from-brand/90 to-brand/95", href: "/hoc-online" },
-  "self|tesol|center": { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
-  "abroad|explore": { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
+type Recommendation = { name: string; desc: string; overlay: string; href: string };
+
+// Mock quiz_mapping — sẽ được thay bằng dữ liệu Supabase khi lên Lovable.
+// Mỗi kết quả gồm 1 khóa chính + các khóa cross-sell liên quan.
+const MOCK_MAPPING: Record<string, { primary: Recommendation; crossSell: Recommendation[] }> = {
+  "child|3-5|communication": {
+    primary: { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non, xây dựng nội dung học đầu đời cho bé 3–5 tuổi.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Bán trú hè – Summer School", desc: "Trải nghiệm hè mỗi năm một chủ đề mới, có dã ngoại hàng tuần.", overlay: "from-amber-300/80 to-orange-400/80", href: "/ngoai-ngu" },
+      { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiếp theo khi bé lên 6–11 tuổi, đầu ra theo cấp Cambridge.", overlay: "from-pink-300/80 to-brand/70", href: "/ngoai-ngu" },
+    ],
+  },
+  "child|6-11|cambridge": {
+    primary: { name: "Kids – E-Contender / E-Genius", desc: "Lộ trình tiểu học với đầu ra Cambridge Starters/Movers/Flyers.", overlay: "from-pink-400/85 to-brand/75", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Thi Cambridge (OSIR)", desc: "Tổ chức thi Cambridge từ Starters đến PET/KET+, mã trung tâm VN055.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+      { name: "Teens – NextGen IELTS", desc: "Lộ trình tiếp theo khi con lên cấp 2, định hướng IELTS sớm.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+    ],
+  },
+  "child|12-16|study-abroad": {
+    primary: { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/85 to-orange-500/85", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "Thi IELTS (OSIR)", desc: "Hội đồng thi IELTS chuẩn quốc tế, tư vấn lịch thi và đăng ký.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+      { name: "Du học dài hạn – VMP", desc: "Tư vấn ngành/trường, hồ sơ, visa cho Mỹ, Úc, Canada, Đài Loan.", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
+    ],
+  },
+  "self|exam|center": {
+    primary: { name: "IELTS Express (tại trung tâm)", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "IELTS Speaking Booster 1.5", desc: "100% GVNN, chỉ tập trung Speaking, cam kết tăng 1.0 band trong 5 buổi/tuần.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
+      { name: "IELTS Mocktest (OSIR)", desc: "Thi thử chuẩn quốc tế, chấm chữa chi tiết kèm tư vấn lộ trình.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+    ],
+  },
+  "self|exam|online": {
+    primary: { name: "IELTS Express Online", desc: "Đối tác IDP + British Council – \"học đâu thi đó\", cam kết đầu ra từng cấp.", overlay: "from-brand/90 to-brand/95", href: "/hoc-online" },
+    crossSell: [
+      { name: "IELTS Speaking Fast Track 1.5 (FT15)", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking riêng biệt.", overlay: "from-rose-500/85 to-pink-600/85", href: "/hoc-online" },
+      { name: "VSTEP E-PATH", desc: "Ôn luyện VSTEP online linh hoạt nếu bạn cần thêm chứng chỉ trong nước.", overlay: "from-sky-400/80 to-blue-500/80", href: "/hoc-online" },
+    ],
+  },
+  "self|tesol|center": {
+    primary: { name: "TESOL 120H / 140H (offline)", desc: "Chứng chỉ giảng dạy tiếng Anh quốc tế, do OSIR tổ chức.", overlay: "from-rose-500/85 to-pink-600/85", href: "/ngoai-ngu" },
+    crossSell: [
+      { name: "TESOL E-PATH", desc: "Bản online self-paced, chi phí tối ưu, mentoring hàng tháng – nếu bạn cần linh hoạt hơn.", overlay: "from-brand/85 to-brand/95", href: "/hoc-online" },
+      { name: "Thi IELTS / Cambridge (OSIR)", desc: "Bổ sung chứng chỉ ngoại ngữ cá nhân song song với chứng chỉ giảng dạy.", overlay: "from-gold-soft/80 to-gold/80", href: "/ngoai-ngu" },
+    ],
+  },
+  "abroad|explore": {
+    primary: { name: "VMP by VMG – Tư vấn khởi đầu", desc: "Buổi tư vấn định hướng điểm đến và lộ trình du học. [Nội dung chi tiết đang chờ chị Hằng xác nhận]", overlay: "from-violet-500/85 to-plum/90", href: "/du-hoc" },
+    crossSell: [
+      { name: "Du học hè – Mỹ / Úc / Canada", desc: "Trải nghiệm ngắn hạn 2–4 tuần trước khi quyết định lộ trình dài hạn.", overlay: "from-sky-400/80 to-blue-500/80", href: "/du-hoc" },
+      { name: "IELTS Express", desc: "Chuẩn bị nền tảng ngôn ngữ cho hồ sơ du học.", overlay: "from-brand/90 to-brand/95", href: "/ngoai-ngu" },
+    ],
+  },
 };
 
 function buildAnswerKey(a: Answers): string | null {
@@ -217,46 +262,64 @@ export function Quiz() {
       const match = key ? MOCK_MAPPING[key] : null;
       return (
         <section ref={resultRef} id="quiz-ket-qua" className="container-vmg pb-16 md:pb-24 scroll-mt-24">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
             <span className="text-xs font-bold uppercase tracking-widest text-brand">Gợi ý dành riêng cho bạn</span>
             <h2 className="mt-3 text-2xl md:text-3xl font-display font-extrabold">
-              Dựa trên câu trả lời của bạn, VMG đề xuất chương trình sau
+              Dựa trên câu trả lời của bạn, VMG đề xuất các chương trình sau
             </h2>
           </div>
 
-          <div className="mt-8 max-w-3xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="mt-8 max-w-4xl mx-auto">
             {match ? (
-              <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[220px]">
-                <div className={`absolute inset-0 bg-gradient-to-br ${match.overlay}`} />
-                <div className="relative h-full flex flex-col p-6 md:p-7 text-white">
-                  <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
-                    Gợi ý dành cho bạn
-                  </span>
-                  <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{match.name}</h4>
-                  <p className="mt-2 text-sm text-white/90 flex-1">{match.desc}</p>
-                  <a href={match.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
-                    Xem chi tiết chương trình này →
-                  </a>
+              <>
+                <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[200px]">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${match.primary.overlay}`} />
+                  <div className="relative h-full flex flex-col p-6 md:p-7 text-white">
+                    <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                      Phù hợp nhất với bạn
+                    </span>
+                    <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{match.primary.name}</h4>
+                    <p className="mt-2 text-sm text-white/90 max-w-2xl">{match.primary.desc}</p>
+                    <a href={match.primary.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                      Xem chi tiết chương trình này →
+                    </a>
+                  </div>
                 </div>
-              </div>
+
+                <div className="mt-4 text-sm font-semibold text-neutral-500">Có thể bạn cũng quan tâm</div>
+                <div className="mt-3 grid sm:grid-cols-2 gap-4">
+                  {match.crossSell.map((c) => (
+                    <div key={c.name} className="relative rounded-2xl overflow-hidden shadow-sm min-h-[140px]">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${c.overlay}`} />
+                      <div className="relative h-full flex flex-col p-5 text-white">
+                        <h5 className="font-display font-bold">{c.name}</h5>
+                        <p className="mt-1 text-xs text-white/85 flex-1">{c.desc}</p>
+                        <a href={c.href} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold underline w-fit">
+                          Xem chi tiết →
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
-              <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7 flex flex-col justify-center min-h-[220px]">
+              <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7">
                 <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
                 <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có nhiều chương trình phù hợp</h4>
                 <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn.</p>
               </div>
             )}
 
-            <div className="rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm">
+            <div className="mt-6 rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm">
               <div className="text-sm font-semibold text-neutral-700 mb-3">Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:</div>
-              <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
+              <form className="grid sm:grid-cols-2 gap-3" onSubmit={(e) => e.preventDefault()}>
                 <input placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
                 <input placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-                <label className="flex items-start gap-2 text-xs text-neutral-500">
+                <label className="sm:col-span-2 flex items-start gap-2 text-xs text-neutral-500">
                   <input type="checkbox" className="mt-0.5" />
                   Tôi đồng ý với <a href="#" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
                 </label>
-                <button className="rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit">Nhận tư vấn miễn phí</button>
+                <button className="sm:col-span-2 rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit">Nhận tư vấn miễn phí</button>
               </form>
             </div>
           </div>
