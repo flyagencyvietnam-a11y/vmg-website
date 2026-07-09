@@ -11,31 +11,56 @@ function JourneyBlock({ stage }: { stage: JourneyStage }) {
     <button
       type="button"
       onClick={() => startQuiz(stage.quizBranchTarget)}
-      className="group relative w-full md:flex-1 md:min-w-0 overflow-hidden rounded-t-lg text-left
+      className="group relative isolate w-full md:flex-1 md:min-w-0 text-left
                  h-[130px] md:h-[var(--stage-h)]
                  motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out
                  motion-safe:md:hover:-translate-y-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-soft"
       style={{ "--stage-h": `${stage.heightDesktop}px` } as React.CSSProperties}
     >
-      {/* Placeholder background - real portrait photo goes here later via stage.imageSrc */}
+      {/* Glow behind the figure - subtle always-on on mobile (no hover there), blooms on hover on desktop */}
       <div
-        className="absolute inset-0"
-        style={{ background: `linear-gradient(180deg, ${stage.gradientFrom}, ${stage.gradientTo})` }}
+        className="absolute left-1/2 -translate-x-1/2 top-[-30px] md:top-[-70px] z-0
+                   w-20 h-20 md:w-24 md:h-24 rounded-full bg-gold-soft/20 md:bg-gold-soft/0 md:group-hover:bg-gold-soft/50
+                   blur-2xl motion-safe:transition-all motion-safe:duration-300"
       />
-      <div className="absolute inset-0 grid place-items-center opacity-25">
-        <ImageIcon className="w-8 h-8 md:w-10 md:h-10 text-white" strokeWidth={1.5} />
+
+      {/* Representative figure - peeks above the block; pops up further + glows on hover (desktop).
+          On mobile there's no real hover (tap navigates away immediately), so it sits in the
+          "risen" position by default instead of waiting for an interaction that won't be seen. */}
+      {stage.imageSrc && (
+        <img
+          src={stage.imageSrc}
+          alt=""
+          aria-hidden="true"
+          className="absolute left-1/2 -translate-x-1/2 z-[5]
+                     w-16 h-24 md:w-20 md:h-28 object-cover object-top rounded-2xl
+                     shadow-lg shadow-black/40
+                     top-[-22px] md:top-[-38px] md:group-hover:top-[-88px] md:group-hover:scale-105
+                     motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out"
+        />
+      )}
+
+      {/* Shelf: the colored podium itself - opaque, so it hides the lower half of the figure behind it */}
+      <div className="absolute inset-0 overflow-hidden rounded-t-lg z-10">
+        <div
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(180deg, ${stage.gradientFrom}, ${stage.gradientTo})` }}
+        />
+        {!stage.imageSrc && (
+          <div className="absolute inset-0 grid place-items-center opacity-25">
+            <ImageIcon className="w-8 h-8 md:w-10 md:h-10 text-white" strokeWidth={1.5} />
+          </div>
+        )}
+        {/* Overlay: darker by default, lighter on hover (desktop). Fixed low alpha on touch/mobile. */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent
+                     md:from-black/70 md:to-transparent md:group-hover:from-black/35
+                     motion-safe:transition-colors motion-safe:duration-200"
+        />
+        <span className="absolute bottom-3 left-3 right-3 text-sm md:text-base font-display font-bold text-white md:group-hover:text-gold-soft motion-safe:transition-colors">
+          {stage.label}
+        </span>
       </div>
-
-      {/* Overlay: darker by default, lighter on hover (desktop). Fixed low alpha on touch/mobile. */}
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent
-                   md:from-black/70 md:to-transparent md:group-hover:from-black/35
-                   motion-safe:transition-colors motion-safe:duration-200"
-      />
-
-      <span className="relative z-10 absolute bottom-3 left-3 right-3 text-sm md:text-base font-display font-bold text-white group-hover:text-gold-soft motion-safe:transition-colors">
-        {stage.label}
-      </span>
     </button>
   );
 }
@@ -56,8 +81,8 @@ export function Hero() {
         </p>
       </div>
 
-      <div className="container-vmg mt-8">
-        <div className="flex flex-col md:flex-row md:items-end gap-1.5 md:gap-2">
+      <div className="container-vmg mt-16 md:mt-28">
+        <div className="flex flex-col md:flex-row md:items-end gap-3 md:gap-2">
           {stages.map((stage) => (
             <JourneyBlock key={stage.stageId} stage={stage} />
           ))}
