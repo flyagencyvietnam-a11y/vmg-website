@@ -1,57 +1,39 @@
-import { useState } from "react";
-
-/* ---------------- Feature strip ---------------- */
-
-export function FeatureStrip() {
-  const items = [
-    { title: "Ngoại ngữ", desc: "Tiếng Anh mọi độ tuổi & Tiếng Trung (HSK) – từ mầm non đến người đi làm.", bg: "bg-brand text-white", href: "#chuong-trinh" },
-    { title: "Du học VMP", desc: "Du học hè & dài hạn: Mỹ, Úc, Canada, Đài Loan và hơn thế.", bg: "bg-cream text-neutral-800", href: "/du-hoc" },
-    { title: "Hướng nghiệp", desc: "Định hướng nghề nghiệp cho học sinh – chương trình sắp ra mắt.", bg: "bg-lemon text-neutral-800", href: "/huong-nghiep" },
-    { title: "10 trung tâm", desc: "Có mặt tại Đồng Nai và Bình Phước – tiện lợi, gần nhà.", bg: "bg-white border border-black/10 text-neutral-800", href: "/he-thong-trung-tam" },
-  ];
-  return (
-    <section className="container-vmg pt-12">
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {items.map((it, i) => (
-          <div key={i} className={`${it.bg} rounded-3xl p-6 flex flex-col justify-between min-h-[170px] hover:-translate-y-1 transition-transform`}>
-            <div>
-              <h3 className="text-lg font-display font-bold">{it.title}</h3>
-              <p className={`mt-1 text-sm ${it.bg.includes("brand") ? "text-white/85" : "text-neutral-600"}`}>{it.desc}</p>
-            </div>
-            <a
-              href={it.href}
-              className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold ${it.bg.includes("brand") ? "text-white hover:text-white/80" : "text-brand hover:text-brand-dark"}`}
-            >
-              Tìm hiểu thêm →
-            </a>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+import { useEffect, useState } from "react";
 
 /* ---------------- Programs ---------------- */
 
-type Program = { name: string; desc: string; overlay: string; ageGroup: "kids" | "teens" | "adult" | "all" };
+type ProgramFilter = "all" | "kids" | "teens" | "adult";
+type Program = { name: string; desc: string; overlay: string; ageGroup: ProgramFilter };
 
 const PROGRAMS: Program[] = [
-  { name: "Kindy & Kids", desc: "Kindy - E-Pioneer (3-5 tuổi) đến Kids - E-Contender/E-Genius (6-11 tuổi) – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-accent-pink-soft/80 to-brand/70", ageGroup: "kids" },
+  { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non 3-5 tuổi, xây dựng nội dung học đầu đời.", overlay: "from-accent-pink-soft/80 to-brand/70", ageGroup: "kids" },
+  { name: "Kids – E-Contender/E-Genius", desc: "Tiếng Anh tiểu học 6-11 tuổi – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-accent-pink/80 to-brand/75", ageGroup: "kids" },
+  { name: "Thi Cambridge (OSIR)", desc: "Tổ chức thi Cambridge từ Starters đến PET/KET+, mã trung tâm VN055.", overlay: "from-gold-soft/85 to-gold/85", ageGroup: "kids" },
   { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens" },
-  { name: "IELTS Express", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/85 to-brand/95", ageGroup: "adult" },
+  { name: "IELTS Express", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/85 to-brand/95", ageGroup: "teens" },
   { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.", overlay: "from-accent-pink/80 to-accent-pink/90", ageGroup: "adult" },
 ];
 
 const FILTERS = [
   { key: "all", label: "Tất cả" },
-  { key: "kids", label: "Trẻ em" },
-  { key: "teens", label: "Thiếu niên" },
+  { key: "kids", label: "Thiếu nhi" },
+  { key: "teens", label: "Teen" },
   { key: "adult", label: "Người lớn" },
 ] as const;
 
 export function ProgramsSection() {
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]["key"]>("all");
+  const [filter, setFilter] = useState<ProgramFilter>("all");
   const visible = PROGRAMS.filter((p) => filter === "all" || p.ageGroup === filter);
+
+  // Hero journey blocks (Thiếu nhi / Teen) land here pre-filtered instead of forcing the quiz.
+  useEffect(() => {
+    function handleSetFilter(e: Event) {
+      const detail = (e as CustomEvent<{ filter: ProgramFilter }>).detail;
+      if (detail?.filter) setFilter(detail.filter);
+    }
+    window.addEventListener("vmg:set-program-filter", handleSetFilter);
+    return () => window.removeEventListener("vmg:set-program-filter", handleSetFilter);
+  }, []);
 
   return (
     <section id="chuong-trinh" className="container-vmg py-16 md:py-24">
@@ -118,7 +100,11 @@ export function OnlineCoursesSection() {
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURED_ONLINE_COURSES.map((c) => (
-            <article key={c.code} className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
+            <article
+              key={c.code}
+              id={c.code === "TESOL" ? "card-tesol-epath" : undefined}
+              className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow scroll-mt-24"
+            >
               <div className={`absolute inset-0 bg-gradient-to-br ${c.overlay}`} />
               <div className="relative h-full flex flex-col justify-end p-5 text-white">
                 <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full mb-3">
@@ -138,6 +124,44 @@ export function OnlineCoursesSection() {
             Xem tất cả 6 khóa học online →
           </a>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Du học (VMP) teaser ---------------- */
+// Content pending chị Hằng's approval per CLAUDE.md - short catalog descriptions only,
+// no specific claims beyond what's confirmed in CLAUDE.md §5B.
+
+const DU_HOC_ITEMS = [
+  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore, Philippines – trải nghiệm ngắn hạn 2-4 tuần.", overlay: "from-sky-400/80 to-vmp-blue/85" },
+  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada, Đài Loan – tư vấn ngành/trường, hồ sơ, visa, học bổng.", overlay: "from-vmp-blue/85 to-vmp-blue-dark/90" },
+  { name: "SAT", desc: "4 cấp độ theo mục tiêu điểm – chuẩn bị hồ sơ apply Mỹ và học bổng quốc tế.", overlay: "from-indigo-500/80 to-vmp-blue-dark/85" },
+];
+
+export function DuHocSection() {
+  return (
+    <section id="du-hoc-nhom" className="container-vmg py-16 md:py-24 scroll-mt-24">
+      <div className="max-w-2xl">
+        <span className="text-xs font-bold uppercase tracking-widest text-brand">Du học - VMP by VMG</span>
+        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Chuẩn bị hành trang du học</h2>
+        <p className="mt-3 text-neutral-600">
+          Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ - dưới đây là các hướng chương trình chính.
+        </p>
+      </div>
+      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {DU_HOC_ITEMS.map((it) => (
+          <article key={it.name} className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
+            <div className={`absolute inset-0 bg-gradient-to-br ${it.overlay}`} />
+            <div className="relative h-full flex flex-col justify-end p-5 text-white">
+              <h3 className="text-xl font-display font-extrabold">{it.name}</h3>
+              <p className="mt-1 text-sm text-white/90">{it.desc}</p>
+              <a href="/du-hoc" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
+                Tìm hiểu thêm →
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

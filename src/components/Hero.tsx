@@ -1,16 +1,20 @@
 import { ImageIcon } from "lucide-react";
-import { HERO_JOURNEY_STAGES, type JourneyStage } from "../data/heroJourney";
+import { HERO_JOURNEY_STAGES, type JourneyStage, type JourneyLinkTarget } from "../data/heroJourney";
 
-function startQuiz(branch: JourneyStage["quizBranchTarget"]) {
-  window.dispatchEvent(new CustomEvent("vmg:start-quiz", { detail: { branch } }));
-  document.getElementById("quiz")?.scrollIntoView({ behavior: "smooth", block: "start" });
+function goToGroup(link: JourneyLinkTarget) {
+  if (link.type === "program-filter") {
+    window.dispatchEvent(new CustomEvent("vmg:set-program-filter", { detail: { filter: link.filter } }));
+    document.getElementById("chuong-trinh")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function JourneyBlock({ stage }: { stage: JourneyStage }) {
   return (
     <button
       type="button"
-      onClick={() => startQuiz(stage.quizBranchTarget)}
+      onClick={() => goToGroup(stage.link)}
       className="group relative isolate w-full md:flex-1 md:min-w-0 text-left
                  h-[130px] md:h-[var(--stage-h)]
                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-soft"
@@ -76,8 +80,8 @@ export function Hero() {
           <span className="text-brand">Tương Lai</span>
         </h1>
         <p className="mt-3 text-sm md:text-base text-white/60">
-          <span className="md:hidden">Chạm để xem hành trình</span>
-          <span className="hidden md:inline">Trỏ vào từng giai đoạn để xem hành trình</span>
+          <span className="md:hidden">Chạm vào giai đoạn của bạn để xem chương trình</span>
+          <span className="hidden md:inline">Chọn giai đoạn của bạn để xem ngay chương trình phù hợp</span>
         </p>
       </div>
 

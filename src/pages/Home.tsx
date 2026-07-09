@@ -3,9 +3,9 @@ import { Hero } from "../components/Hero";
 import { Quiz } from "../components/Quiz";
 import { Footer } from "../components/Footer";
 import {
-  FeatureStrip,
   ProgramsSection,
   OnlineCoursesSection,
+  DuHocSection,
   ValuesSection,
   Testimonials,
   StatsBar,
@@ -20,10 +20,10 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <Quiz />
-        <FeatureStrip />
         <ProgramsSection />
         <OnlineCoursesSection />
+        <DuHocSection />
+        <Quiz />
         <ValuesSection />
         <Testimonials />
         <StatsBar />
