@@ -1,5 +1,6 @@
 import { Award, GraduationCap, MapPin } from "lucide-react";
 import { Button } from "./ui/Button";
+import flowerMotif from "../assets/vmg-flower-motif.png";
 
 export function Hero() {
   return (
@@ -64,16 +65,13 @@ export function Hero() {
                   backgroundSize: "22px 22px",
                 }}
               />
-              {/* Ghost ornamental motif, echoing the gold flower icon in the VMG logo */}
-              <svg
-                viewBox="0 0 100 100"
-                className="absolute -right-8 -bottom-8 w-56 h-56 text-gold-soft/25 animate-spin-slow"
-                fill="currentColor"
-              >
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <ellipse key={i} cx="50" cy="22" rx="7" ry="18" transform={`rotate(${i * 45} 50 50)`} />
-                ))}
-              </svg>
+              {/* Ghost ornamental motif - real gold flower icon from the VMG logo */}
+              <img
+                src={flowerMotif}
+                alt=""
+                aria-hidden="true"
+                className="absolute -right-8 -bottom-8 w-56 h-56 opacity-25 animate-spin-slow"
+              />
               <div className="relative h-full flex flex-col items-center justify-center text-center px-8">
                 <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/60">Support · Scale · Succeed</span>
                 <div className="mt-4 font-display text-6xl md:text-7xl font-extrabold text-white/95">42.000+</div>
