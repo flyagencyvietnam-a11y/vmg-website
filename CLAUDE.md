@@ -50,11 +50,12 @@ Khi viết nội dung "đối tác/chứng nhận", LUÔN liệt kê đủ cả 
 |---|---|
 | Ngôn ngữ trụ cột "Ngoại ngữ" | CHỈ tiếng Anh (mọi độ tuổi) + tiếng Trung (HSK). KHÔNG có Nhật/Hàn ở trụ cột này. |
 | Nhật/Hàn | Chỉ tồn tại trong mảng Xuất khẩu lao động (XKLĐ) thuộc VMP/Du học, không liên quan trụ cột Ngoại ngữ. |
-| Đối tác/chứng nhận | VMG là đối tác của CẢ BA: IDP (Platinum Partner), British Council, và Cambridge Assessment English (mã VN055). Cả ba đều gắn với sản phẩm IELTS/khảo thí, KHÔNG phải VMP. VMP là trụ cột Du học, không giữ các danh hiệu này. |
+| Đối tác/chứng nhận | VMG là đối tác của CẢ BA: IDP (Platinum Partner), British Council, và Cambridge Assessment English (mã VN055). Cả ba đều gắn với sản phẩm IELTS/khảo thí, KHÔNG phải VMP. VMP là trụ cột Du học, không giữ các danh hiệu này. KHÔNG BAO GIỜ nhắc riêng IDP một mình (kể cả trong badge/chip nhỏ) - tối thiểu phải đi kèm British Council. |
 | "Cam kết đầu ra" | Có thật nhưng khác nhau theo từng sản phẩm cụ thể, không phải một câu cam kết chung: IELTS Express Online cam kết đầu ra từng cấp (học không đạt, học lại miễn phí); NextGen IELTS cam kết IELTS 5.5/6.5; ESL Kids cam kết theo cấp Cambridge. KHÔNG gắn "cam kết đầu ra" chung chung cho một card sản phẩm mơ hồ không rõ tên. |
 | Hướng nghiệp | Trụ cột này CHƯA có chương trình B2C cụ thể được xác nhận ngoài các hoạt động trải nghiệm theo mùa. Viết trang này dạng "định hướng, sắp ra mắt", KHÔNG liệt kê chương trình cụ thể như đã có sẵn. |
 | Số liệu học viên | Con số 42.000 gắn với học viên B2G trong hơn 200 trường đối tác, KHÔNG phải tổng học viên B2C toàn hệ thống 23 năm. Không dùng số này làm headline "học viên đã đồng hành" nếu ý muốn nói B2C. Nếu cần một con số tổng, đánh dấu `[CẦN XÁC NHẬN SỐ LIỆU]` thay vì đoán. |
-| B2G | Route lead sang Khối Kinh doanh, trang này chỉ làm nhiệm vụ marketing/thu lead, không xây tính năng quản lý quan hệ B2G. |
+| B2G | Route lead sang Khối Kinh doanh, trang này chỉ làm nhiệm vụ marketing/thu lead, không xây tính năng quản lý quan hệ B2G. "B2G" LÀ THUẬT NGỮ NỘI BỘ - KHÔNG hiển thị chữ "B2G" trên website công khai (kể cả trong ngoặc đơn chú thích số liệu). Được phép dùng trong code/data model/admin panel nội bộ (vd. tên bảng `b2g_inquiries`, route `/admin/b2g`) vì đó không phải nội dung public. |
+| "Support · Scale · Succeed" (3S) | Là slogan/khẩu hiệu NỘI BỘ của VMG, KHÔNG phải tagline công khai (tagline công khai là "VMG - Dẫn Lối Tương Lai"). KHÔNG đưa cụm "Support · Scale · Succeed" hay "3S" vào bất kỳ nội dung nào hiển thị công khai trên website. |
 | VMP | Nội dung khu vực Du học cần chị Hằng (phụ trách marketing VMP) xác nhận trước khi publish thật, vì đây là domain nội dung của team chị ấy. |
 | Testimonial, tên khách hàng, ngày sự kiện cụ thể | KHÔNG CÓ dữ liệu thật nào được cung cấp trong file này. Mọi nội dung dạng này trong bản trước đều là dựng, cần thay bằng placeholder rõ ràng. |
 
