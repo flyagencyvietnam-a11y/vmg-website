@@ -98,9 +98,9 @@ export function ProgramsSection() {
 /* ---------------- Online courses (TMĐT) ---------------- */
 
 const FEATURED_ONLINE_COURSES = [
-  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", tag: "Học nhanh, thấy kết quả rõ" },
-  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", tag: "Lộ trình đầy đủ 0 → IELTS" },
-  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", tag: "Chứng chỉ giảng dạy quốc tế" },
+  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", tag: "Học nhanh, thấy kết quả rõ", overlay: "from-accent-pink/80 to-brand/85" },
+  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", tag: "Lộ trình đầy đủ 0 → IELTS", overlay: "from-brand/85 to-brand/95" },
+  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", tag: "Chứng chỉ giảng dạy quốc tế", overlay: "from-plum/85 to-brand-dark/85" },
 ];
 
 export function OnlineCoursesSection() {
@@ -118,16 +118,19 @@ export function OnlineCoursesSection() {
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURED_ONLINE_COURSES.map((c) => (
-            <div key={c.code} className="rounded-3xl bg-white border border-black/5 p-6 flex flex-col shadow-sm hover:shadow-lg transition-shadow">
-              <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-brand/10 text-brand px-2.5 py-1 rounded-full">
-                {c.tag}
-              </span>
-              <h3 className="mt-3 font-display font-bold text-lg">{c.name}</h3>
-              <p className="mt-2 text-sm text-neutral-600 flex-1">{c.desc}</p>
-              <a href="/hoc-online" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline w-fit">
-                Xem chi tiết →
-              </a>
-            </div>
+            <article key={c.code} className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
+              <div className={`absolute inset-0 bg-gradient-to-br ${c.overlay}`} />
+              <div className="relative h-full flex flex-col justify-end p-5 text-white">
+                <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full mb-3">
+                  {c.tag}
+                </span>
+                <h3 className="text-xl font-display font-extrabold">{c.name}</h3>
+                <p className="mt-1 text-sm text-white/90">{c.desc}</p>
+                <a href="/hoc-online" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
+                  Xem chi tiết →
+                </a>
+              </div>
+            </article>
           ))}
         </div>
         <div className="mt-8 flex justify-center">
@@ -213,8 +216,8 @@ export function StatsBar() {
   const stats = [
     { value: "23+", label: "Năm kinh nghiệm" },
     { value: "10", label: "Trung tâm" },
-    { value: "42.000+", label: "Học sinh trường đối tác (B2G)" },
-    { value: "IDP", label: "Platinum Partner" },
+    { value: "42.000+", label: "Học sinh trường đối tác" },
+    { value: "IDP & BC", label: "Đối tác IELTS chính thức" },
     { value: "Cambridge", label: "Authorized" },
   ];
   return (

@@ -31,7 +31,7 @@ export function Hero() {
 
             <div className="mt-6 flex flex-wrap gap-2">
               {[
-                { icon: Award, label: "IDP Platinum Partner" },
+                { icon: Award, label: "IDP & British Council" },
                 { icon: GraduationCap, label: "23+ năm kinh nghiệm" },
                 { icon: MapPin, label: "10 trung tâm" },
               ].map(({ icon: Icon, label }) => (
@@ -73,10 +73,9 @@ export function Hero() {
                 className="absolute -right-8 -bottom-8 w-56 h-56 opacity-25 animate-spin-slow"
               />
               <div className="relative h-full flex flex-col items-center justify-center text-center px-8">
-                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/60">Support · Scale · Succeed</span>
-                <div className="mt-4 font-display text-6xl md:text-7xl font-extrabold text-white/95">42.000+</div>
+                <div className="font-display text-6xl md:text-7xl font-extrabold text-white/95">42.000+</div>
                 <p className="mt-2 text-sm text-white/70 max-w-[220px]">
-                  Học sinh trường đối tác đã đồng hành cùng VMG (B2G)
+                  Học sinh trường đối tác đã đồng hành cùng VMG
                 </p>
               </div>
             </div>
@@ -90,7 +89,7 @@ export function Hero() {
                 <Award className="w-4.5 h-4.5 text-brand" />
               </div>
               <div>
-                <div className="text-sm font-display font-extrabold leading-none">IDP Platinum</div>
+                <div className="text-sm font-display font-extrabold leading-none">IDP & British Council</div>
                 <div className="text-[11px] text-neutral-500 mt-0.5">Đối tác IELTS chính thức</div>
               </div>
             </div>
