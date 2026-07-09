@@ -15,6 +15,11 @@
   /* Tertiary accent (formalized from ad-hoc Tailwind pink used on Kids/Teens cards) */
   --color-accent-pink: #ec4899;
   --color-accent-pink-soft: #f472b6;
+
+  /* VMP (Du học) blue - APPROXIMATE placeholder, VMP brand uses blue per Nghiêm (09/07/2026).
+     Replace with the exact official hex once VMP brand guideline is available. */
+  --color-vmp-blue: #2563a8;
+  --color-vmp-blue-dark: #123a5e;
 }
 
 body {
