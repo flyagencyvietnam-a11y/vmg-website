@@ -27,6 +27,14 @@ function buildAnswerKey(a: Answers): string | null {
   return null;
 }
 
+async function fetchCareerOptions(): Promise<{ center: Recommendation | null; online: Recommendation | null }> {
+  const [centerRes, onlineRes] = await Promise.all([
+    fetchQuizResult("self|tesol|center"),
+    fetchQuizResult("self|tesol|online"),
+  ]);
+  return { center: centerRes?.primary ?? null, online: onlineRes?.primary ?? null };
+}
+
 async function fetchQuizResult(key: string): Promise<QuizResult> {
   const { data: mapping } = await supabase
     .from("quiz_mapping")
@@ -189,13 +197,36 @@ function B2BForm({ onBack, onExit }: { onBack: () => void; onExit: () => void })
   );
 }
 
+type Step = "audience" | "q1" | "q2" | "result" | "b2b" | "career";
+
 export function Quiz() {
   const [answers, setAnswers] = useState<Answers>({});
-  const [step, setStep] = useState<"audience" | "q1" | "q2" | "result" | "b2b">("audience");
+  const [step, setStep] = useState<Step>("audience");
   const [result, setResult] = useState<QuizResult>(null);
   const [resultLoading, setResultLoading] = useState(false);
-  const reset = () => { setAnswers({}); setStep("audience"); setResult(null); };
+  const [careerOptions, setCareerOptions] = useState<{ center: Recommendation | null; online: Recommendation | null } | null>(null);
+  const [careerLoading, setCareerLoading] = useState(false);
+  const reset = () => { setAnswers({}); setStep("audience"); setResult(null); setCareerOptions(null); };
   const resultRef = useRef<HTMLDivElement>(null);
+  const careerRef = useRef<HTMLDivElement>(null);
+
+  // Entry point for the Hero "ascending journey" blocks - see src/data/heroJourney.ts.
+  // Each block dispatches this event instead of duplicating the audience-selection UI.
+  useEffect(() => {
+    function handleStartQuiz(e: Event) {
+      const detail = (e as CustomEvent<{ branch: "child" | "self" | "abroad" | "career" }>).detail;
+      if (!detail) return;
+      if (detail.branch === "career") {
+        setAnswers({ audience: "self", selfGoal: "tesol" });
+        setStep("career");
+      } else {
+        setAnswers({ audience: detail.branch });
+        setStep("q1");
+      }
+    }
+    window.addEventListener("vmg:start-quiz", handleStartQuiz);
+    return () => window.removeEventListener("vmg:start-quiz", handleStartQuiz);
+  }, []);
 
   useEffect(() => {
     if (step !== "result") return;
@@ -208,6 +239,16 @@ export function Quiz() {
     });
     resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  useEffect(() => {
+    if (step !== "career") return;
+    setCareerLoading(true);
+    fetchCareerOptions().then((r) => {
+      setCareerOptions(r);
+      setCareerLoading(false);
+    });
+    careerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step]);
 
   return (
@@ -314,6 +355,17 @@ export function Quiz() {
               </div>
             </div>
           )}
+
+          {step === "career" && (
+            <div>
+              <ProgressNav onExit={reset} stepLabel="Hướng nghiệp" />
+              <div className="rounded-2xl border border-dashed border-brand/30 bg-white p-6 text-center">
+                <div className="text-2xl">✓</div>
+                <p className="mt-2 text-sm font-semibold text-neutral-800">Lộ trình phát triển chuyên môn giảng dạy tại VMG!</p>
+                <p className="mt-1 text-xs text-neutral-500">Xem 2 hình thức học TESOL ở phần bên dưới ↓</p>
+              </div>
+            </div>
+          )}
         </div>
 
         <aside className="rounded-3xl bg-white border border-black/5 p-6 shadow-sm lg:sticky lg:top-24">
@@ -388,6 +440,70 @@ export function Quiz() {
               <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
               <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có nhiều chương trình phù hợp</h4>
               <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể theo nhu cầu của bạn.</p>
+            </div>
+          )}
+
+          <LeadForm answers={answers} />
+        </div>
+      </section>
+    )}
+
+    {step === "career" && (
+      <section ref={careerRef} id="quiz-ket-qua-career" className="container-vmg pb-16 md:pb-24 scroll-mt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand">Hướng nghiệp tại VMG</span>
+          <h2 className="mt-3 text-2xl md:text-3xl font-display font-extrabold">
+            Phát triển sự nghiệp giảng dạy với chứng chỉ TESOL
+          </h2>
+        </div>
+
+        <div className="mt-8 max-w-4xl mx-auto">
+          {careerLoading && (
+            <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7 text-center text-sm text-neutral-500">
+              Đang tải chương trình…
+            </div>
+          )}
+
+          {!careerLoading && (careerOptions?.center || careerOptions?.online) && (
+            <div className="grid sm:grid-cols-2 gap-5">
+              {careerOptions?.center && (
+                <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[220px]">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${careerOptions.center.overlay}`} />
+                  <div className="relative h-full flex flex-col p-6 text-white">
+                    <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                      Tại trung tâm
+                    </span>
+                    <h4 className="mt-3 text-xl font-display font-extrabold">{careerOptions.center.name}</h4>
+                    <p className="mt-2 text-sm text-white/90 flex-1">{careerOptions.center.desc}</p>
+                    <a href={careerOptions.center.href} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                      Xem chi tiết →
+                    </a>
+                  </div>
+                </div>
+              )}
+              {careerOptions?.online && (
+                <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[220px]">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${careerOptions.online.overlay}`} />
+                  <div className="relative h-full flex flex-col p-6 text-white">
+                    <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                      Học online
+                    </span>
+                    <h4 className="mt-3 text-xl font-display font-extrabold">{careerOptions.online.name}</h4>
+                    <p className="mt-2 text-sm text-white/90 flex-1">{careerOptions.online.desc}</p>
+                    <a href={careerOptions.online.href} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                      Xem chi tiết →
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!careerLoading && !careerOptions?.center && !careerOptions?.online && (
+            <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7">
+              <div className="text-xs font-bold text-brand mb-2">✓ Gợi ý dành cho bạn</div>
+              <h4 className="text-xl md:text-2xl font-display font-extrabold">VMG có chương trình TESOL phù hợp</h4>
+              <p className="mt-2 text-sm text-neutral-600">Để lại thông tin để được tư vấn cụ thể.</p>
             </div>
           )}
 
