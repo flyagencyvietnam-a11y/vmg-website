@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PRODUCTS, FORMAT_LABEL, isPublished, type AgeGroupFilter } from "../data/products";
+
+// The 6 flagship online-first products get their own homepage highlight
+// (OnlineCoursesSection) - everything else shows in the general carousel.
+const FLAGSHIP_ONLINE_CODES = ["FT15", "IE", "VSTEP", "GT", "TESOL", "EDU"];
+const PUBLIC_PRODUCTS = PRODUCTS.filter(isPublished);
 
 /* ---------------- Programs ---------------- */
 
-type ProgramFilter = "all" | "kids" | "teens" | "adult";
-type Program = { name: string; desc: string; overlay: string; ageGroup: ProgramFilter };
-
-const PROGRAMS: Program[] = [
-  { name: "Kindy – E-Pioneer", desc: "Tiếng Anh mầm non 3-5 tuổi, xây dựng nội dung học đầu đời.", overlay: "from-accent-pink-soft/80 to-brand/70", ageGroup: "kids" },
-  { name: "Kids – E-Contender/E-Genius", desc: "Tiếng Anh tiểu học 6-11 tuổi – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.", overlay: "from-accent-pink/80 to-brand/75", ageGroup: "kids" },
-  { name: "Thi Cambridge (OSIR)", desc: "Tổ chức thi Cambridge từ Starters đến PET/KET+, mã trung tâm VN055.", overlay: "from-gold-soft/85 to-gold/85", ageGroup: "kids" },
-  { name: "Teens – NextGen IELTS", desc: "Lộ trình dài đến lớp 11, định hướng IELTS sớm – cam kết đầu ra IELTS 5.5/6.5.", overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens" },
-  { name: "IELTS Express", desc: "IELTS cấp tốc có cam kết đầu ra, từ 0 lên 6.0 trong 1 năm.", overlay: "from-brand/85 to-brand/95", ageGroup: "teens" },
-  { name: "Adults – ePlus", desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.", overlay: "from-accent-pink/80 to-accent-pink/90", ageGroup: "adult" },
-];
+type ProgramFilter = "all" | AgeGroupFilter;
+const PROGRAMS = PUBLIC_PRODUCTS.filter((p) => !FLAGSHIP_ONLINE_CODES.includes(p.code));
 
 const FILTERS = [
   { key: "all", label: "Tất cả" },
   { key: "kids", label: "Thiếu nhi" },
   { key: "teens", label: "Teen" },
   { key: "adult", label: "Người lớn" },
+  { key: "b2b", label: "Doanh nghiệp" },
 ] as const;
 
 export function ProgramsSection() {
   const [filter, setFilter] = useState<ProgramFilter>("all");
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const visible = PROGRAMS.filter((p) => filter === "all" || p.ageGroup === filter);
 
   // Hero journey blocks (Thiếu nhi / Teen) land here pre-filtered instead of forcing the quiz.
@@ -34,6 +34,16 @@ export function ProgramsSection() {
     window.addEventListener("vmg:set-program-filter", handleSetFilter);
     return () => window.removeEventListener("vmg:set-program-filter", handleSetFilter);
   }, []);
+
+  // Switching filter rewinds the carousel so the new group starts from its first card.
+  useEffect(() => {
+    scrollerRef.current?.scrollTo({ left: 0 });
+  }, [filter]);
+
+  function scrollByDir(dir: 1 | -1) {
+    const el = scrollerRef.current;
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
+  }
 
   return (
     <section id="chuong-trinh" className="container-vmg py-16 md:py-24">
@@ -54,11 +64,38 @@ export function ProgramsSection() {
           </button>
         ))}
       </div>
-      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="mt-6 hidden md:flex justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => scrollByDir(-1)}
+          aria-label="Cuộn về trước"
+          className="rounded-full border border-black/10 bg-white p-2.5 text-neutral-600 hover:bg-brand hover:text-white hover:border-brand transition-colors"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollByDir(1)}
+          aria-label="Cuộn tới sau"
+          className="rounded-full border border-black/10 bg-white p-2.5 text-neutral-600 hover:bg-brand hover:text-white hover:border-brand transition-colors"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+      <div
+        ref={scrollerRef}
+        className="mt-4 md:mt-3 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2"
+      >
         {visible.map((p) => (
-          <article key={p.name} className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
+          <article
+            key={p.name}
+            className="relative flex-none snap-start w-[72%] sm:w-[45%] md:w-[31%] lg:w-[23.5%] rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow"
+          >
             <div className={`absolute inset-0 bg-gradient-to-br ${p.overlay}`} />
             <div className="relative h-full flex flex-col justify-end p-5 text-white">
+              <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full mb-3">
+                {FORMAT_LABEL[p.format]}
+              </span>
               <h3 className="text-xl font-display font-extrabold">{p.name}</h3>
               <p className="mt-1 text-sm text-white/90">{p.desc}</p>
               <a href="/ngoai-ngu" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
@@ -69,7 +106,7 @@ export function ProgramsSection() {
         ))}
       </div>
       <div className="mt-10 flex justify-center">
-        <a href="#" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
+        <a href="/ngoai-ngu" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
           Xem tất cả chương trình →
         </a>
       </div>
@@ -79,11 +116,7 @@ export function ProgramsSection() {
 
 /* ---------------- Online courses (TMĐT) ---------------- */
 
-const FEATURED_ONLINE_COURSES = [
-  { code: "FT15", name: "IELTS Speaking Fast Track 1.5", desc: "12 tuần, 100% GVNN – tăng 1.0–1.5 band Speaking, không đạt học lại miễn phí.", tag: "Học nhanh, thấy kết quả rõ", overlay: "from-accent-pink/80 to-brand/85" },
-  { code: "IE", name: "IELTS Express Online", desc: "7 cấp độ, đối tác IDP + British Council – \"học đâu thi đó\".", tag: "Lộ trình đầy đủ 0 → IELTS", overlay: "from-brand/85 to-brand/95" },
-  { code: "TESOL", name: "TESOL E-PATH", desc: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK – self-paced + livestream hàng tuần.", tag: "Chứng chỉ giảng dạy quốc tế", overlay: "from-plum/85 to-brand-dark/85" },
-];
+const FLAGSHIP_ONLINE_PRODUCTS = PUBLIC_PRODUCTS.filter((p) => FLAGSHIP_ONLINE_CODES.includes(p.code));
 
 export function OnlineCoursesSection() {
   return (
@@ -98,21 +131,26 @@ export function OnlineCoursesSection() {
             Cùng chương trình, cùng cam kết đầu ra – nhưng học mọi lúc mọi nơi, chủ động thời gian.
           </p>
         </div>
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FEATURED_ONLINE_COURSES.map((c) => (
+        {/* Mobile: horizontal snap carousel; md+: full grid so all 6 TMĐT products stay visible at once */}
+        <div className="mt-10 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
+          {FLAGSHIP_ONLINE_PRODUCTS.map((c) => (
             <article
               key={c.code}
-              id={c.code === "TESOL" ? "card-tesol-epath" : undefined}
-              className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow scroll-mt-24"
+              className="relative flex-none snap-start w-[72%] sm:w-[45%] md:w-auto rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${c.overlay}`} />
               <div className="relative h-full flex flex-col justify-end p-5 text-white">
-                <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full mb-3">
-                  {c.tag}
-                </span>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                    {c.tag}
+                  </span>
+                  <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
+                    {FORMAT_LABEL[c.format]}
+                  </span>
+                </div>
                 <h3 className="text-xl font-display font-extrabold">{c.name}</h3>
                 <p className="mt-1 text-sm text-white/90">{c.desc}</p>
-                <a href="/hoc-online" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
+                <a href={`/hoc-online/${c.slug}`} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
                   Xem chi tiết →
                 </a>
               </div>
@@ -121,7 +159,7 @@ export function OnlineCoursesSection() {
         </div>
         <div className="mt-8 flex justify-center">
           <a href="/hoc-online" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
-            Xem tất cả 6 khóa học online →
+            Xem chi tiết từng khóa học →
           </a>
         </div>
       </div>
@@ -136,7 +174,8 @@ export function OnlineCoursesSection() {
 const DU_HOC_ITEMS = [
   { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore, Philippines – trải nghiệm ngắn hạn 2-4 tuần.", overlay: "from-sky-400/80 to-vmp-blue/85" },
   { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada, Đài Loan – tư vấn ngành/trường, hồ sơ, visa, học bổng.", overlay: "from-vmp-blue/85 to-vmp-blue-dark/90" },
-  { name: "SAT", desc: "4 cấp độ theo mục tiêu điểm – chuẩn bị hồ sơ apply Mỹ và học bổng quốc tế.", overlay: "from-indigo-500/80 to-vmp-blue-dark/85" },
+  { name: "Xuất khẩu lao động", desc: "Hàn Quốc, Nhật Bản, Đài Loan – tư vấn đơn hàng và thủ tục xuất cảnh.", overlay: "from-indigo-500/80 to-vmp-blue-dark/85" },
+  { name: "Sự kiện du học", desc: "[CẦN CẬP NHẬT: lịch sự kiện/triển lãm du học sắp tới – chưa có dữ liệu thật]", overlay: "from-vmp-blue-dark/85 to-plum/85" },
 ];
 
 export function DuHocSection() {
@@ -149,9 +188,10 @@ export function DuHocSection() {
           Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ - dưới đây là các hướng chương trình chính.
         </p>
       </div>
-      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Mobile: horizontal snap carousel; md+: grid (4 items -> 4 cols on lg) */}
+      <div className="mt-10 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
         {DU_HOC_ITEMS.map((it) => (
-          <article key={it.name} className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
+          <article key={it.name} className="relative flex-none snap-start w-[72%] sm:w-[45%] md:w-auto rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
             <div className={`absolute inset-0 bg-gradient-to-br ${it.overlay}`} />
             <div className="relative h-full flex flex-col justify-end p-5 text-white">
               <h3 className="text-xl font-display font-extrabold">{it.name}</h3>
@@ -171,7 +211,7 @@ export function DuHocSection() {
 
 export function ValuesSection() {
   const items = [
-    { title: "23 năm bền bỉ", desc: "Từ 2002 đến nay, đồng hành cùng nhiều thế hệ học viên tại Đồng Nai và Bình Phước.", dark: true },
+    { title: "23 năm bền bỉ", desc: "Từ 2002 đến nay, đồng hành cùng nhiều thế hệ học viên trên toàn quốc.", dark: true },
     { title: "Đội ngũ tận tâm", desc: "Giáo viên bản ngữ và Việt Nam có chứng chỉ quốc tế, gắn bó lâu năm với VMG." },
     { title: "Đối tác IELTS uy tín", desc: "IDP Platinum Partner, British Council và Cambridge Assessment English (mã VN055) – đồng hành các chương trình IELTS & khảo thí quốc tế." },
     { title: "Ấm áp – gần gũi", desc: "Trung tâm được phụ huynh tin cậy nhờ sự chăm sóc như gia đình." },
@@ -288,7 +328,7 @@ export function NewsSection() {
           <span className="text-xs font-bold uppercase tracking-widest text-brand">Tin tức</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-display font-extrabold">Cập nhật mới nhất từ VMG</h2>
         </div>
-        <a href="#" className="text-sm font-semibold text-brand hover:underline">Xem tất cả →</a>
+        <a href="/tin-tuc" className="text-sm font-semibold text-brand hover:underline">Xem tất cả →</a>
       </div>
       <div className="mt-8 grid md:grid-cols-3 gap-5">
         {[0, 1, 2].map((i) => (

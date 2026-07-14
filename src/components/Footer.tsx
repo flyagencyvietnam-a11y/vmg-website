@@ -7,33 +7,34 @@ export function Footer() {
         <div>
           <Logo variant="light" />
           <p className="mt-4 text-sm text-white/60 max-w-xs">
-            Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ – 23 năm đồng hành cùng học viên tại Đồng Nai và Bình Phước.
+            Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ – 23 năm đồng hành cùng học viên trên toàn quốc.
           </p>
         </div>
         <div>
           <h4 className="text-white font-semibold text-sm mb-3">Chương trình</h4>
           <ul className="space-y-2 text-sm">
-            <li>Ngoại ngữ</li>
-            <li>Du học VMP</li>
-            <li>Hướng nghiệp</li>
-            <li>Học online</li>
+            <li><a href="/ngoai-ngu" className="hover:text-white transition-colors">Ngoại ngữ</a></li>
+            <li><a href="/du-hoc" className="hover:text-white transition-colors">Du học VMP</a></li>
+            <li><a href="/huong-nghiep" className="hover:text-white transition-colors">Hướng nghiệp</a></li>
+            <li><a href="/hoc-online" className="hover:text-white transition-colors">Học online</a></li>
           </ul>
         </div>
         <div>
           <h4 className="text-white font-semibold text-sm mb-3">VMG</h4>
           <ul className="space-y-2 text-sm">
-            <li>Về VMG</li>
-            <li>Hệ thống trung tâm</li>
-            <li>Tuyển dụng</li>
-            <li>Tin tức</li>
+            <li><a href="/ve-vmg" className="hover:text-white transition-colors">Về VMG</a></li>
+            <li><a href="/he-thong-trung-tam" className="hover:text-white transition-colors">Hệ thống trung tâm</a></li>
+            <li><a href="/tuyen-dung" className="hover:text-white transition-colors">Tuyển dụng</a></li>
+            <li><a href="/tin-tuc" className="hover:text-white transition-colors">Tin tức</a></li>
           </ul>
         </div>
         <div>
           <h4 className="text-white font-semibold text-sm mb-3">Liên hệ</h4>
           <ul className="space-y-2 text-sm text-white/60">
             <li>Hotline: 1900 xxxx</li>
-            <li>Đồng Nai & Bình Phước, Việt Nam</li>
+            <li>Trung tâm: Đồng Nai · Học online: toàn quốc</li>
             <li>Zalo · Messenger</li>
+            <li><a href="/lien-he" className="hover:text-white transition-colors underline">Liên hệ tư vấn →</a></li>
           </ul>
         </div>
       </div>

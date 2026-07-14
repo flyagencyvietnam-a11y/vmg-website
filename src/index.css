@@ -26,6 +26,7 @@ body {
   font-family: var(--font-sans);
   color: #1c1917;
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
@@ -36,6 +37,36 @@ body {
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: 1.25rem;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
+}
+
+.hero-gold-text {
+  background: linear-gradient(105deg, #fff7dc 0%, #cba656 42%, #f5dc92 72%, #fff7dc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+::selection {
+  background: #be202f;
+  color: white;
+}
+
+/* Horizontal card carousels: snap-scroll rows hide the native scrollbar -
+   the peeking next card + arrow buttons (desktop) are the scroll affordance. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Floating decorative motif (design system draft §6) - subtle bob + rotate, CSS-only */

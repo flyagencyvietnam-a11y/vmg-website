@@ -15,15 +15,19 @@ import {
 } from "../components/Sections";
 
 export default function Home() {
+  useEffect(() => {
+    if (!window.location.hash) window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         <Hero />
+        <Quiz />
         <ProgramsSection />
         <OnlineCoursesSection />
         <DuHocSection />
-        <Quiz />
         <ValuesSection />
         <Testimonials />
         <StatsBar />
@@ -35,3 +39,4 @@ export default function Home() {
     </div>
   );
 }
+import { useEffect } from "react";

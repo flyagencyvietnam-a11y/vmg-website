@@ -17,13 +17,12 @@ export default function CentersPage() {
         { key: "address", label: "Địa chỉ", type: "text" },
         { key: "province", label: "Tỉnh", type: "select", options: [
           { value: "Đồng Nai", label: "Đồng Nai" },
-          { value: "Bình Phước", label: "Bình Phước" },
         ] },
         { key: "phone", label: "Điện thoại", type: "text" },
         { key: "hours", label: "Giờ hoạt động", type: "text" },
         { key: "lat", label: "Vĩ độ (lat)", type: "number" },
         { key: "lng", label: "Kinh độ (lng)", type: "number" },
-        { key: "display_order", label: "Thứ tự (Đồng Nai trước, Bình Phước sau)", type: "number" },
+        { key: "display_order", label: "Thứ tự hiển thị", type: "number" },
       ]}
     />
   );

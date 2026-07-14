@@ -1,6 +1,6 @@
-# CLAUDE.md - Context vận hành cho dự án Website VMG
+# AGENTS.md - Context vận hành cho dự án Website VMG
 
-> File này để Claude Code tự đọc và hiểu bối cảnh VMG trước khi code hoặc sinh nội dung.
+> File này để Codex tự đọc và hiểu bối cảnh VMG trước khi code hoặc sinh nội dung.
 > Đặt file này ở root của repo. Không xóa các mục "KHÔNG ĐƯỢC BỊA" - đây là phần quan trọng nhất file.
 
 ---
@@ -12,7 +12,7 @@
 Khi cần nội dung cụ thể (số liệu, tên khách hàng, trích dẫn, ngày tháng, sự kiện, cam kết dịch vụ) mà **không có trong file này**, KHÔNG được tự sáng tác nội dung nghe hợp lý để lấp chỗ trống. Thay vào đó:
 
 - Dùng placeholder rõ ràng, ví dụ: `[CẦN NỘI DUNG THẬT: tên học viên]`, `[CẦN XÁC NHẬN: ngày khai trương]`
-- Hoặc để trống với ghi chú `{/* TODO: chưa có dữ liệu thật, xem mục X file CLAUDE.md */}`
+- Hoặc để trống với ghi chú `{/* TODO: chưa có dữ liệu thật, xem mục X file AGENTS.md */}`
 - Không dùng tên người, trích dẫn, ngày tháng, số liệu cụ thể nghe như thật nếu không được liệt kê trong mục 5 (Số liệu đã xác nhận) bên dưới
 
 Lý do: bản build trước đó đã có các lỗi sau vì tự bịa nội dung nghe hợp lý, cần tránh lặp lại:
@@ -20,15 +20,11 @@ Lý do: bản build trước đó đã có các lỗi sau vì tự bịa nội d
 - Gắn nhầm "IDP Platinum Partner" cho VMP thay vì đúng sản phẩm IELTS (xem mục 2)
 - Dựng testimonial, ngày tháng sự kiện, số liệu nghe rất thật nhưng hoàn toàn không có thật
 
-**Phạm vi "không được bịa" áp dụng cho SỰ KIỆN/SỰ THẬT** (giá, thời lượng, cam kết đầu ra, số liệu, tên người, ngày tháng) - những thứ có hệ quả pháp lý/quảng cáo sai sự thật nếu sai. Được phép và khuyến khích viết sáng tạo phần VĂN PHONG MARKETING (pain point, mô tả giải pháp, USP, FAQ, headline...) miễn là không kèm số liệu/cam kết cụ thể chưa xác nhận - xem thêm mục 5C về chính sách giá hiện tại.
-
 ---
 
 ## 1. TỔNG QUAN VMG
 
-**Viet My Group (VMG)** - Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ. 23 năm hoạt động (thành lập 2002-2003), hệ thống trung tâm tại tỉnh Đồng Nai (đã sáp nhập với Bình Phước từ 01/07/2025 - không còn là 2 tỉnh riêng biệt).
-
-**Thị trường mục tiêu: TOÀN QUỐC**, không phải chỉ địa phương. KHÔNG gắn yếu tố "local"/vùng miền cụ thể (tên tỉnh, tên thành phố) vào tagline, USP, hoặc từ khóa SEO chính của sản phẩm - kể cả trong nội dung sản phẩm TMĐT/online lẫn offline. Chỉ nhắc địa danh cụ thể khi nói về vị trí trung tâm vật lý (trang Hệ thống trung tâm) hoặc khi có yêu cầu rõ ràng khác.
+**Viet My Group (VMG)** - Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ. 23 năm hoạt động (thành lập 2002-2003), 10 trung tâm tại Đồng Nai và Bình Phước.
 
 **Tagline chính thức**: "VMG - Dẫn Lối Tương Lai"
 **3 trụ cột**: Ngoại ngữ - Du học - Hướng nghiệp
@@ -100,7 +96,7 @@ Khi viết nội dung "đối tác/chứng nhận", LUÔN liệt kê đủ cả 
    Mỗi sản phẩm: mô tả, đối tượng, giá (nếu có, nếu chưa chốt ghi `[CẦN XÁC NHẬN GIÁ]`), cam kết đầu ra riêng (nếu sản phẩm đó có), CTA phù hợp
 
 6. Hệ thống trung tâm
-   - Danh sách + bản đồ các trung tâm tại tỉnh Đồng Nai (đã sáp nhập với Bình Phước từ 01/07/2025 - không còn phân theo 2 tỉnh)
+   - Danh sách + bản đồ 10 trung tâm (Đồng Nai trước, Bình Phước sau)
 
 7. Trường học & Doanh nghiệp (B2G/B2B)
    - Giới thiệu chương trình + form đăng ký hợp tác
@@ -171,8 +167,6 @@ Không áp tỷ lệ màu 60% đỏ literal lên nền toàn trang, chỉ dùng 
 | TESOL E-PATH | TESOL | 9.900.000đ | 7.920.000đ (KM 20%) | 4-8 tuần, 120h, self-paced + livestream hàng tuần | Trainer VMG + INTESOL | Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK |
 | EduNext (tiếng Anh cho GV bộ môn) | EDU | 9.900.000đ | 7.920.000đ (KM 20%) | 2-3 tháng tự học | Online 100% | `[CẦN XÁC NHẬN - sản phẩm còn đang hoàn thiện, chưa có 5 học viên thật/testimonial]` |
 
-**ESL FlexTrack (TMĐT)** - xác nhận là sản phẩm thật, riêng biệt (không phải tên khác của GT/Tiếng Anh Giao Tiếp như nghi vấn trước đây). Gồm 2 hướng: "Tiếng Anh Công Sở" (MOOC tự học, Testing/Pilot) và "Tiếng Anh Theo Ngành Nghề" (học 1-1 online theo package giờ, niche như Logistics). Cả hai chưa có giá công bố - và theo mục 5C, giá tạm thời không hiển thị public dù có sau này.
-
 ### Sản phẩm offline tại trung tâm (mục 2 sitemap)
 
 | Nhóm | Sản phẩm | Đối tượng | Ghi chú |
@@ -185,7 +179,7 @@ Không áp tỷ lệ màu 60% đỏ literal lên nền toàn trang, chỉ dùng 
 | Luyện thi | IELTS Express, IELTS Exam Focus, IELTS Speaking Booster 1.5 | Teens/Adults | 3 sản phẩm khác nhau, mức cam kết khác nhau - xem chi tiết mục "sự thật đã xác nhận" |
 | Luyện thi THPT | A01-D01 (Toán/Lý/Anh/Văn) | Teens | Testing/Pilot, bám sát SGK |
 | SAT | SAT 1050/1250/1400/1550+ | Teens | 4 cấp độ theo mục tiêu điểm |
-| Tiếng Trung | Giao tiếp + luyện thi HSK | Adults/Teens (16+) | HOLD - đang pilot, chưa xác nhận giáo viên xong. KHÔNG được chạy ads/tuyển sinh đại trà cho đến khi (1) GV xác nhận và (2) pilot chạy tối thiểu 2 tuần có feedback tích cực. Copy có thể chuẩn bị trước nhưng KHÔNG publish/hiển thị public. |
+| Tiếng Trung | Giao tiếp + luyện thi HSK | Adults/Teens | Testing/Pilot |
 | TESOL offline | TESOL 120H, TESOL 140H | Giáo viên | KPI Owner: OSIR |
 | VSTEP offline | VSTEP Express | - | Không cam kết đầu ra (khác VSTEP Mastery) |
 | Khảo thí (OSIR) | Thi Cambridge, thi IELTS, IELTS Mocktest | - | Thu phí thi, không phải khóa học |
@@ -199,12 +193,6 @@ Không áp tỷ lệ màu 60% đỏ literal lên nền toàn trang, chỉ dùng 
 | Xuất khẩu lao động | Hàn Quốc, Nhật Bản, Đài Loan |
 
 **Ghi chú quan trọng**: Nhật/Hàn CHỈ xuất hiện ở đây (Xuất khẩu lao động, thuộc VMP), không liên quan gì tới trụ cột Ngoại ngữ.
-
----
-
-## 5C. CHÍNH SÁCH HIỂN THỊ GIÁ (tạm thời, xác nhận 13/07/2026)
-
-**Website tạm thời KHÔNG hiển thị giá công khai cho bất kỳ sản phẩm nào** - kể cả sản phẩm đã có giá xác nhận trong mục 5B. Thay vì bảng giá, trang chi tiết sản phẩm dùng CTA dạng "Liên hệ để nhận báo giá/tư vấn chi tiết" dẫn vào form thu lead. Dữ liệu giá vẫn lưu trong code/data model để nội bộ tham chiếu và dùng sau này khi chính sách đổi, chỉ là không render ra giao diện public.
 
 ---
 
@@ -224,7 +212,7 @@ Không áp tỷ lệ màu 60% đỏ literal lên nền toàn trang, chỉ dùng 
 ## 7. YÊU CẦU KỸ THUẬT
 
 - Form thu thập thông tin cá nhân (quiz, liên hệ, B2G) phải có checkbox đồng ý + link Chính sách bảo mật (Nghị định 13/2023/NĐ-CP) - đã có ở bản trước, giữ nguyên
-- SEO: trang phải crawl được, meta title/description riêng từng trang, geo-metadata ở cấp quốc gia (Việt Nam) - KHÔNG giới hạn/nhấn mạnh theo tỉnh/thành cụ thể vì VMG định vị thị trường toàn quốc (xem mục 1)
+- SEO: trang phải crawl được, meta title/description riêng từng trang, geo-metadata đúng Đồng Nai/Việt Nam
 - Responsive, ưu tiên mobile
 - Dữ liệu lead cần có cơ chế export/webhook ra ngoài (không nhốt trong database nội bộ của công cụ build), vì công ty có kế hoạch CRM riêng
 
