@@ -620,3 +620,20 @@ export const FORMAT_LABEL: Record<ProductFormat, string> = {
   offline: "Offline",
   hybrid: "Online & Offline",
 };
+
+// One entry per NgoaiNguSection value - shared by /ngoai-ngu and /hoc-online so
+// both pages group and filter identically. Order matches the sitemap (2.1-2.5).
+export const NGOAI_NGU_GROUPS: { title: string; note?: string; section: NgoaiNguSection }[] = [
+  { title: "Mầm non (3-5 tuổi)", section: "mamnon" },
+  { title: "Thiếu nhi (6-11 tuổi)", section: "thieunhi" },
+  { title: "Thiếu niên (12-16 tuổi)", section: "thieunien" },
+  { title: "Giao tiếp người lớn", section: "adult" },
+  { title: "Luyện thi & chứng chỉ", note: "IELTS, TOEIC, VSTEP, Cambridge", section: "luyenthi" },
+  { title: "Tiếng Trung", section: "tieng-trung" },
+  { title: "VMG TESOL", section: "tesol" },
+  {
+    title: "Đào tạo doanh nghiệp",
+    note: "Chương trình tiếng Anh cho doanh nghiệp - để lại thông tin tại trang Trường học & Doanh nghiệp để được tư vấn.",
+    section: "b2b",
+  },
+];

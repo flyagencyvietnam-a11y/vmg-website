@@ -1,30 +1,19 @@
+import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ProductCard } from "../components/ProductCard";
-import { PRODUCTS, isPublished, type NgoaiNguSection } from "../data/products";
+import { SmartFilter, type SectionValue } from "../components/SmartFilter";
+import { PRODUCTS, NGOAI_NGU_GROUPS, isPublished } from "../data/products";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
-
-function ProgramGroup({ title, note, sections }: { title: string; note?: string; sections: NgoaiNguSection[] }) {
-  const items = PRODUCTS.filter((p) => isPublished(p) && sections.includes(p.section));
-  if (items.length === 0) return null;
-  return (
-    <div className="py-10 border-b border-black/5 last:border-0">
-      <h2 className="text-xl md:text-2xl font-display font-extrabold">{title}</h2>
-      {note && <p className="mt-1 text-sm text-neutral-500">{note}</p>}
-      <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {items.map((p) => (
-          <ProductCard key={p.code} p={p} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function NgoaiNgu() {
   useDocumentMeta(
     "Ngoại ngữ - Tiếng Anh & Tiếng Trung mọi độ tuổi | VMG",
     "Chương trình Ngoại ngữ VMG: tiếng Anh từ mầm non đến người lớn, luyện thi IELTS/TOEIC/VSTEP/Cambridge, tiếng Trung HSK, TESOL và đào tạo doanh nghiệp."
   );
+
+  const [filter, setFilter] = useState<SectionValue>("all");
+  const visibleGroups = NGOAI_NGU_GROUPS.filter((g) => filter === "all" || g.section === filter);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -42,20 +31,29 @@ export default function NgoaiNgu() {
         </section>
 
         <section className="container-vmg pb-16 md:pb-24">
-          <ProgramGroup title="Theo độ tuổi" sections={["mamnon", "thieunhi", "thieunien"]} />
-          <ProgramGroup title="Giao tiếp người lớn" sections={["adult"]} />
-          <ProgramGroup
-            title="Luyện thi & chứng chỉ"
-            note="IELTS, TOEIC, VSTEP, Cambridge"
-            sections={["luyenthi"]}
-          />
-          <ProgramGroup title="Tiếng Trung" sections={["tieng-trung"]} />
-          <ProgramGroup title="VMG TESOL" sections={["tesol"]} />
-          <ProgramGroup
-            title="Đào tạo doanh nghiệp"
-            note="Chương trình tiếng Anh cho doanh nghiệp - để lại thông tin tại trang Trường học & Doanh nghiệp để được tư vấn."
-            sections={["b2b"]}
-          />
+          <SmartFilter active={filter} onSelect={setFilter} />
+
+          {visibleGroups.map((g) => {
+            const items = PRODUCTS.filter((p) => isPublished(p) && p.section === g.section);
+            if (items.length === 0) return null;
+            return (
+              <div key={g.section} className="py-10 border-b border-black/5 last:border-0">
+                <h2 className="text-xl md:text-2xl font-display font-extrabold">{g.title}</h2>
+                {g.note && <p className="mt-1 text-sm text-neutral-500">{g.note}</p>}
+                <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {items.map((p) => (
+                    <ProductCard key={p.code} p={p} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {visibleGroups.every((g) => PRODUCTS.filter((p) => isPublished(p) && p.section === g.section).length === 0) && (
+            <div className="rounded-2xl border border-dashed border-black/15 bg-cream/60 p-8 text-center text-sm text-neutral-500">
+              Chưa có chương trình nào khớp với lựa chọn này.
+            </div>
+          )}
         </section>
       </main>
       <Footer />
