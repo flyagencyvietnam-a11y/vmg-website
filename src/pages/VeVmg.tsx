@@ -17,7 +17,7 @@ const PARTNERS = [
 export default function VeVmg() {
   useDocumentMeta(
     "Về VMG - Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ",
-    "23 năm hoạt động, hệ thống trung tâm tại Đồng Nai cùng các chương trình học online phục vụ học viên toàn quốc. VMG là đối tác IELTS Platinum của IDP, British Council và Cambridge Assessment English."
+    "23 năm hoạt động, 10 trung tâm tại Đồng Nai và Bình Phước. VMG là đối tác của IDP, British Council và Cambridge Assessment English trong hoạt động IELTS và khảo thí."
   );
 
   return (
@@ -31,12 +31,12 @@ export default function VeVmg() {
           </h1>
           <p className="mt-4 text-neutral-600 max-w-2xl">
             Viet My Group (VMG) - Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ, hoạt động từ 2002-2003 đến nay (23 năm),
-            với hệ thống trung tâm tại Đồng Nai và các chương trình học online phục vụ học viên trên toàn quốc.
+            với 10 trung tâm tại Đồng Nai và Bình Phước, cùng các lựa chọn học trực tiếp và online.
           </p>
         </section>
 
         <section className="container-vmg pb-14">
-          <h2 className="text-xl md:text-2xl font-display font-extrabold">3 trụ cột</h2>
+          <h2 className="text-xl md:text-3xl font-display font-extrabold">Ba trụ cột, một hành trình phát triển</h2>
           <div className="mt-6 grid sm:grid-cols-3 gap-5">
             {PILLARS.map((p) => (
               <a key={p.name} href={p.href} className="rounded-3xl border border-black/5 bg-cream p-6 hover:shadow-md transition-shadow">
@@ -48,7 +48,7 @@ export default function VeVmg() {
         </section>
 
         <section className="container-vmg pb-16 md:pb-24">
-          <h2 className="text-xl md:text-2xl font-display font-extrabold">Đối tác & chứng nhận IELTS</h2>
+          <h2 className="text-xl md:text-3xl font-display font-extrabold">Kết nối với đối tác khảo thí & IELTS</h2>
           <p className="mt-2 text-sm text-neutral-500 max-w-2xl">
             VMG là đối tác chính thức của cả ba tổ chức sau cho các chương trình IELTS và khảo thí quốc tế.
           </p>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Compass, GraduationCap, Languages, MapPin } from "lucide-react";
 import { PRODUCTS, FORMAT_LABEL, isPublished, type AgeGroupFilter } from "../data/products";
 
 // The 6 flagship online-first products get their own homepage highlight
@@ -48,8 +48,9 @@ export function ProgramsSection() {
   return (
     <section id="chuong-trinh" className="container-vmg py-16 md:py-24">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-widest text-brand">Chương trình học</span>
-        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Lộ trình học tập dành cho mọi học viên</h2>
+        <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Chương trình học</span>
+        <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Mỗi bước tiến đều có một lộ trình riêng</h2>
+        <p className="mt-3 text-sm leading-6 text-neutral-600">Khám phá các chương trình theo độ tuổi, mục tiêu và hình thức học phù hợp.</p>
       </div>
       <div className="mt-8 flex flex-wrap justify-center gap-2">
         {FILTERS.map((f) => (
@@ -120,15 +121,15 @@ const FLAGSHIP_ONLINE_PRODUCTS = PUBLIC_PRODUCTS.filter((p) => FLAGSHIP_ONLINE_C
 
 export function OnlineCoursesSection() {
   return (
-    <section id="hoc-online" className="bg-cream/60 py-16 md:py-24">
+    <section id="hoc-online" className="relative overflow-hidden bg-[#f5f0ff] py-16 md:py-24">
       <div className="container-vmg">
         <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand">Học online</span>
-          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">
-            Không đến được trung tâm? Học theo tiến độ riêng của bạn
+          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Học online</span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">
+            Linh hoạt thời gian. Vững vàng mục tiêu.
           </h2>
           <p className="mt-3 text-neutral-600">
-            Cùng chương trình, cùng cam kết đầu ra – nhưng học mọi lúc mọi nơi, chủ động thời gian.
+            Từ luyện thi đến phát triển nghề nghiệp, chọn cách học phù hợp với nhịp sống của bạn. Cam kết đầu ra được áp dụng theo điều kiện của từng chương trình.
           </p>
         </div>
         {/* Mobile: horizontal snap carousel; md+: full grid so all 6 TMĐT products stay visible at once */}
@@ -172,9 +173,9 @@ export function OnlineCoursesSection() {
 // no specific claims beyond what's confirmed in CLAUDE.md §5B.
 
 const DU_HOC_ITEMS = [
-  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore, Philippines – trải nghiệm ngắn hạn 2-4 tuần.", overlay: "from-sky-400/80 to-vmp-blue/85" },
-  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada, Đài Loan – tư vấn ngành/trường, hồ sơ, visa, học bổng.", overlay: "from-vmp-blue/85 to-vmp-blue-dark/90" },
-  { name: "Xuất khẩu lao động", desc: "Hàn Quốc, Nhật Bản, Đài Loan – tư vấn đơn hàng và thủ tục xuất cảnh.", overlay: "from-indigo-500/80 to-vmp-blue-dark/85" },
+  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore và Philippines.", overlay: "from-sky-400/80 to-vmp-blue/85" },
+  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada và Đài Loan.", overlay: "from-vmp-blue/85 to-vmp-blue-dark/90" },
+  { name: "Xuất khẩu lao động", desc: "Hàn Quốc, Nhật Bản và Đài Loan.", overlay: "from-indigo-500/80 to-vmp-blue-dark/85" },
   { name: "Sự kiện du học", desc: "[CẦN CẬP NHẬT: lịch sự kiện/triển lãm du học sắp tới – chưa có dữ liệu thật]", overlay: "from-vmp-blue-dark/85 to-plum/85" },
 ];
 
@@ -182,10 +183,10 @@ export function DuHocSection() {
   return (
     <section id="du-hoc-nhom" className="container-vmg py-16 md:py-24 scroll-mt-24">
       <div className="max-w-2xl">
-        <span className="text-xs font-bold uppercase tracking-widest text-brand">Du học - VMP by VMG</span>
-        <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Chuẩn bị hành trang du học</h2>
+          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Du học - VMP by VMG</span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Sẵn sàng cho những chân trời rộng mở</h2>
         <p className="mt-3 text-neutral-600">
-          Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ - dưới đây là các hướng chương trình chính.
+          Khám phá các hướng đồng hành chính của VMP. Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ.
         </p>
       </div>
       {/* Mobile: horizontal snap carousel; md+: grid (4 items -> 4 cols on lg) */}
@@ -211,21 +212,22 @@ export function DuHocSection() {
 
 export function ValuesSection() {
   const items = [
-    { title: "23 năm bền bỉ", desc: "Từ 2002 đến nay, đồng hành cùng nhiều thế hệ học viên trên toàn quốc.", dark: true },
-    { title: "Đội ngũ tận tâm", desc: "Giáo viên bản ngữ và Việt Nam có chứng chỉ quốc tế, gắn bó lâu năm với VMG." },
-    { title: "Đối tác IELTS uy tín", desc: "IDP Platinum Partner, British Council và Cambridge Assessment English (mã VN055) – đồng hành các chương trình IELTS & khảo thí quốc tế." },
-    { title: "Ấm áp – gần gũi", desc: "Trung tâm được phụ huynh tin cậy nhờ sự chăm sóc như gia đình." },
+    { icon: GraduationCap, title: "23 năm giáo dục", desc: "Hành trình xây dựng những lựa chọn học tập phù hợp cho nhiều thế hệ học viên.", dark: true },
+    { icon: MapPin, title: "10 trung tâm", desc: "Hiện diện tại Đồng Nai và Bình Phước để đồng hành gần hơn cùng gia đình." },
+    { icon: Languages, title: "Học & khảo thí", desc: "Kết nối chương trình IELTS và khảo thí với IDP, British Council và Cambridge Assessment English." },
+    { icon: Compass, title: "Ba hướng phát triển", desc: "Ngoại ngữ, Du học và Hướng nghiệp cùng mở ra những bước đi tiếp theo." },
   ];
   return (
     <section className="bg-cream/60 py-16 md:py-24">
       <div className="container-vmg">
         <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand">Vì sao chọn VMG</span>
-          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Giá trị tạo nên sự khác biệt</h2>
+          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Giá trị VMG</span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Nền tảng để đi xa hơn</h2>
         </div>
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {items.map((it, i) => (
-            <div key={i} className={`rounded-3xl p-6 min-h-[200px] ${it.dark ? "bg-plum text-white" : "bg-cream border border-black/5"}`}>
+            <div key={i} className={`rounded-[2rem] p-6 min-h-[215px] transition duration-300 hover:-translate-y-1 hover:shadow-lg ${it.dark ? "bg-plum text-white" : "bg-white border border-black/5"}`}>
+              <it.icon className={`h-6 w-6 ${it.dark ? "text-gold-soft" : "text-brand"}`} strokeWidth={1.8} />
               <h3 className="font-display font-bold text-lg">{it.title}</h3>
               <p className={`mt-2 text-sm ${it.dark ? "text-white/80" : "text-neutral-600"}`}>{it.desc}</p>
             </div>
@@ -250,11 +252,11 @@ export function Testimonials() {
       <div className="container-vmg">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-bold uppercase tracking-widest text-gold-soft">Câu chuyện học viên</span>
-          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold text-white">
-            Được tin tưởng bởi nhiều gia đình – và những thành tích nói lên tất cả
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold text-white">
+            Những câu chuyện thật sẽ sớm được kể tại đây
           </h2>
           <p className="mt-3 text-white/70 text-sm">
-            Đây là khu vực sẽ hiển thị cảm nhận thật và thành tích thật của học viên VMG. Nội dung minh họa dưới đây là chỗ trống chờ dữ liệu.
+            VMG đang tổng hợp thành tích, hình ảnh và chia sẻ được phép công bố từ học viên, phụ huynh.
           </p>
         </div>
         <div className="mt-10 grid lg:grid-cols-3 gap-5">
@@ -326,7 +328,7 @@ export function NewsSection() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-widest text-brand">Tin tức</span>
-          <h2 className="mt-2 text-3xl md:text-4xl font-display font-extrabold">Cập nhật mới nhất từ VMG</h2>
+          <h2 className="mt-2 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Góc cập nhật từ VMG</h2>
         </div>
         <a href="/tin-tuc" className="text-sm font-semibold text-brand hover:underline">Xem tất cả →</a>
       </div>
@@ -357,7 +359,7 @@ export function Newsletter() {
         <div className="max-w-lg">
           <h3 className="text-2xl md:text-3xl font-display font-extrabold text-neutral-900">Đăng ký nhận tin từ VMG</h3>
           <p className="mt-2 text-sm text-neutral-700/80">
-            Nhận lộ trình học, học bổng du học và ưu đãi trung tâm mới nhất – 1 email / tháng.
+            Nhận các cập nhật về chương trình học, sự kiện và hoạt động mới từ VMG.
           </p>
         </div>
         <form onSubmit={(e) => { e.preventDefault(); setDone(true); }} className="flex w-full md:w-auto items-center gap-2 bg-white rounded-full p-1.5 shadow-md min-w-[300px]">

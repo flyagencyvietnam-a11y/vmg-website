@@ -1,7 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-display: "Manrope", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 
   --color-brand: #be202f;
@@ -29,6 +30,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+html { scroll-behavior: smooth; }
+
 .font-display {
   font-family: var(--font-display);
 }
@@ -38,6 +41,34 @@ body {
   margin-inline: auto;
   padding-inline: 1.25rem;
 }
+
+.hero-surface {
+  background:
+    radial-gradient(circle at 77% 15%, rgba(203, 166, 86, .25), transparent 28rem),
+    radial-gradient(circle at 5% 78%, rgba(190, 32, 47, .1), transparent 27rem),
+    linear-gradient(135deg, #fffdf9 0%, #fbf7ef 52%, #f6efe3 100%);
+}
+
+.hero-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .45;
+  background-image: radial-gradient(#be202f 0.75px, transparent 0.75px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(120deg, transparent 20%, black 52%, transparent 82%);
+}
+
+.hero-orb {
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: .8;
+}
+.hero-orb-one { width: 15rem; height: 15rem; background: #f8d9de; left: -6rem; top: 5rem; }
+.hero-orb-two { width: 11rem; height: 11rem; background: #f6df9c; right: 7%; bottom: -5rem; }
 
 .hero-grid {
   background-image:

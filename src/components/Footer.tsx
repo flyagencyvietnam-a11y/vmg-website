@@ -2,12 +2,12 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-900 text-white/80">
+    <footer className="relative overflow-hidden bg-[#241823] text-white/80">
       <div className="container-vmg py-12 grid md:grid-cols-4 gap-8">
         <div>
           <Logo variant="light" />
           <p className="mt-4 text-sm text-white/60 max-w-xs">
-            Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ – 23 năm đồng hành cùng học viên trên toàn quốc.
+            Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ. 23 năm kiến tạo hành trình học tập tại Đồng Nai và Bình Phước.
           </p>
         </div>
         <div>
@@ -31,9 +31,9 @@ export function Footer() {
         <div>
           <h4 className="text-white font-semibold text-sm mb-3">Liên hệ</h4>
           <ul className="space-y-2 text-sm text-white/60">
-            <li>Hotline: 1900 xxxx</li>
-            <li>Trung tâm: Đồng Nai · Học online: toàn quốc</li>
-            <li>Zalo · Messenger</li>
+            <li><a href="tel:1900636838" className="hover:text-white transition-colors">Hotline: 1900 636 838</a></li>
+            <li><a href="mailto:info@vmg.edu.vn" className="hover:text-white transition-colors">info@vmg.edu.vn</a></li>
+            <li>Đồng Nai &amp; Bình Phước</li>
             <li><a href="/lien-he" className="hover:text-white transition-colors underline">Liên hệ tư vấn →</a></li>
           </ul>
         </div>
