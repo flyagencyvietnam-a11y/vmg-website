@@ -9,7 +9,6 @@ import {
   DuHocSection,
   ValuesSection,
   Testimonials,
-  StatsBar,
   Partners,
   NewsSection,
   Newsletter,
@@ -46,7 +45,6 @@ export default function Home() {
         <ProgramsSection />
         <OnlineCoursesSection />
         <DuHocSection />
-        <StatsBar />
         <ValuesSection />
         <Testimonials />
         <Partners />

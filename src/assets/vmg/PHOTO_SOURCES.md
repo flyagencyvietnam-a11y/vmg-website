@@ -20,3 +20,13 @@ Các ảnh trong `centers/`, `students/` và `course-support/` được tải t�
 - `course-support/tesol.jpg`: `https://vmgenglish.edu.vn/images/schedule/cat/2026/01/original/banner--tesol-web_1769066440.jpg`
 
 Ảnh chỉ được dùng làm hình minh họa theo ngữ cảnh đã xác minh. Không suy diễn tên, điểm số, trích dẫn hoặc thành tích của người trong ảnh nếu chưa có dữ liệu được VMG duyệt.
+
+## VMP - Du học
+
+Các asset dưới đây được tải từ website chính thức của VMP ngày 21/08/2026 và lưu cục bộ trong `src/assets/vmp/`; website mới không hotlink:
+
+- `vmp-logo.webp`: `https://duhocvmp.com/thumbs/photo/logo-5898.png.webp`
+- `short-term-study.webp`: `https://duhocvmp.com/thumbs/photo/slider-1-2000.jpg.webp`
+- `global-study-pathways.webp`: `https://duhocvmp.com/thumbs/photo/slide-test-8729.jpg.webp`
+
+Logo và hình ảnh chỉ phục vụ nhận diện/định hướng điều hướng cho khu vực Du học. Nội dung VMP vẫn cần chị Hằng duyệt trước khi publish thật; không suy diễn danh tính hoặc thành tích của người trong ảnh.

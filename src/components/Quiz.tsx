@@ -179,7 +179,8 @@ export function Quiz() {
 
   return (
     <>
-    <section id="quiz" className="container-vmg py-14 md:py-20 scroll-mt-24">
+    <section id="quiz" className="quiz-section-band relative overflow-hidden py-14 md:py-20 scroll-mt-24">
+      <div className="container-vmg relative">
       <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
         <div className="quiz-surface relative overflow-hidden rounded-[2rem] border border-brand/10 p-6 md:p-10 shadow-[0_30px_80px_-55px_rgba(146,24,36,.7)]">
           <div className="flex items-center justify-between mb-6">
@@ -298,6 +299,7 @@ export function Quiz() {
           </div>
         </aside>
       </div>
+      </div>
     </section>
 
     {step === "result" && (
@@ -318,7 +320,7 @@ export function Quiz() {
 
           {!resultLoading && result && (
             <>
-              <div className="relative rounded-3xl overflow-hidden shadow-md min-h-[200px]">
+              <a href={result.primary.href} aria-label={`Xem chi tiết ${result.primary.name}`} className="group relative block min-h-[200px] overflow-hidden rounded-3xl shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30">
                 <div className={`absolute inset-0 bg-gradient-to-br ${result.primary.overlay}`} />
                 <div className="relative h-full flex flex-col p-6 md:p-7 text-white">
                   <span className="inline-block w-fit text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
@@ -326,27 +328,27 @@ export function Quiz() {
                   </span>
                   <h4 className="mt-3 text-xl md:text-2xl font-display font-extrabold">{result.primary.name}</h4>
                   <p className="mt-2 text-sm text-white/90 max-w-2xl">{result.primary.desc}</p>
-                  <a href={result.primary.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold underline w-fit">
+                  <span className="mt-4 inline-flex w-fit items-center gap-1 text-sm font-semibold underline">
                     Xem chi tiết chương trình này →
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
 
               {result.crossSell.length > 0 && (
                 <>
                   <div className="mt-4 text-sm font-semibold text-neutral-500">Có thể bạn cũng quan tâm</div>
                   <div className="mt-3 grid sm:grid-cols-2 gap-4">
                     {result.crossSell.map((c) => (
-                      <div key={c.name} className="relative rounded-2xl overflow-hidden shadow-sm min-h-[140px]">
+                      <a href={c.href} aria-label={`Xem chi tiết ${c.name}`} key={c.name} className="group relative block min-h-[140px] overflow-hidden rounded-2xl shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30">
                         <div className={`absolute inset-0 bg-gradient-to-br ${c.overlay}`} />
                         <div className="relative h-full flex flex-col p-5 text-white">
                           <h5 className="font-display font-bold">{c.name}</h5>
                           <p className="mt-1 text-xs text-white/85 flex-1">{c.desc}</p>
-                          <a href={c.href} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold underline w-fit">
+                          <span className="mt-3 inline-flex w-fit items-center gap-1 text-xs font-semibold underline">
                             Xem chi tiết →
-                          </a>
+                          </span>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </>

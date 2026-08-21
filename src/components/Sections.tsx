@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Image, Network, Quote, Target } from "lucide-react";
 import { PRODUCTS, FORMAT_LABEL, isLearningProduct, type AgeGroupFilter } from "../data/products";
 import { getProductVisual } from "../data/productVisuals";
-import duHocHeImage from "../assets/products/du-hoc-he.png";
-import duHocDaiHanImage from "../assets/products/du-hoc-dai-han.png";
 import suKienDuHocImage from "../assets/products/su-kien-du-hoc.png";
+import vmpLogo from "../assets/vmp/vmp-logo.webp";
+import vmpShortTermImage from "../assets/vmp/short-term-study.webp";
+import vmpGlobalStudyImage from "../assets/vmp/global-study-pathways.webp";
 import chairmanImage from "../assets/vmg/chairman-nguyen-quoc-khanh.png";
 import ft15Object from "../assets/product-objects/ft15-3d.webp";
 import ieltsExpressObject from "../assets/product-objects/ielts-express-3d.webp";
@@ -54,12 +55,12 @@ export function ProgramsSection() {
   }, [filter]);
 
   return (
-    <section id="chuong-trinh" className="brand-pattern relative overflow-hidden py-16 md:py-28">
+    <section id="chuong-trinh" className="programs-surface relative overflow-hidden py-16 md:py-28">
       <div className="container-vmg relative">
       <div className="grid items-end gap-6 md:grid-cols-[1.25fr_.75fr]">
         <div className="max-w-3xl">
           <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Chương trình học</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Không phải một lộ trình<br className="hidden md:block" /> cho tất cả.</h2>
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Bắt đầu đúng,<br className="hidden md:block" /> tiến xa hơn.</h2>
         </div>
         <p className="max-w-md text-sm leading-6 text-neutral-600 md:pb-1">Mỗi độ tuổi, mục tiêu và nhịp học cần một điểm bắt đầu khác nhau. Chọn nhóm phù hợp để khám phá.</p>
       </div>
@@ -81,9 +82,11 @@ export function ProgramsSection() {
         className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
       >
         {visible.slice(0, 6).map((p, index) => (
-          <article
+          <a
             key={p.name}
-            className="editorial-card group relative h-[390px] overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl md:h-[420px]"
+            href="/ngoai-ngu"
+            aria-label={`Tìm hiểu chương trình ${p.name}`}
+            className="editorial-card group relative block h-[390px] overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 md:h-[420px]"
           >
             {index === 0 ? (
               <>
@@ -96,7 +99,7 @@ export function ProgramsSection() {
                   <div className="max-w-xl">
                     <h3 className="text-2xl font-display font-extrabold md:text-3xl">{p.name}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/90">{p.desc}</p>
-                    <a href="/ngoai-ngu" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white hover:underline">Tìm hiểu thêm →</a>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white group-hover:underline">Tìm hiểu thêm →</span>
                   </div>
                 </div>
               </>
@@ -109,11 +112,11 @@ export function ProgramsSection() {
                   <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{FORMAT_LABEL[p.format]}</span>
                   <h3 className="mt-2 font-display text-xl font-extrabold leading-tight text-neutral-950">{p.name}</h3>
                   <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-600">{p.desc}</p>
-                  <a href="/ngoai-ngu" className="mt-auto pt-3 text-xs font-bold text-brand">Tìm hiểu thêm →</a>
+                  <span className="mt-auto pt-3 text-xs font-bold text-brand">Tìm hiểu thêm →</span>
                 </div>
               </div>
             )}
-          </article>
+          </a>
         ))}
       </div>
       <div className="mt-8 flex justify-end border-t border-brand/10 pt-6">
@@ -196,62 +199,52 @@ export function OnlineCoursesSection() {
 }
 
 /* ---------------- Du học (VMP) teaser ---------------- */
-// Content pending chị Hằng's approval per CLAUDE.md - short catalog descriptions only,
-// no specific claims beyond what's confirmed in CLAUDE.md §5B.
+// Content pending chị Hằng's approval per AGENTS.md - short catalog descriptions only,
+// no specific claims beyond what's confirmed in AGENTS.md §5B.
 
 const DU_HOC_ITEMS = [
-  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore và Philippines.", image: duHocHeImage, alt: "Học sinh quốc tế tại khuôn viên đại học mùa hè", overlay: "from-sky-400/80 to-vmp-blue/85" },
-  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada và Đài Loan.", image: duHocDaiHanImage, alt: "Du học sinh bắt đầu hành trình tại khuôn viên đại học quốc tế", overlay: "from-vmp-blue/85 to-vmp-blue-dark/90" },
-  { name: "Sự kiện du học", desc: "[CẦN CẬP NHẬT: lịch sự kiện/triển lãm du học sắp tới – chưa có dữ liệu thật]", image: suKienDuHocImage, alt: "Gia đình tìm hiểu trường đại học tại triển lãm giáo dục quốc tế", overlay: "from-vmp-blue-dark/85 to-plum/85" },
+  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore và Philippines.", image: vmpShortTermImage, alt: "Hình ảnh chương trình trải nghiệm du học ngắn hạn của VMP" },
+  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada và Đài Loan.", image: vmpGlobalStudyImage, alt: "Không gian tư vấn và bản đồ thế giới thể hiện hành trình du học toàn diện của VMP" },
+  { name: "Sự kiện du học", desc: "[CẦN CẬP NHẬT: lịch sự kiện/triển lãm du học sắp tới – chưa có dữ liệu thật]", image: suKienDuHocImage, alt: "Gia đình tìm hiểu trường đại học tại triển lãm giáo dục quốc tế" },
 ];
 
 export function DuHocSection() {
   return (
     <section id="du-hoc-nhom" className="study-abroad-surface relative overflow-hidden py-16 md:py-28 scroll-mt-24">
-      <div className="container-vmg">
-      <div className="grid items-end gap-6 md:grid-cols-[1.1fr_.9fr]">
-        <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Du học - VMP by VMG</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Sẵn sàng cho những chân trời rộng mở</h2>
+      <div className="container-vmg relative z-10">
+        <div className="grid items-end gap-8 lg:grid-cols-[1.08fr_.92fr]">
+          <div className="max-w-3xl">
+            <div className="inline-flex rounded-2xl bg-white px-4 py-3 shadow-lg shadow-black/10">
+              <img src={vmpLogo} alt="VMP - VMG Global Pathways" className="h-10 w-auto md:h-12" />
+            </div>
+            <span className="mt-7 block text-xs font-bold uppercase tracking-[.2em] text-[#ffad31]">Du học - VMP by VMG</span>
+            <h2 className="mt-3 text-3xl font-display font-extrabold tracking-tight text-white md:text-5xl">Sẵn sàng cho những chân trời rộng mở</h2>
+          </div>
+          <div className="lg:pb-1">
+            <p className="max-w-xl text-sm leading-6 text-white/75 md:text-base md:leading-7">
+              Khám phá các hướng đồng hành chính của VMP. Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ.
+            </p>
+            <a href="https://duhocvmp.com/" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#ffad31] transition hover:text-white">
+              Khám phá website VMP <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
         </div>
-        <p className="mt-3 text-neutral-600">
-          Khám phá các hướng đồng hành chính của VMP. Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ.
-        </p>
-      </div>
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
-        {DU_HOC_ITEMS.map((it, index) => (
-          <article key={it.name} className="editorial-card group relative h-[420px] overflow-hidden rounded-[2rem] border border-vmp-blue/10 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl">
-            {index === 0 ? (
-              <>
-                <img src={it.image} alt={it.alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" />
-                <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-vmp-blue-dark via-vmp-blue-dark/75 to-transparent" />
-                <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-7">
-                  <span className="self-start rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-vmp-blue-dark shadow-sm">VMP by VMG</span>
-                  <div className="max-w-xl">
-                    <h3 className="text-2xl font-display font-extrabold md:text-3xl">{it.name}</h3>
-                    <p className="mt-2 text-sm leading-6 text-white/90">{it.desc}</p>
-                    <a href="/du-hoc" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white hover:underline">Tìm hiểu thêm →</a>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="flex h-full flex-col">
-                <div className="relative h-[54%] shrink-0 overflow-hidden">
-                  <img src={it.image} alt={it.alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
-                </div>
-                <div className={`flex min-h-0 flex-1 flex-col p-5 ${index === 1 ? "bg-[#edf5fb]" : "bg-[#f3eff9]"}`}>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-[.14em] text-vmp-blue">VMP by VMG</span>
-                    <h3 className="mt-2 font-display text-xl font-extrabold leading-tight text-neutral-950">{it.name}</h3>
-                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-600">{it.desc}</p>
-                  </div>
-                  <a href="/du-hoc" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold text-vmp-blue">Tìm hiểu thêm →</a>
-                </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {DU_HOC_ITEMS.map((it) => (
+            <a href="/du-hoc" aria-label={`Tìm hiểu ${it.name}`} key={it.name} className="vmp-program-card group flex min-h-[410px] flex-col overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-[0_26px_60px_-35px_rgba(0,0,0,.75)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_34px_70px_-34px_rgba(0,0,0,.85)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ffad31]/50">
+              <div className="relative h-[230px] shrink-0 overflow-hidden bg-[#dcecf8]">
+                <img src={it.image} alt={it.alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-[#071a73]/88 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-white shadow-sm backdrop-blur">VMP by VMG</span>
               </div>
-            )}
-          </article>
-        ))}
-      </div>
+              <div className="flex min-h-0 flex-1 flex-col p-6">
+                <h3 className="font-display text-2xl font-extrabold leading-tight text-[#071a73]">{it.name}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">{it.desc}</p>
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-extrabold text-[#e98612]">Tìm hiểu thêm <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -261,7 +254,7 @@ export function DuHocSection() {
 
 export function ValuesSection() {
   return (
-    <section className="brand-pattern overflow-hidden py-16 md:py-24">
+    <section className="values-surface overflow-hidden py-16 md:py-24">
       <div className="container-vmg grid items-stretch gap-8 lg:grid-cols-[1.04fr_.96fr] lg:gap-12">
         <div className="flex flex-col justify-center">
           <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Về VMG</span>
@@ -385,30 +378,6 @@ export function Testimonials() {
   );
 }
 
-/* ---------------- Stats ---------------- */
-
-export function StatsBar() {
-  const stats = [
-    { value: "23+", label: "Năm kinh nghiệm" },
-    { value: "10", label: "Trung tâm" },
-    { value: "42.000+", label: "Học sinh trường đối tác" },
-    { value: "IDP & BC", label: "Đối tác IELTS chính thức" },
-    { value: "Cambridge", label: "Authorized" },
-  ];
-  return (
-    <section className="container-vmg py-8">
-      <div className="stats-surface relative overflow-hidden rounded-[36px] bg-brand text-white px-6 md:px-10 py-10 md:py-12 grid grid-cols-2 md:grid-cols-5 gap-6">
-        {stats.map((s) => (
-          <div key={s.label} className="text-center">
-            <div className="text-2xl md:text-4xl font-display font-extrabold">{s.value}</div>
-            <div className="mt-1 text-xs md:text-sm text-white/80 uppercase tracking-wider">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- Partners ---------------- */
 
 export function Partners() {
@@ -418,7 +387,8 @@ export function Partners() {
     { name: "Cambridge Assessment English - VN055", src: "/partners/cambridge-english.jpg" },
   ];
   return (
-    <section className="container-vmg py-10">
+    <section className="partners-band py-12 md:py-16">
+      <div className="container-vmg">
       <div className="text-center text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">
         Đối tác &amp; chứng nhận
       </div>
@@ -429,6 +399,7 @@ export function Partners() {
             <span className="mt-3 text-xs font-semibold text-neutral-600">{p.name}</span>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );
