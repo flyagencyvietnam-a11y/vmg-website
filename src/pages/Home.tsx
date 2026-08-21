@@ -42,15 +42,15 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <NewsSection />
         <Quiz />
         <ProgramsSection />
         <OnlineCoursesSection />
         <DuHocSection />
+        <StatsBar />
         <ValuesSection />
         <Testimonials />
-        <StatsBar />
         <Partners />
+        <NewsSection />
         <Newsletter />
       </main>
       <Footer />

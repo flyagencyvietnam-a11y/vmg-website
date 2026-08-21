@@ -222,6 +222,63 @@ html { scroll-behavior: smooth; overflow-x: clip; }
   background: linear-gradient(to top, rgba(255,255,255,.76), transparent);
 }
 
+.online-universe {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(233,226,74,.38), transparent 18rem),
+    radial-gradient(circle at 5% 90%, rgba(236,72,153,.13), transparent 22rem),
+    linear-gradient(135deg, #fffdf9 0%, #fbf7ef 48%, #f5efff 100%);
+}
+.online-universe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .06;
+  background-image:
+    linear-gradient(rgba(61,42,109,.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,42,109,.55) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(110deg, transparent 8%, black 38%, black 72%, transparent 96%);
+}
+.product-object-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -3rem -4rem auto;
+  width: 12rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 42% 58% 38% 62%;
+  transform: rotate(24deg);
+  transition: transform .65s cubic-bezier(.2,.8,.2,1);
+}
+.product-object-card:hover::after { transform: rotate(46deg) scale(1.12); }
+.product-object { width: auto; max-width: 88%; object-fit: contain; }
+
+.study-abroad-surface {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(37,99,168,.12), transparent 22rem),
+    radial-gradient(circle at 8% 88%, rgba(203,166,86,.16), transparent 22rem),
+    linear-gradient(145deg, #f7fbff, #fffdf9 52%, #f1f6fb);
+}
+.study-abroad-surface::after {
+  content: "";
+  position: absolute;
+  right: -7rem;
+  top: 3rem;
+  width: 19rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(37,99,168,.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4rem rgba(37,99,168,.025), 0 0 0 8rem rgba(203,166,86,.02);
+  pointer-events: none;
+}
+
+.journey-card:nth-child(1) { outline: 1px solid rgba(236,72,153,.18); }
+.journey-card:nth-child(2) { outline: 1px solid rgba(190,32,47,.2); }
+.journey-card:nth-child(3) { outline: 1px solid rgba(37,99,168,.2); }
+.journey-card:nth-child(4) { outline: 1px solid rgba(139,103,42,.22); }
+
 .editorial-card { isolation: isolate; transform: translateZ(0); }
 .editorial-card::after {
   content: "";

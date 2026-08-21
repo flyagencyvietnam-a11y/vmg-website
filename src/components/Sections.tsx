@@ -6,6 +6,12 @@ import duHocHeImage from "../assets/products/du-hoc-he.png";
 import duHocDaiHanImage from "../assets/products/du-hoc-dai-han.png";
 import suKienDuHocImage from "../assets/products/su-kien-du-hoc.png";
 import chairmanImage from "../assets/vmg/chairman-nguyen-quoc-khanh.png";
+import ft15Object from "../assets/product-objects/ft15-3d.webp";
+import ieltsExpressObject from "../assets/product-objects/ielts-express-3d.webp";
+import vstepObject from "../assets/product-objects/vstep-3d.webp";
+import giaoTiepObject from "../assets/product-objects/giao-tiep-3d.webp";
+import tesolObject from "../assets/product-objects/tesol-3d.webp";
+import edunextObject from "../assets/product-objects/edunext-3d.webp";
 import { STUDENT_MOMENTS } from "../data/vmgPhotoLibrary";
 import { supabase } from "../lib/supabase";
 
@@ -47,20 +53,17 @@ export function ProgramsSection() {
     scrollerRef.current?.scrollTo({ left: 0 });
   }, [filter]);
 
-  function scrollByDir(dir: 1 | -1) {
-    const el = scrollerRef.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
-  }
-
   return (
-    <section id="chuong-trinh" className="brand-pattern relative overflow-hidden py-16 md:py-24">
+    <section id="chuong-trinh" className="brand-pattern relative overflow-hidden py-16 md:py-28">
       <div className="container-vmg relative">
-      <div className="text-center max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Chương trình học</span>
-        <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Mỗi bước tiến đều có một lộ trình riêng</h2>
-        <p className="mt-3 text-sm leading-6 text-neutral-600">Khám phá các chương trình theo độ tuổi, mục tiêu và hình thức học phù hợp.</p>
+      <div className="grid items-end gap-6 md:grid-cols-[1.25fr_.75fr]">
+        <div className="max-w-3xl">
+          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Chương trình học</span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Không phải một lộ trình<br className="hidden md:block" /> cho tất cả.</h2>
+        </div>
+        <p className="max-w-md text-sm leading-6 text-neutral-600 md:pb-1">Mỗi độ tuổi, mục tiêu và nhịp học cần một điểm bắt đầu khác nhau. Chọn nhóm phù hợp để khám phá.</p>
       </div>
-      <div className="mt-8 flex flex-wrap justify-center gap-2">
+      <div className="mt-8 flex flex-wrap gap-2">
         {FILTERS.map((f) => (
           <button
             key={f.key}
@@ -73,53 +76,47 @@ export function ProgramsSection() {
           </button>
         ))}
       </div>
-      <div className="mt-6 hidden md:flex justify-end gap-2">
-        <button
-          type="button"
-          onClick={() => scrollByDir(-1)}
-          aria-label="Cuộn về trước"
-          className="rounded-full border border-black/10 bg-white p-2.5 text-neutral-600 hover:bg-brand hover:text-white hover:border-brand transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollByDir(1)}
-          aria-label="Cuộn tới sau"
-          className="rounded-full border border-black/10 bg-white p-2.5 text-neutral-600 hover:bg-brand hover:text-white hover:border-brand transition-colors"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
       <div
         ref={scrollerRef}
-        className="mt-4 md:mt-3 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2"
+        className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
       >
-        {visible.map((p) => (
+        {visible.slice(0, 6).map((p, index) => (
           <article
             key={p.name}
-            className="editorial-card relative flex-none snap-start w-[72%] sm:w-[45%] md:w-[31%] lg:w-[23.5%] rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow"
+            className="editorial-card group relative h-[390px] overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl md:h-[420px]"
           >
-            <img src={getProductVisual(p.code).src} alt={getProductVisual(p.code).alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 hover:scale-[1.04]" loading="lazy" />
-            <div
-              className="absolute inset-0 mix-blend-multiply"
-              style={{ backgroundImage: `linear-gradient(to bottom, transparent 42%, color-mix(in srgb, ${getProductVisual(p.code).tint} 45%, transparent) 62%, ${getProductVisual(p.code).tint} 82%, color-mix(in srgb, ${getProductVisual(p.code).tint} 82%, black) 100%)` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/5" />
-            <div className="relative h-full flex flex-col justify-end p-5 text-white">
-              <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full mb-3">
-                {FORMAT_LABEL[p.format]}
-              </span>
-              <h3 className="text-xl font-display font-extrabold">{p.name}</h3>
-              <p className="mt-1 text-sm text-white/90">{p.desc}</p>
-              <a href="/ngoai-ngu" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
-                Tìm hiểu thêm →
-              </a>
-            </div>
+            {index === 0 ? (
+              <>
+                <img src={getProductVisual(p.code).src} alt={getProductVisual(p.code).alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-[#160c0d]/95 via-[#160c0d]/72 to-transparent" />
+                <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-7">
+                  <div className="flex items-center justify-start">
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-800 shadow-sm">{FORMAT_LABEL[p.format]}</span>
+                  </div>
+                  <div className="max-w-xl">
+                    <h3 className="text-2xl font-display font-extrabold md:text-3xl">{p.name}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/90">{p.desc}</p>
+                    <a href="/ngoai-ngu" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white hover:underline">Tìm hiểu thêm →</a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="relative h-[54%] shrink-0 overflow-hidden">
+                  <img src={getProductVisual(p.code).src} alt={getProductVisual(p.code).alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                </div>
+                <div className="flex min-h-0 flex-1 flex-col p-5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{FORMAT_LABEL[p.format]}</span>
+                  <h3 className="mt-2 font-display text-xl font-extrabold leading-tight text-neutral-950">{p.name}</h3>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-600">{p.desc}</p>
+                  <a href="/ngoai-ngu" className="mt-auto pt-3 text-xs font-bold text-brand">Tìm hiểu thêm →</a>
+                </div>
+              </div>
+            )}
           </article>
         ))}
       </div>
-      <div className="mt-10 flex justify-center">
+      <div className="mt-8 flex justify-end border-t border-brand/10 pt-6">
         <a href="/ngoai-ngu" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
           Xem tất cả chương trình →
         </a>
@@ -131,55 +128,64 @@ export function ProgramsSection() {
 
 /* ---------------- Online courses (TMĐT) ---------------- */
 
-const FLAGSHIP_ONLINE_PRODUCTS = PUBLIC_PRODUCTS.filter((p) => p.section !== "tesol" && FLAGSHIP_ONLINE_CODES.includes(p.code));
+const FLAGSHIP_ONLINE_PRODUCTS = PUBLIC_PRODUCTS.filter((p) => FLAGSHIP_ONLINE_CODES.includes(p.code));
+
+const ONLINE_OBJECTS: Record<string, { image: string; surface: string; accent: string }> = {
+  FT15: { image: ft15Object, surface: "from-[#fff0ee] to-[#f8d8d8]", accent: "text-brand" },
+  IE: { image: ieltsExpressObject, surface: "from-[#fff8de] to-[#f3df9d]", accent: "text-gold" },
+  VSTEP: { image: vstepObject, surface: "from-[#f1edff] to-[#dcd1ff]", accent: "text-plum" },
+  GT: { image: giaoTiepObject, surface: "from-[#fff0f8] to-[#ffd3e8]", accent: "text-accent-pink" },
+  TESOL: { image: tesolObject, surface: "from-[#edf3ff] to-[#cdddf7]", accent: "text-vmp-blue" },
+  EDU: { image: edunextObject, surface: "from-[#eef7ff] to-[#cfe6f7]", accent: "text-vmp-blue" },
+};
 
 export function OnlineCoursesSection() {
   return (
-    <section id="hoc-online" className="brand-atmosphere relative isolate overflow-hidden py-16 md:py-24">
+    <section id="hoc-online" className="online-universe relative isolate overflow-hidden py-16 md:py-28">
       <div className="brand-atmosphere-orb brand-atmosphere-orb-one" aria-hidden="true" />
       <div className="brand-atmosphere-orb brand-atmosphere-orb-two" aria-hidden="true" />
       <div className="container-vmg">
-        <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Học online</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">
-            Linh hoạt thời gian. Vững vàng mục tiêu.
-          </h2>
-          <p className="mt-3 text-neutral-600">
-            Từ luyện thi đến phát triển nghề nghiệp, chọn cách học phù hợp với nhịp sống của bạn. Cam kết đầu ra được áp dụng theo điều kiện của từng chương trình.
-          </p>
+        <div className="grid items-end gap-6 lg:grid-cols-[1.1fr_.9fr]">
+          <div className="max-w-3xl">
+            <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Học online</span>
+            <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Mỗi mục tiêu,<br />một công cụ để tiến xa.</h2>
+          </div>
+          <div className="rounded-[1.75rem] border border-white/70 bg-white/55 p-5 shadow-sm backdrop-blur md:p-6">
+            <p className="text-sm leading-6 text-neutral-600">Từ luyện thi đến phát triển nghề nghiệp, chọn cách học phù hợp với nhịp sống của bạn. Cam kết đầu ra được áp dụng theo điều kiện của từng chương trình.</p>
+            <div className="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[.12em] text-brand"><span className="h-2 w-2 rounded-full bg-brand" /> Online-first · Có giáo viên đồng hành</div>
+          </div>
         </div>
-        {/* Mobile: horizontal snap carousel; md+: full grid so all 6 TMĐT products stay visible at once */}
-        <div className="mt-10 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
-          {FLAGSHIP_ONLINE_PRODUCTS.map((c) => (
-            <article
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {FLAGSHIP_ONLINE_PRODUCTS.map((c) => {
+            const object = ONLINE_OBJECTS[c.code] ?? ONLINE_OBJECTS.EDU;
+            return (
+            <a
               key={c.code}
-              className="editorial-card relative flex-none snap-start w-[72%] sm:w-[45%] md:w-auto rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow"
+              href={`/hoc-online/${c.slug}`}
+              className={`product-object-card group relative isolate flex h-[420px] overflow-hidden rounded-[2rem] bg-gradient-to-br ${object.surface} p-6 shadow-[0_24px_55px_-38px_rgba(40,25,30,.55)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_65px_-36px_rgba(40,25,30,.65)]`}
             >
-              <img src={getProductVisual(c.code).src} alt={getProductVisual(c.code).alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 hover:scale-[1.04]" loading="lazy" />
-              <div
-                className="absolute inset-0 mix-blend-multiply"
-                style={{ backgroundImage: `linear-gradient(to bottom, transparent 42%, color-mix(in srgb, ${getProductVisual(c.code).tint} 45%, transparent) 62%, ${getProductVisual(c.code).tint} 82%, color-mix(in srgb, ${getProductVisual(c.code).tint} 82%, black) 100%)` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/5" />
-              <div className="relative h-full flex flex-col justify-end p-5 text-white">
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
-                    {c.tag}
-                  </span>
-                  <span className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur px-2.5 py-1 rounded-full">
-                    {FORMAT_LABEL[c.format]}
-                  </span>
+              <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-white/65 bg-white/20" aria-hidden="true" />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="rounded-full border border-black/8 bg-white/65 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-700 backdrop-blur">{c.tag}</span>
+                    <span className="rounded-full border border-black/8 bg-white/65 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-700 backdrop-blur">{FORMAT_LABEL[c.format]}</span>
+                  </div>
+                  <span className={`font-display text-sm font-extrabold ${object.accent}`}>{c.code}</span>
                 </div>
-                <h3 className="text-xl font-display font-extrabold">{c.name}</h3>
-                <p className="mt-1 text-sm text-white/90">{c.desc}</p>
-                <a href={`/hoc-online/${c.slug}`} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
-                  Xem chi tiết →
-                </a>
+                <div className="mt-2 flex min-h-0 flex-1 items-center justify-center">
+                  <img src={object.image} alt="" aria-hidden="true" className="product-object h-48 drop-shadow-2xl transition duration-700 group-hover:-translate-y-2 group-hover:rotate-2 group-hover:scale-105 md:h-52" loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-display font-extrabold leading-tight text-neutral-950 md:text-2xl">{c.name}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-700">{c.desc}</p>
+                  <span className={`mt-4 inline-flex items-center gap-1.5 text-sm font-extrabold ${object.accent}`}>Khám phá <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+                </div>
               </div>
-            </article>
-          ))}
+            </a>
+          )})}
         </div>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex justify-end border-t border-brand/10 pt-6">
           <a href="/hoc-online" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
             Xem chi tiết từng khóa học →
           </a>
@@ -201,29 +207,51 @@ const DU_HOC_ITEMS = [
 
 export function DuHocSection() {
   return (
-    <section id="du-hoc-nhom" className="container-vmg py-16 md:py-24 scroll-mt-24">
-      <div className="max-w-2xl">
+    <section id="du-hoc-nhom" className="study-abroad-surface relative overflow-hidden py-16 md:py-28 scroll-mt-24">
+      <div className="container-vmg">
+      <div className="grid items-end gap-6 md:grid-cols-[1.1fr_.9fr]">
+        <div className="max-w-2xl">
           <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Du học - VMP by VMG</span>
           <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Sẵn sàng cho những chân trời rộng mở</h2>
+        </div>
         <p className="mt-3 text-neutral-600">
           Khám phá các hướng đồng hành chính của VMP. Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ.
         </p>
       </div>
-      <div className="mt-10 flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-5 px-5 scroll-px-5 pb-2 md:grid md:grid-cols-3 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
-        {DU_HOC_ITEMS.map((it) => (
-          <article key={it.name} className="editorial-card relative flex-none snap-start w-[72%] sm:w-[45%] md:w-auto rounded-3xl overflow-hidden aspect-[3/4] shadow-md hover:shadow-xl transition-shadow">
-            <img src={it.image} alt={it.alt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-            <div className={`absolute inset-0 bg-gradient-to-br ${it.overlay} opacity-15 mix-blend-multiply`} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-black/5" />
-            <div className="relative h-full flex flex-col justify-end p-5 text-white">
-              <h3 className="text-xl font-display font-extrabold">{it.name}</h3>
-              <p className="mt-1 text-sm text-white/90">{it.desc}</p>
-              <a href="/du-hoc" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white hover:underline w-fit">
-                Tìm hiểu thêm →
-              </a>
-            </div>
+      <div className="mt-10 grid gap-5 md:grid-cols-3">
+        {DU_HOC_ITEMS.map((it, index) => (
+          <article key={it.name} className="editorial-card group relative h-[420px] overflow-hidden rounded-[2rem] border border-vmp-blue/10 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+            {index === 0 ? (
+              <>
+                <img src={it.image} alt={it.alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-vmp-blue-dark via-vmp-blue-dark/75 to-transparent" />
+                <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-7">
+                  <span className="self-start rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-vmp-blue-dark shadow-sm">VMP by VMG</span>
+                  <div className="max-w-xl">
+                    <h3 className="text-2xl font-display font-extrabold md:text-3xl">{it.name}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/90">{it.desc}</p>
+                    <a href="/du-hoc" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white hover:underline">Tìm hiểu thêm →</a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="relative h-[54%] shrink-0 overflow-hidden">
+                  <img src={it.image} alt={it.alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                </div>
+                <div className={`flex min-h-0 flex-1 flex-col p-5 ${index === 1 ? "bg-[#edf5fb]" : "bg-[#f3eff9]"}`}>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-[.14em] text-vmp-blue">VMP by VMG</span>
+                    <h3 className="mt-2 font-display text-xl font-extrabold leading-tight text-neutral-950">{it.name}</h3>
+                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-600">{it.desc}</p>
+                  </div>
+                  <a href="/du-hoc" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold text-vmp-blue">Tìm hiểu thêm →</a>
+                </div>
+              </div>
+            )}
           </article>
         ))}
+      </div>
       </div>
     </section>
   );
@@ -456,6 +484,8 @@ export function NewsSection() {
       behavior: "smooth",
     });
   };
+
+  if (!loading && news.length === 0) return null;
 
   return (
     <section className="brand-pattern bg-cream/60 py-12 md:py-16" aria-labelledby="home-news-title">

@@ -283,15 +283,19 @@ export function Quiz() {
           )}
         </div>
 
-        <aside className="rounded-3xl bg-white/90 border border-black/5 p-6 shadow-sm backdrop-blur lg:sticky lg:top-24">
-          <div className="text-xs font-bold uppercase tracking-widest text-gold">Muốn tự xem trước?</div>
-          <h3 className="mt-2 text-lg font-display font-extrabold leading-snug">Duyệt lại toàn bộ chương trình</h3>
-          <p className="mt-2 text-sm text-neutral-500">
-            Các nhóm sản phẩm theo độ tuổi/mục tiêu đã hiển thị phía trên - kéo lên nếu bạn muốn xem lại.
+        <aside className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-plum to-[#271942] p-6 text-white shadow-xl shadow-plum/15 lg:sticky lg:top-24">
+          <div className="absolute -right-9 -top-8 h-32 w-32 rounded-full border border-white/15" aria-hidden="true" />
+          <img src="/vmg-flower-gold.png" alt="" className="absolute -bottom-8 -right-6 h-32 w-32 object-contain opacity-15" aria-hidden="true" />
+          <div className="relative">
+          <div className="text-xs font-bold uppercase tracking-widest text-lemon">Muốn tự xem trước?</div>
+          <h3 className="mt-2 text-xl font-display font-extrabold leading-snug">Mở toàn bộ bản đồ chương trình</h3>
+          <p className="mt-2 text-sm leading-6 text-white/70">
+            Các nhóm sản phẩm theo độ tuổi và mục tiêu được trình bày ngay bên dưới để bạn chủ động khám phá.
           </p>
-          <a href="#chuong-trinh" className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand text-white px-4 py-2.5 text-sm font-semibold hover:bg-brand-dark transition-colors">
+          <a href="#chuong-trinh" className="mt-5 inline-flex items-center gap-2 rounded-full bg-lemon px-4 py-2.5 text-sm font-bold text-neutral-900 transition hover:-translate-y-0.5 hover:bg-white">
             Xem chương trình Ngoại ngữ →
           </a>
+          </div>
         </aside>
       </div>
     </section>
