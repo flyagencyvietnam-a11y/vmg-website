@@ -26,11 +26,13 @@
 body {
   font-family: var(--font-sans);
   color: #1c1917;
-  background: #ffffff;
+  background: #fffdf9;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 .font-display {
   font-family: var(--font-display);
@@ -113,6 +115,10 @@ html { scroll-behavior: smooth; }
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+@keyframes slow-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -123,8 +129,249 @@ html { scroll-behavior: smooth; }
   animation: spin-slow 22s linear infinite;
 }
 
+.site-header { box-shadow: 0 12px 42px -36px rgba(80, 19, 26, .65); }
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(190,32,47,.32), rgba(139,103,42,.28), transparent);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -.45rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #be202f, #cba656);
+  transition: right .3s ease;
+}
+.nav-link:hover::after { right: 0; }
+.button-lift:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(146,24,36,.65); }
+
+.brand-pattern {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(203,166,86,.09), transparent 18rem),
+    radial-gradient(circle at 4% 88%, rgba(190,32,47,.045), transparent 22rem),
+    #fffdf9;
+}
+.brand-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .036;
+  background-image: url("/vmg-flower-gold.png");
+  background-repeat: repeat;
+  background-size: 230px auto;
+  background-position: 38px 32px;
+  mask-image: linear-gradient(105deg, transparent 2%, black 28%, black 72%, transparent 98%);
+}
+.brand-pattern > * { position: relative; z-index: 1; }
+.brand-atmosphere {
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.98), rgba(251,247,239,.96) 56%, rgba(255,252,244,.94)),
+    #fbf7ef;
+}
+.brand-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .032;
+  background-image: url("/vmg-flower-gold.png");
+  background-repeat: repeat;
+  background-size: 260px auto;
+  background-position: 92px 54px;
+  mask-image: linear-gradient(90deg, transparent, black 30%, black 82%, transparent);
+}
+.brand-atmosphere-orb {
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(1px);
+}
+.brand-atmosphere-orb-one {
+  width: 28rem;
+  height: 28rem;
+  right: -11rem;
+  top: -10rem;
+  background: radial-gradient(circle at 35% 55%, rgba(203,166,86,.2), rgba(203,166,86,.04) 46%, transparent 70%);
+}
+.brand-atmosphere-orb-two {
+  width: 24rem;
+  height: 24rem;
+  left: -12rem;
+  bottom: -12rem;
+  background: radial-gradient(circle at 65% 35%, rgba(190,32,47,.1), rgba(190,32,47,.025) 48%, transparent 70%);
+}
+.brand-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -5;
+  height: 32%;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(255,255,255,.76), transparent);
+}
+
+.editorial-card { isolation: isolate; transform: translateZ(0); }
+.editorial-card::after {
+  content: "";
+  position: absolute;
+  inset: -35% -70%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(108deg, transparent 43%, rgba(255,255,255,.2) 49%, transparent 55%);
+  transform: translateX(-35%);
+  transition: transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.editorial-card:hover::after { transform: translateX(35%); }
+
+.value-card { position: relative; overflow: hidden; }
+.value-card::after {
+  content: "";
+  position: absolute;
+  right: -2.5rem;
+  bottom: -3.5rem;
+  width: 9rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(203,166,86,.18);
+  border-radius: 45% 55% 48% 52%;
+  transform: rotate(22deg);
+  transition: transform .6s ease;
+}
+.value-card:hover::after { transform: rotate(42deg) scale(1.12); }
+
+.testimonial-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .045;
+  background-image: url("/vmg-flower-gold.png");
+  background-repeat: repeat;
+  background-size: 270px auto;
+  background-position: 70px 38px;
+  mask-image: linear-gradient(90deg, transparent 8%, black 42%, black 88%, transparent);
+}
+.testimonial-stage::after {
+  content: "";
+  position: absolute;
+  width: 28rem;
+  height: 28rem;
+  right: -10rem;
+  top: -14rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(203,166,86,.28), transparent 67%);
+  filter: blur(2px);
+}
+
+.stats-surface {
+  background-image: linear-gradient(110deg, #921824, #be202f 52%, #a51b29);
+  background-size: 160% 160%;
+  animation: slow-pan 10s ease-in-out infinite;
+  box-shadow: 0 30px 70px -42px rgba(146,24,36,.85);
+}
+.stats-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.13), transparent 68%);
+}
+.partner-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease; }
+.partner-card:hover { transform: translateY(-6px); border-color: rgba(190,32,47,.18); box-shadow: 0 22px 48px -34px rgba(80,19,26,.6); }
+
+.newsletter-surface {
+  background:
+    radial-gradient(circle at 86% 25%, rgba(190,32,47,.16), transparent 14rem),
+    radial-gradient(circle at 10% 100%, rgba(203,166,86,.28), transparent 18rem),
+    linear-gradient(120deg, #fff5c4, #f4e889 58%, #f6e86f);
+  box-shadow: 0 26px 70px -48px rgba(139,103,42,.8);
+}
+.newsletter-surface::after {
+  content: "";
+  position: absolute;
+  width: 11rem;
+  height: 11rem;
+  right: -4rem;
+  top: -5rem;
+  border: 1px solid rgba(146,24,36,.18);
+  border-radius: 42% 58% 38% 62%;
+  transform: rotate(25deg);
+}
+
+.quiz-surface {
+  background:
+    radial-gradient(circle at 96% 8%, rgba(203,166,86,.22), transparent 15rem),
+    radial-gradient(circle at 2% 100%, rgba(190,32,47,.09), transparent 18rem),
+    rgba(251,247,239,.94);
+}
+.quiz-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .052;
+  background-image: url("/vmg-flower-gold.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% + 52px) -34px;
+  background-size: 250px auto;
+}
+.quiz-surface > * { position: relative; z-index: 1; }
+.quiz-option { position: relative; overflow: hidden; }
+.quiz-option::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(190,32,47,.045), transparent);
+  transform: translateX(-100%);
+  transition: transform .5s ease;
+}
+.quiz-option:hover::after { transform: translateX(100%); }
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  background-image: url("/vmg-flower-gold.png");
+  background-repeat: repeat;
+  background-size: 250px auto;
+  background-position: 76px 42px;
+  mask-image: linear-gradient(90deg, transparent 18%, black 55%, black 90%, transparent);
+}
+.footer-orbit {
+  position: absolute;
+  right: -8rem;
+  top: -15rem;
+  width: 34rem;
+  height: 34rem;
+  border: 1px solid rgba(203,166,86,.16);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5rem rgba(203,166,86,.025), 0 0 0 10rem rgba(190,32,47,.02);
+}
+
+.page-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms), transform .8s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms);
+}
+.page-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-float, .animate-float-soft, .animate-spin-slow {
+  .animate-float, .animate-float-soft, .animate-spin-slow, .stats-surface {
     animation: none;
   }
+  .page-reveal { opacity: 1; transform: none; transition: none; }
+  .editorial-card::after { display: none; }
 }

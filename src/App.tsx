@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import HocOnline from "./pages/HocOnline";
 import HocOnlineDetail from "./pages/HocOnlineDetail";
 import NgoaiNgu from "./pages/NgoaiNgu";
+import KhaoThi from "./pages/KhaoThi";
 import DuHoc from "./pages/DuHoc";
 import HuongNghiep from "./pages/HuongNghiep";
 import VeVmg from "./pages/VeVmg";
@@ -30,8 +31,11 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/ngoai-ngu" element={<NgoaiNgu />} />
+        <Route path="/khao-thi" element={<KhaoThi />} />
+        <Route path="/hoc-online/khao-thi-osir" element={<Navigate to="/khao-thi" replace />} />
         <Route path="/du-hoc" element={<DuHoc />} />
         <Route path="/huong-nghiep" element={<HuongNghiep />} />
+        <Route path="/huong-nghiep/:slug" element={<HocOnlineDetail />} />
         <Route path="/hoc-online" element={<HocOnline />} />
         <Route path="/hoc-online/:slug" element={<HocOnlineDetail />} />
         <Route path="/he-thong-trung-tam" element={<HeThongTrungTam />} />
@@ -80,7 +84,7 @@ function App() {
               eyebrow="Tuyển dụng"
               title="Cơ hội nghề nghiệp tại VMG"
               metaTitle="Tuyển dụng | VMG"
-              metaDescription="Cơ hội nghề nghiệp tại Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ (VMG) - trang tin tuyển dụng đang được cập nhật."
+              metaDescription="Cơ hội nghề nghiệp tại Hệ thống giáo dục và đào tạo Việt Mỹ VMG - trang tin tuyển dụng đang được cập nhật."
               note="Trang tin tuyển dụng đang được cập nhật. Quay lại sau để xem các vị trí đang mở tại VMG."
             />
           }

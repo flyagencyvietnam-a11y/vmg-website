@@ -2,18 +2,20 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#241823] text-white/80">
-      <div className="container-vmg py-12 grid md:grid-cols-4 gap-8">
+    <footer className="site-footer relative overflow-hidden bg-[#241115] text-white/80">
+      <div className="footer-orbit" aria-hidden="true" />
+      <div className="container-vmg relative py-12 grid md:grid-cols-4 gap-8">
         <div>
           <Logo variant="light" />
           <p className="mt-4 text-sm text-white/60 max-w-xs">
-            Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ. 23 năm kiến tạo hành trình học tập tại Đồng Nai và Bình Phước.
+            Hệ thống giáo dục và đào tạo Việt Mỹ VMG. Ngoại ngữ - Du học - Hướng nghiệp. Đồng hành với tương lai của học viên.
           </p>
         </div>
         <div>
           <h4 className="text-white font-semibold text-sm mb-3">Chương trình</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="/ngoai-ngu" className="hover:text-white transition-colors">Ngoại ngữ</a></li>
+            <li><a href="/khao-thi" className="hover:text-white transition-colors">Khảo thí</a></li>
             <li><a href="/du-hoc" className="hover:text-white transition-colors">Du học VMP</a></li>
             <li><a href="/huong-nghiep" className="hover:text-white transition-colors">Hướng nghiệp</a></li>
             <li><a href="/hoc-online" className="hover:text-white transition-colors">Học online</a></li>
@@ -39,7 +41,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-white/40">
-        © 2026 Viet My Group. All rights reserved.
+        © 2026 Hệ thống giáo dục và đào tạo Việt Mỹ VMG. All rights reserved.
       </div>
     </footer>
   );

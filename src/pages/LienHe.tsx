@@ -6,7 +6,7 @@ import { useDocumentMeta } from "../lib/useDocumentMeta";
 export default function LienHe() {
   useDocumentMeta(
     "Liên hệ VMG | Việt Nam",
-    "Liên hệ Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ (VMG) - để lại thông tin để được tư vấn chương trình phù hợp."
+    "Liên hệ Hệ thống giáo dục và đào tạo Việt Mỹ VMG - để lại thông tin để được tư vấn chương trình phù hợp."
   );
 
   return (

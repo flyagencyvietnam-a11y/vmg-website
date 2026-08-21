@@ -3,13 +3,13 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ProductCard } from "../components/ProductCard";
 import { SmartFilter, type SectionValue } from "../components/SmartFilter";
-import { PRODUCTS, NGOAI_NGU_GROUPS, isPublished } from "../data/products";
+import { PRODUCTS, NGOAI_NGU_GROUPS, isLearningProduct } from "../data/products";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
 
 export default function NgoaiNgu() {
   useDocumentMeta(
     "Ngoại ngữ - Tiếng Anh & Tiếng Trung mọi độ tuổi | VMG",
-    "Chương trình Ngoại ngữ VMG: tiếng Anh từ mầm non đến người lớn, luyện thi IELTS/TOEIC/VSTEP/Cambridge, tiếng Trung HSK, TESOL và đào tạo doanh nghiệp."
+    "Chương trình Ngoại ngữ VMG: tiếng Anh từ mầm non đến người lớn, luyện thi IELTS/TOEIC/VSTEP/Cambridge, tiếng Trung HSK và đào tạo doanh nghiệp."
   );
 
   const [filter, setFilter] = useState<SectionValue>("all");
@@ -25,7 +25,7 @@ export default function NgoaiNgu() {
             Tiếng Anh mọi độ tuổi, Tiếng Trung, luyện thi & chứng chỉ
           </h1>
           <p className="mt-4 text-neutral-600 max-w-2xl">
-            Trụ cột Ngoại ngữ của VMG gồm tiếng Anh (mọi độ tuổi) và tiếng Trung (HSK) - không bao gồm Nhật/Hàn (thuộc mảng Xuất khẩu lao động, xem trang Du học).
+            Trụ cột Ngoại ngữ của VMG gồm tiếng Anh (mọi độ tuổi) và tiếng Trung (HSK). TESOL và Xuất khẩu lao động thuộc trụ cột Hướng nghiệp.
             Phần lớn chương trình có cả hình thức Online và Offline - xem tag trên từng thẻ chương trình.
           </p>
         </section>
@@ -34,7 +34,7 @@ export default function NgoaiNgu() {
           <SmartFilter active={filter} onSelect={setFilter} />
 
           {visibleGroups.map((g) => {
-            const items = PRODUCTS.filter((p) => isPublished(p) && p.section === g.section);
+            const items = PRODUCTS.filter((p) => isLearningProduct(p) && p.section === g.section);
             if (items.length === 0) return null;
             return (
               <div key={g.section} className="py-10 border-b border-black/5 last:border-0">
@@ -49,7 +49,7 @@ export default function NgoaiNgu() {
             );
           })}
 
-          {visibleGroups.every((g) => PRODUCTS.filter((p) => isPublished(p) && p.section === g.section).length === 0) && (
+          {visibleGroups.every((g) => PRODUCTS.filter((p) => isLearningProduct(p) && p.section === g.section).length === 0) && (
             <div className="rounded-2xl border border-dashed border-black/15 bg-cream/60 p-8 text-center text-sm text-neutral-500">
               Chưa có chương trình nào khớp với lựa chọn này.
             </div>

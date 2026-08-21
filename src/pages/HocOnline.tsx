@@ -6,7 +6,7 @@ import { SmartFilter, type SectionValue } from "../components/SmartFilter";
 import { PRODUCTS, NGOAI_NGU_GROUPS, isPublished } from "../data/products";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
 
-const ONLINE_PRODUCTS = PRODUCTS.filter((p) => isPublished(p) && p.format !== "offline");
+const ONLINE_PRODUCTS = PRODUCTS.filter((p) => isPublished(p) && p.format !== "offline" && p.section !== "tesol");
 
 export default function HocOnline() {
   useDocumentMeta(

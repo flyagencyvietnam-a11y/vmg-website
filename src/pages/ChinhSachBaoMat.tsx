@@ -25,7 +25,7 @@ export default function ChinhSachBaoMat() {
             <section>
               <h2 className="font-display font-bold text-lg text-neutral-900">1. Bên kiểm soát dữ liệu</h2>
               <p className="mt-2">
-                [CẦN XÁC NHẬN: tên pháp nhân, mã số thuế, địa chỉ trụ sở Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ (VMG)].
+                [CẦN XÁC NHẬN: tên pháp nhân, mã số thuế, địa chỉ trụ sở Hệ thống giáo dục và đào tạo Việt Mỹ VMG].
               </p>
             </section>
             <section>

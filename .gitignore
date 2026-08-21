@@ -16,6 +16,10 @@ graphify-out/
 
 # Local tool configs that may contain API keys - never commit
 .codex/
+.claude/settings.local.json
+
+# Local image-audit and conversion artifacts
+tmp/
 
 # Editor directories and files
 .vscode/*

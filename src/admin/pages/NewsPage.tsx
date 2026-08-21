@@ -14,7 +14,12 @@ export default function NewsPage() {
       fields={[
         { key: "title", label: "Tiêu đề", type: "text", required: true },
         { key: "slug", label: "Slug (URL)", type: "text", required: true },
-        { key: "category", label: "Danh mục", type: "text" },
+        { key: "category", label: "Danh mục", type: "select", required: true, options: [
+          { value: "chuong-trinh-va-uu-dai", label: "Chương trình và ưu đãi" },
+          { value: "su-kien", label: "Sự kiện" },
+          { value: "hop-tac", label: "Hợp tác" },
+          { value: "cong-dong", label: "Cộng Đồng" },
+        ] },
         { key: "content", label: "Nội dung", type: "textarea" },
         { key: "image_url", label: "Ảnh đại diện", type: "image" },
         { key: "status", label: "Trạng thái", type: "select", options: [

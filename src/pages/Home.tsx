@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { Quiz } from "../components/Quiz";
@@ -17,6 +18,23 @@ import {
 export default function Home() {
   useEffect(() => {
     if (!window.location.hash) window.scrollTo(0, 0);
+
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section:not(#top)"));
+    sections.forEach((section, index) => {
+      section.classList.add("page-reveal");
+      section.style.setProperty("--reveal-delay", `${Math.min(index, 3) * 55}ms`);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -7%" });
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -24,6 +42,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <NewsSection />
         <Quiz />
         <ProgramsSection />
         <OnlineCoursesSection />
@@ -32,11 +51,9 @@ export default function Home() {
         <Testimonials />
         <StatsBar />
         <Partners />
-        <NewsSection />
         <Newsletter />
       </main>
       <Footer />
     </div>
   );
 }
-import { useEffect } from "react";

@@ -28,7 +28,7 @@ export function LeadCaptureForm({ source, extra, submitLabel = "Nhận tư vấn
   if (status === "done") {
     return (
       <div className="rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm text-center">
-        <p className="text-sm font-semibold text-brand">✓ Cảm ơn bạn! Tư vấn viên VMG sẽ liên hệ trong vòng 24h.</p>
+        <p className="text-sm font-semibold text-brand">✓ Cảm ơn bạn! Tư vấn viên VMG sẽ liên hệ để hỗ trợ.</p>
       </div>
     );
   }

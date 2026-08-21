@@ -68,7 +68,7 @@ const OptionButton = ({ onClick, children }: { onClick: () => void; children: Re
   <button
     type="button"
     onClick={onClick}
-    className="text-left rounded-2xl border-2 border-neutral-200 bg-white px-5 py-4 text-sm font-semibold text-neutral-800 transition-all hover:-translate-y-0.5 hover:border-brand/60 hover:shadow-md"
+    className="quiz-option text-left rounded-2xl border border-neutral-200 bg-white/90 px-5 py-4 text-sm font-semibold text-neutral-800 transition-all hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg"
   >
     {children}
   </button>
@@ -181,7 +181,7 @@ export function Quiz() {
     <>
     <section id="quiz" className="container-vmg py-14 md:py-20 scroll-mt-24">
       <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
-        <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-10 shadow-sm">
+        <div className="quiz-surface relative overflow-hidden rounded-[2rem] border border-brand/10 p-6 md:p-10 shadow-[0_30px_80px_-55px_rgba(146,24,36,.7)]">
           <div className="flex items-center justify-between mb-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-brand">Chưa chắc nên chọn gì?</span>
@@ -283,7 +283,7 @@ export function Quiz() {
           )}
         </div>
 
-        <aside className="rounded-3xl bg-white border border-black/5 p-6 shadow-sm lg:sticky lg:top-24">
+        <aside className="rounded-3xl bg-white/90 border border-black/5 p-6 shadow-sm backdrop-blur lg:sticky lg:top-24">
           <div className="text-xs font-bold uppercase tracking-widest text-gold">Muốn tự xem trước?</div>
           <h3 className="mt-2 text-lg font-display font-extrabold leading-snug">Duyệt lại toàn bộ chương trình</h3>
           <p className="mt-2 text-sm text-neutral-500">

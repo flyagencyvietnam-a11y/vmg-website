@@ -1,4 +1,4 @@
-// Unified "Ngoại ngữ" pillar product catalog - single source of truth for:
+// Unified product catalog - single source of truth for:
 // - the homepage carousels (ProgramsSection filters by ageGroup, OnlineCoursesSection
 //   highlights a few flagship items)
 // - /ngoai-ngu (full catalog, grouped by `section`)
@@ -27,7 +27,7 @@ export type NgoaiNguSection =
   | "adult" // 2.2 Giao tiếp người lớn
   | "luyenthi" // 2.3 Luyện thi & chứng chỉ: IELTS/TOEIC/VSTEP/Cambridge
   | "tieng-trung" // Tiếng Trung (HSK) - part of the pillar per CLAUDE.md §2, no numbered sitemap slot of its own
-  | "tesol" // 2.4 VMG TESOL (offline 120H/140H + online TESOL E-PATH)
+  | "tesol" // Career pillar: offline 120H/140H + online TESOL E-PATH
   | "b2b"; // 2.5 Đào tạo doanh nghiệp (B2B)
 
 // Full "hero page" copywrite - only present for products with a finished copy
@@ -88,6 +88,8 @@ export const PRODUCTS: Product[] = [
     desc: "Xây nền tảng tiếng Anh tự nhiên, không áp lực cho trẻ ngay từ giai đoạn đầu đời.",
     overlay: "from-accent-pink-soft/80 to-brand/70", ageGroup: "kids", section: "mamnon", format: "offline",
     audience: "Trẻ mầm non - phụ huynh là người quyết định đăng ký. Phù hợp gia đình muốn con tiếp cận tiếng Anh sớm trong môi trường tự nhiên, không nặng tính học thuật.",
+    teachers: "70% giáo viên Việt Nam + 30% giáo viên nước ngoài",
+    entryRequirement: "Đánh giá đầu vào qua hướng dẫn và hoạt động phù hợp lứa tuổi mầm non.",
     hero: {
       metaTitle: "E-Pioneer – Tiếng Anh Mầm Non, Xây Nền Ngôn Ngữ Từ Những Năm Đầu Đời | VMG",
       metaDescription: "Chương trình tiếng Anh mầm non E-Pioneer tại VMG — xây dựng nền tảng ngôn ngữ tự nhiên, không áp lực cho trẻ ngay từ giai đoạn đầu đời.",
@@ -110,6 +112,10 @@ export const PRODUCTS: Product[] = [
     desc: "Tiếng Anh tiểu học – cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers.",
     overlay: "from-accent-pink/80 to-brand/75", ageGroup: "kids", section: "thieunhi", format: "offline",
     audience: "Học sinh tiểu học - phụ huynh là người quyết định đăng ký, muốn con đạt chứng chỉ tiếng Anh quốc tế Cambridge theo lộ trình rõ ràng.",
+    duration: "36 giờ/cấp độ",
+    teachers: "50% giáo viên Việt Nam + 50% giáo viên nước ngoài",
+    classSize: "10–15 học viên/lớp",
+    entryRequirement: "Kiểm tra đầu vào do VMG biên soạn để xếp E-Contender hoặc E-Genius phù hợp.",
     commitment: "Cam kết đầu ra theo cấp Cambridge Starters/Movers/Flyers, cùng 12 khiên sau lộ trình.",
     hero: {
       metaTitle: "E-Contender & E-Genius – Tiếng Anh Tiểu Học, Cam Kết Đầu Ra Cambridge | VMG",
@@ -119,7 +125,7 @@ export const PRODUCTS: Product[] = [
       h1: "E-Contender & E-Genius — Vững Tiếng Anh Tiểu Học, Chuẩn Đầu Ra Cambridge",
       subheadline: "Xây dựng năng lực tiếng Anh tiểu học theo chuẩn quốc tế Cambridge, đầu ra rõ ràng theo từng cấp độ.",
       solutionParagraph: "Chương trình xây dựng năng lực tiếng Anh tiểu học theo chuẩn quốc tế Cambridge, với đầu ra rõ ràng theo từng cấp độ Starters/Movers/Flyers và cam kết 12 khiên sau lộ trình.",
-      nextSteps: [{ label: "Khảo thí (OSIR)", note: "Sau khi hoàn thành, đăng ký thi Cambridge chính thức tại VMG" }],
+      nextSteps: [{ label: "Thi Cambridge tại VMG", note: "Sau khi hoàn thành, đăng ký thi Cambridge chính thức tại VMG" }],
       faq: [],
       ctaFinal: "Đăng ký kiểm tra trình độ tiếng Anh miễn phí cho con.",
       testimonialPending: true,
@@ -130,6 +136,9 @@ export const PRODUCTS: Product[] = [
     desc: "Một mùa hè vừa vui vừa bổ ích — chủ đề mới mỗi năm, có dã ngoại hàng tuần.",
     overlay: "from-lemon/80 to-gold/80", ageGroup: "kids", section: "thieunhi", format: "offline",
     audience: "Học sinh Cấp 1. Phù hợp phụ huynh cần chỗ gửi con nghỉ hè vừa an toàn vừa có giá trị giáo dục và trải nghiệm.",
+    duration: "4–8 tuần, học bán trú từ thứ Hai đến thứ Sáu",
+    teachers: "100% giáo viên nước ngoài giảng dạy nội dung tiếng Anh chính",
+    classSize: "10–15 học viên/nhóm",
     hero: {
       metaTitle: "Bán Trú Hè VMG – Một Mùa Hè Trải Nghiệm Và Bổ Ích Cho Con | VMG",
       metaDescription: "Chương trình bán trú hè tại VMG dành cho học sinh Cấp 1, mỗi năm một chủ đề mới, có dã ngoại outdoor hàng tuần.",
@@ -149,6 +158,8 @@ export const PRODUCTS: Product[] = [
     desc: "Định hướng IELTS sớm cho học sinh THCS, lộ trình dài đến lớp 11.",
     overlay: "from-amber-400/80 to-orange-500/80", ageGroup: "teens", section: "thieunien", format: "hybrid",
     audience: "Học sinh THCS. Phụ huynh muốn con có nền IELTS vững chắc trước khi bước vào cấp 3, tránh dồn áp lực ôn thi vào những năm cuối.",
+    teachers: "75% giáo viên Việt Nam + 25% giáo viên nước ngoài",
+    entryRequirement: "Kiểm tra đầu vào đủ 4 kỹ năng Nghe, Nói, Đọc, Viết để xếp đúng chặng.",
     commitment: "Cam kết đầu ra theo hai mốc: band 5.5 hoặc 6.5 tùy lộ trình.",
     hero: {
       metaTitle: "NextGen IELTS – Định Hướng IELTS Sớm Cho Học Sinh THCS | VMG",
@@ -168,6 +179,9 @@ export const PRODUCTS: Product[] = [
     desc: "4 cấp độ theo mục tiêu điểm – chuẩn bị hồ sơ apply Mỹ và học bổng quốc tế.",
     overlay: "from-rose-400/80 to-brand-dark/85", ageGroup: "teens", section: "thieunien", format: "hybrid",
     audience: "Học sinh THPT có định hướng du học, cần điểm SAT phục vụ xét tuyển học bổng hoặc trường quốc tế.",
+    duration: "Theo cấp độ mục tiêu; SAT 1050/1250: 60 giờ, SAT 1400: 90 giờ, SAT 1550+ cần xác nhận theo lớp",
+    classSize: "8–10 học viên/lớp với các cấp đã có brief",
+    entryRequirement: "Khuyến nghị tiếng Anh B1+ và hoàn thành nền tảng Toán lớp 9; kiểm tra SAT đầu vào trước khi xếp cấp.",
     hero: {
       metaTitle: "Luyện Thi SAT – 4 Cấp Độ Từ Nền Tảng Đến Elite, Theo Đúng Mục Tiêu Điểm Số | VMG",
       metaDescription: "Chương trình luyện thi SAT tại VMG với 4 cấp độ: 1050, 1250, 1400, 1550+ — chọn đúng lộ trình theo mục tiêu điểm số và trường bạn nhắm đến.",
@@ -219,6 +233,7 @@ export const PRODUCTS: Product[] = [
     code: "EPLUS", slug: "adults-eplus", name: "Adults – ePlus",
     desc: "Tiếng Anh giao tiếp cấp tốc cho người đi làm, mỗi buổi một chủ đề thực tế.",
     overlay: "from-accent-pink/80 to-accent-pink/90", ageGroup: "adult", section: "adult", format: "hybrid",
+    published: false, // vòng đời Decline, chờ R&D xác nhận trước khi tiếp tục đầu tư nội dung/tuyển sinh
   },
   {
     code: "FOCUS", slug: "ielts-exam-focus", name: "IELTS Exam Focus",
@@ -278,13 +293,27 @@ export const PRODUCTS: Product[] = [
   },
   {
     code: "TOEIC", slug: "toeic", name: "TOEIC",
-    desc: "[CẦN XÁC NHẬN NỘI DUNG: chương trình luyện thi TOEIC chưa có dữ liệu chi tiết]",
+    desc: "Luyện thi TOEIC theo đầu vào, mục tiêu chứng chỉ và thời gian sử dụng thực tế.",
     overlay: "from-neutral-400/80 to-neutral-600/85", ageGroup: "adult", section: "luyenthi", format: "hybrid",
+    audience: "Sinh viên và người đi làm cần TOEIC cho học tập, hồ sơ hoặc công việc.",
   },
   {
     code: "VSTPX", slug: "vstep-express", name: "VSTEP Express",
-    desc: "Luyện thi VSTEP, không cam kết đầu ra (khác VSTEP Mastery, có cam kết đầu ra).",
+    desc: "Ôn format VSTEP ngắn hạn cho người đã có nền; không cam kết đầu ra.",
     overlay: "from-slate-500/80 to-slate-700/85", ageGroup: "adult", section: "luyenthi", format: "hybrid",
+    audience: "Người đã có nền tiếng Anh, cần làm quen format và ôn ngắn hạn trước kỳ thi VSTEP.",
+    duration: "22,5 giờ/khóa",
+    entryRequirement: "Kiểm tra đầu vào 4 kỹ năng theo format VSTEP.",
+    commitment: "Không áp dụng cam kết đầu ra.",
+  },
+  {
+    code: "VSTEP_EP", slug: "vstep-epath", name: "VSTEP E-PATH",
+    tag: "Tự học online cho người đã có nền",
+    desc: "Lộ trình VSTEP self-paced cho người cần ôn linh hoạt, hướng đến mục tiêu Bậc 3–4 (B1–B2).",
+    overlay: "from-blue-600/80 to-slate-800/90", ageGroup: "adult", section: "luyenthi", format: "online",
+    audience: "Người từ 17 tuổi đã có nền tiếng Anh, cần ôn VSTEP linh hoạt nhưng khó tham gia lớp có lịch cố định.",
+    entryRequirement: "Cần có nền tảng tiếng Anh để theo hình thức tự học.",
+    commitment: "Mục tiêu nội dung Bậc 3–4 (B1–B2); không tự diễn giải thành cam kết thi đậu.",
   },
   {
     code: "CAMB", slug: "khao-thi-osir", name: "Khảo thí (OSIR)",
@@ -327,6 +356,9 @@ export const PRODUCTS: Product[] = [
     desc: "Chứng chỉ giảng dạy tiếng Anh cho giáo viên - hai lựa chọn 120H (lý thuyết) hoặc 140H (kèm thực hành giảng dạy thật).",
     overlay: "from-violet-500/80 to-plum/85", ageGroup: "adult", section: "tesol", format: "hybrid",
     audience: "Giáo viên tiếng Anh cần chứng chỉ TESOL chính thức, đặc biệt phù hợp nếu muốn có phần thực hành giảng dạy thật (chọn 140H) thay vì chỉ lý thuyết (120H).",
+    classSize: "8–10 học viên/lớp",
+    entryRequirement: "Yêu cầu nền tảng tiếng Anh từ CEFR B1+.",
+    commitment: "Chứng nhận hoàn thành TESOL 120H/140H từ INTESOL Vietnam; lộ trình 140H có 20 giờ teaching practice.",
     hero: {
       metaTitle: "TESOL 120H & 140H – Chứng Chỉ Giảng Dạy Tiếng Anh Cho Giáo Viên | VMG",
       metaDescription: "TESOL 120H/140H tại VMG — chứng chỉ giảng dạy tiếng Anh cho giáo viên, có lựa chọn thực hành giảng dạy thật (140H).",
@@ -345,9 +377,10 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    code: "B2B", slug: "dao-tao-doanh-nghiep", name: "Đào tạo doanh nghiệp (B2B)",
-    desc: "Tiếng Anh doanh nghiệp theo yêu cầu. [CẦN XÁC NHẬN: nội dung chương trình chi tiết]",
+    code: "B2B", slug: "dao-tao-doanh-nghiep", name: "Đào tạo doanh nghiệp",
+    desc: "Giải pháp tiếng Anh theo nhu cầu sử dụng thực tế của đội ngũ doanh nghiệp.",
     overlay: "from-neutral-700/85 to-neutral-900/90", ageGroup: "b2b", section: "b2b", format: "hybrid",
+    audience: "Doanh nghiệp cần khảo sát và xây chương trình tiếng Anh cho một nhóm nhân sự.",
   },
   {
     code: "FLEX", slug: "esl-flextrack", name: "ESL FlexTrack",
@@ -376,10 +409,11 @@ export const PRODUCTS: Product[] = [
     tag: "Học nhanh, thấy kết quả rõ",
     desc: "Khóa học tăng tốc kỹ năng Speaking, thiết kế cho học viên cần cải thiện điểm nói trong thời gian ngắn.",
     overlay: "from-accent-pink/80 to-brand/85", ageGroup: "teens", section: "luyenthi", format: "hybrid",
-    audience: "Học sinh THPT, sinh viên, người đi làm 18-28 tuổi, đã có band Speaking 4.5-5.5, cần bứt phá nhanh trước kỳ thi IELTS thật.",
-    duration: "12 tuần – 5 buổi/tuần – 2 giờ/buổi – 120 giờ tổng",
+    audience: "Học viên cần tập trung cải thiện IELTS Speaking và có thể theo lộ trình tăng tốc trong 12 tuần.",
+    duration: "12 tuần – khoảng 5 buổi/tuần – 2 giờ/buổi – 120 giờ tổng",
     teachers: "100% giáo viên nước ngoài (GVNN)",
-    classSize: "8-10 học viên/lớp (tối thiểu 4 để mở lớp)",
+    classSize: "8–10 học viên/lớp",
+    entryRequirement: "IELTS Speaking khoảng 4.5–5.5; kiểm tra đầu vào trước khi xếp lớp.",
     priceList: "24.400.000đ (offline)",
     priceCurrent: "14.300.000đ (online) — Early bird 8 suất đầu mỗi lớp mở: 12.300.000đ (tiết kiệm 2.000.000đ)",
     hourlyRate: "~119.200đ/giờ",
@@ -424,9 +458,10 @@ export const PRODUCTS: Product[] = [
     tag: "Lộ trình đầy đủ 0 → IELTS",
     desc: "Lộ trình IELTS đầy đủ 7 cấp độ (IE1–IE7), đối tác chính thức IDP và British Council. Học đâu thi đó.",
     overlay: "from-brand/85 to-brand/95", ageGroup: "teens", section: "luyenthi", format: "hybrid",
-    audience: "Học sinh THPT, sinh viên cần IELTS để tốt nghiệp hoặc xin học bổng (band 5.0-6.0); người đi làm 22-35 tuổi chuẩn bị du học hoặc định cư (band 6.5).",
-    duration: "7 cấp độ (IE1–IE7) — mỗi cấp 3 tháng, 2 buổi/tuần, 90 phút/buổi, 36 giờ/khóa",
+    audience: "Học sinh, sinh viên và người đi làm cần một lộ trình IELTS rõ ràng đến band mục tiêu.",
+    duration: "7 cấp độ (IE1–IE7) — mỗi cấp 3 tháng, 36 giờ/khóa",
     teachers: "GVNN + GVVN",
+    entryRequirement: "Kiểm tra đầu vào đầy đủ 4 kỹ năng Nghe, Nói, Đọc, Viết.",
     priceCurrent: "9.700.000 – 19.900.000đ/khóa 3 tháng tùy cấp độ (khóa band 6.5 cao nhất: 19.900.000đ)",
     hourlyRate: "~305.000đ/giờ (trung bình)",
     commitment: "Cam kết đầu ra từng cấp theo lộ trình — học không đạt, học lại không tính phí. Đối tác IDP + British Council – \"học đâu thi đó\".",
@@ -467,16 +502,14 @@ export const PRODUCTS: Product[] = [
   {
     code: "VSTEP", slug: "vstep", name: "VSTEP Mastery",
     tag: "Vững nền, chắc điểm",
-    desc: "Vững nền, chắc điểm — có giáo viên kèm trực tiếp, không phải tự học online. Học không đạt, học lại không tính phí.",
+    desc: "Vững nền, chắc điểm — có giáo viên kèm trực tiếp để chuẩn bị cho mục tiêu VSTEP B1/B2.",
     overlay: "from-slate-600/85 to-slate-800/90", ageGroup: "adult", section: "luyenthi", format: "hybrid",
     audience: "Sinh viên cần bằng VSTEP để tốt nghiệp hoặc xét học bổng; người đi làm cần B1/B2 để thi công chức, bảo vệ luận văn thạc sĩ; giáo viên cần chứng chỉ theo yêu cầu Bộ GD&ĐT.",
-    duration: "2-3 tháng – 2 buổi/tuần – 90 phút/buổi – 51 giờ tổng",
-    teachers: "GVVN + GVNN, có giáo viên kèm trực tiếp",
-    classSize: "10-15 học viên/lớp (tối thiểu 8 để mở lớp)",
+    teachers: "Có giáo viên kèm trực tiếp",
     priceList: "3.500.000đ",
     priceCurrent: "3.500.000đ/học viên/khóa (không áp dụng KM thêm)",
     hourlyRate: "~68.600đ/giờ",
-    commitment: "Đạt chứng chỉ VSTEP Bậc 3 (B1) hoặc Bậc 4 (B2). Đủ kiến thức cho kỳ thi VSTEP gần nhất — học không đạt, học lại không tính phí.",
+    commitment: "Chuẩn bị kiến thức cho kỳ thi VSTEP Bậc 3 (B1) hoặc Bậc 4 (B2) gần nhất. Điều kiện cam kết cụ thể cần xác nhận theo lớp.",
     hero: {
       metaTitle: "VSTEP B1/B2 Online – Có Giáo Viên Kèm, Học Lại Miễn Phí | VMG",
       metaDescription: "Luyện thi VSTEP B1/B2 tại VMG: có giáo viên kèm trực tiếp, học không đạt được học lại miễn phí. Phù hợp deadline tốt nghiệp, thi công chức.",
@@ -513,22 +546,21 @@ export const PRODUCTS: Product[] = [
   },
   {
     code: "GT", slug: "tieng-anh-giao-tiep", name: "Tiếng Anh Giao Tiếp",
-    tag: "[TÊN SẢN PHẨM MỚI — chờ R&D duyệt]",
-    desc: "Tự tin nói tiếng Anh trong 2 tháng — 50% giáo viên nước ngoài đồng hành xóa rào cản tâm lý. Tên thương mại chính thức đang chờ R&D duyệt.",
+    tag: "Tiếng Anh giao tiếp",
+    desc: "Luyện phản xạ giao tiếp tiếng Anh trong 2 tháng với 50% giáo viên nước ngoài đồng hành.",
     overlay: "from-accent-pink/80 to-brand/85", ageGroup: "adult", section: "adult", format: "hybrid",
     audience: "Nhân viên công ty/nhà máy có đối tác nước ngoài; người biết ngữ pháp nhưng ngại nói, chưa từng dùng tiếng Anh thực tế; người muốn thăng tiến hoặc chuyển sang công ty nước ngoài.",
-    duration: "2 tháng/khóa – 3 buổi/tuần – 90 phút/buổi – 36 giờ/khóa – 5 cấp độ (Pre-A1 đến B1+)",
+    duration: "2 tháng/khóa – 36 giờ/khóa – 5 cấp độ",
     teachers: "50% GVNN + 50% GVVN",
-    classSize: "8-15 học viên/lớp (tối thiểu 8 để mở lớp)",
     priceList: "6.700.000đ",
     priceCurrent: "[CẦN XÁC NHẬN GIÁ THÁNG 7 — giá KM 35% (4.355.000đ) đã hết hạn từ cuối T6/2026, chưa có giá chính thức mới để công bố]",
     commitment: "Tự tin giao tiếp tiếng Anh hàng ngày và trong môi trường công việc.",
     hero: {
-      metaTitle: "[TÊN SẢN PHẨM MỚI] – Tiếng Anh Giao Tiếp Cấp Tốc, 50% Giáo Viên Nước Ngoài | VMG",
-      metaDescription: "[Cần viết lại sau khi có tên thương mại + giá chính thức tháng 7]",
+      metaTitle: "E-Speak – Tiếng Anh Giao Tiếp, 50% Giáo Viên Nước Ngoài | VMG",
+      metaDescription: "E-Speak giúp người đi làm luyện phản xạ giao tiếp tiếng Anh trong 2 tháng với 50% giáo viên nước ngoài và hình thức học linh hoạt.",
       keywordsPrimary: "học tiếng anh giao tiếp cho người đi làm",
       keywordsSecondary: "tiếng anh công sở giá rẻ, học tiếng anh online người đi làm",
-      h1: "[TÊN SẢN PHẨM MỚI] — Tự Tin Nói Tiếng Anh Trong 2 Tháng",
+      h1: "E-Speak — Tự Tin Nói Tiếng Anh Trong 2 Tháng",
       subheadline: "Biết ngữ pháp nhưng không nói được? 50% giáo viên nước ngoài đồng hành xóa rào cản tâm lý.",
       painPoints: [
         "Biết tiếng Anh nhưng mở miệng ra là tắc, ngại nói?",
@@ -556,15 +588,15 @@ export const PRODUCTS: Product[] = [
     tag: "Chứng chỉ giảng dạy quốc tế",
     desc: "Chứng chỉ TESOL trực tuyến, self-paced kết hợp livestream hàng tuần.",
     overlay: "from-plum/85 to-brand-dark/85", ageGroup: "adult", section: "tesol", format: "online",
-    audience: "Người đã có nền tiếng Anh B1+ (IELTS 6.0+), muốn có chứng chỉ giảng dạy tiếng Anh quốc tế được công nhận, cần lịch học linh hoạt.",
-    duration: "4-8 tuần (tự định tốc độ) – 1 buổi live/tuần – 2 giờ/buổi – 120 giờ tổng",
+    audience: "Người muốn phát triển năng lực và chứng chỉ giảng dạy tiếng Anh theo hình thức học linh hoạt.",
+    duration: "4-8 tuần (tự định tốc độ) – self-paced + livestream hằng tuần – 120 giờ tổng",
     teachers: "Trainer VMG + INTESOL",
-    classSize: "15-20 học viên/buổi live",
-    entryRequirement: "Tiếng Anh CEFR B1+ (tương đương IELTS 6.0+)",
+    classSize: "15–20 học viên/buổi live",
+    entryRequirement: "Khuyến nghị CEFR B1+; có bài placement test nội bộ để định hướng.",
     priceList: "9.900.000đ",
     priceCurrent: "7.920.000đ (KM 20%) — thêm -15% cho CBNV/đối tác giới thiệu",
     hourlyRate: "~66.000đ/giờ",
-    commitment: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK — giá trị vĩnh viễn.",
+    commitment: "Chứng chỉ TESOL 120h INTESOL, kiểm định ALAP UK.",
     hero: {
       metaTitle: "TESOL E-PATH Online – Chứng Chỉ TESOL 120h INTESOL, Kiểm Định ALAP UK | VMG",
       metaDescription: "TESOL E-PATH: chứng chỉ TESOL 120h quốc tế INTESOL, kiểm định ALAP UK, giá trị vĩnh viễn. Học 100% online, tự định tốc độ.",
@@ -594,11 +626,11 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    code: "EDU", slug: "edunext", name: "EduNext",
-    tag: "Dành cho giáo viên bộ môn",
-    desc: "Tiếng Anh chuyên biệt cho giáo viên bộ môn (không phải giáo viên tiếng Anh).",
-    overlay: "from-emerald-500/80 to-teal-700/85", ageGroup: "adult", section: "adult", format: "hybrid",
-    audience: "Giáo viên bộ môn cần tiếng Anh chuyên môn để giảng dạy song ngữ/quốc tế.",
+    code: "EDU", slug: "edunext", name: "EduNext Solutions",
+    tag: "Giải pháp phát triển đội ngũ giáo viên",
+    desc: "Giải pháp bồi dưỡng tiếng Anh và năng lực giảng dạy bằng tiếng Anh dành cho đội ngũ giáo viên tại trường học.",
+    overlay: "from-emerald-500/80 to-teal-700/85", ageGroup: "b2b", section: "b2b", format: "online",
+    audience: "Trường học và cơ sở giáo dục cần phát triển năng lực tiếng Anh, Classroom English và giảng dạy song ngữ cho đội ngũ giáo viên.",
     duration: "2–3 tháng tự học (bản online)",
     teachers: "Online 100% (bản online)",
     priceList: "9.900.000đ",
@@ -615,14 +647,20 @@ export function isPublished(p: Product): boolean {
   return p.published !== false;
 }
 
+// Khảo thí là một hành trình dịch vụ riêng, không phải chương trình học.
+// Giữ bản ghi cũ để không làm hỏng dữ liệu quản trị, nhưng loại khỏi mọi catalog học công khai.
+export function isLearningProduct(p: Product): boolean {
+  return isPublished(p) && p.code !== "CAMB";
+}
+
 export const FORMAT_LABEL: Record<ProductFormat, string> = {
   online: "Online",
   offline: "Offline",
   hybrid: "Online & Offline",
 };
 
-// One entry per NgoaiNguSection value - shared by /ngoai-ngu and /hoc-online so
-// both pages group and filter identically. Order matches the sitemap (2.1-2.5).
+// Public groups belonging to the Ngoại ngữ pillar. TESOL is intentionally
+// excluded because it belongs to Hướng nghiệp.
 export const NGOAI_NGU_GROUPS: { title: string; note?: string; section: NgoaiNguSection }[] = [
   { title: "Mầm non (3-5 tuổi)", section: "mamnon" },
   { title: "Thiếu nhi (6-11 tuổi)", section: "thieunhi" },
@@ -630,7 +668,6 @@ export const NGOAI_NGU_GROUPS: { title: string; note?: string; section: NgoaiNgu
   { title: "Giao tiếp người lớn", section: "adult" },
   { title: "Luyện thi & chứng chỉ", note: "IELTS, TOEIC, VSTEP, Cambridge", section: "luyenthi" },
   { title: "Tiếng Trung", section: "tieng-trung" },
-  { title: "VMG TESOL", section: "tesol" },
   {
     title: "Đào tạo doanh nghiệp",
     note: "Chương trình tiếng Anh cho doanh nghiệp - để lại thông tin tại trang Trường học & Doanh nghiệp để được tư vấn.",

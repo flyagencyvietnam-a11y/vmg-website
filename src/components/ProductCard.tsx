@@ -1,12 +1,24 @@
 import { ArrowUpRight } from "lucide-react";
 import { FORMAT_LABEL, type Product } from "../data/products";
+import { getProductVisual } from "../data/productVisuals";
 
-export function ProductCard({ p }: { p: Product }) {
+export function ProductCard({ p, basePath = "/hoc-online" }: { p: Product; basePath?: string }) {
+  const visual = getProductVisual(p.code);
   return (
-    <a href={`/hoc-online/${p.slug}`} className="group relative isolate aspect-[3/4] overflow-hidden rounded-3xl bg-neutral-900 shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
-      <div className={`absolute inset-0 bg-gradient-to-br ${p.overlay}`} />
+    <a href={`${basePath}/${p.slug}`} className="editorial-card group relative isolate aspect-[3/4] overflow-hidden rounded-3xl bg-neutral-900 shadow-lg shadow-black/10 transition duration-500 hover:-translate-y-2 hover:shadow-2xl">
+      <img
+        src={visual.src}
+        alt={visual.alt}
+        className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+        style={{ objectPosition: visual.position ?? "center" }}
+        loading="lazy"
+      />
+      <div
+        className="absolute inset-0 mix-blend-multiply"
+        style={{ backgroundImage: `linear-gradient(to bottom, transparent 42%, color-mix(in srgb, ${visual.tint} 45%, transparent) 62%, ${visual.tint} 82%, color-mix(in srgb, ${visual.tint} 82%, black) 100%)` }}
+      />
       <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/25 bg-white/10 transition duration-500 group-hover:scale-150" />
-      <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10" />
       <div className="relative flex h-full flex-col justify-between p-5 text-white">
         <div className="flex items-start justify-between gap-3">
           <span className="rounded-full border border-white/25 bg-black/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest backdrop-blur">{FORMAT_LABEL[p.format]}</span>

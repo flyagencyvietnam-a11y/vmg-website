@@ -21,7 +21,7 @@ export function B2BLeadForm() {
   if (status === "done") {
     return (
       <div className="rounded-2xl border border-dashed border-brand/30 bg-white p-6 text-center">
-        <p className="text-sm font-semibold text-brand">✓ Cảm ơn quý đối tác! Đội hợp tác VMG sẽ liên hệ trong 24h làm việc.</p>
+        <p className="text-sm font-semibold text-brand">✓ Cảm ơn quý đối tác! Đội ngũ VMG sẽ liên hệ để trao đổi nhu cầu.</p>
       </div>
     );
   }

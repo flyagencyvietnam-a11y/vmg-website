@@ -4,7 +4,7 @@ export function Logo({ variant = "dark", className = "h-14" }: { variant?: "dark
   return (
     <img
       src={vmgLogo}
-      alt="VMG English"
+      alt="Hệ thống giáo dục và đào tạo Việt Mỹ VMG"
       className={`${className} w-auto object-contain ${variant === "light" ? "brightness-0 invert" : ""}`}
     />
   );

@@ -5,7 +5,7 @@ import { useDocumentMeta } from "../lib/useDocumentMeta";
 export default function DieuKhoanSuDung() {
   useDocumentMeta(
     "Điều khoản sử dụng | VMG",
-    "Điều khoản sử dụng website Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ (VMG)."
+    "Điều khoản sử dụng website Hệ thống giáo dục và đào tạo Việt Mỹ VMG."
   );
 
   return (
@@ -24,7 +24,7 @@ export default function DieuKhoanSuDung() {
             <section>
               <h2 className="font-display font-bold text-lg text-neutral-900">1. Phạm vi áp dụng</h2>
               <p className="mt-2">
-                Điều khoản này áp dụng khi bạn truy cập và sử dụng website của Hệ Thống Giáo Dục và Đào Tạo Việt Mỹ (VMG).
+                Điều khoản này áp dụng khi bạn truy cập và sử dụng website của Hệ thống giáo dục và đào tạo Việt Mỹ VMG.
               </p>
             </section>
             <section>

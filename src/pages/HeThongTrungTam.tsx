@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { supabase } from "../lib/supabase";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
+import { CENTER_PHOTOS } from "../data/vmgPhotoLibrary";
 
 type Center = {
   id: string;
@@ -42,6 +43,33 @@ export default function HeThongTrungTam() {
           <h1 className="mt-3 text-3xl md:text-5xl font-display font-extrabold max-w-2xl">
             Hệ thống trung tâm tại tỉnh Đồng Nai
           </h1>
+        </section>
+
+        <section className="container-vmg pb-14 md:pb-20">
+          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-brand">Không gian VMG</span>
+              <h2 className="mt-2 text-2xl font-display font-extrabold md:text-3xl">Hình ảnh một số trung tâm</h2>
+            </div>
+            <p className="max-w-md text-sm leading-6 text-neutral-500">
+              Ảnh tư liệu từ hệ thống VMG; thông tin địa chỉ và giờ hoạt động được hiển thị trong danh sách bên dưới.
+            </p>
+          </div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {CENTER_PHOTOS.map((photo) => (
+              <figure key={photo.src} className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm">
+                <div className="overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption className="px-5 py-4 text-sm font-semibold text-neutral-800">{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="container-vmg pb-16 md:pb-24">
