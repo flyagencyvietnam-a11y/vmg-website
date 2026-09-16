@@ -29,4 +29,4 @@ Các asset dưới đây được tải từ website chính thức của VMP ng�
 - `short-term-study.webp`: `https://duhocvmp.com/thumbs/photo/slider-1-2000.jpg.webp`
 - `global-study-pathways.webp`: `https://duhocvmp.com/thumbs/photo/slide-test-8729.jpg.webp`
 
-Logo và hình ảnh chỉ phục vụ nhận diện/định hướng điều hướng cho khu vực Du học. Nội dung VMP vẫn cần chị Hằng duyệt trước khi publish thật; không suy diễn danh tính hoặc thành tích của người trong ảnh.
+Logo và hình ảnh phục vụ nhận diện/định hướng điều hướng cho khu vực Du học. Nội dung công bố trên web mới được đối chiếu với các trang chính thức của VMP; không suy diễn danh tính hoặc thành tích của người trong ảnh.

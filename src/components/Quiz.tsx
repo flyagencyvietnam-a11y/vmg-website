@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { B2BLeadForm } from "./B2BLeadForm";
+import { QUIZ_FALLBACK_MAPPING } from "../data/quizFallback";
 
 type Audience = "child" | "self" | "abroad" | "b2b";
 type ChildAge = "3-5" | "6-11" | "12-16";
@@ -29,13 +30,14 @@ function buildAnswerKey(a: Answers): string | null {
 }
 
 async function fetchQuizResult(key: string): Promise<QuizResult> {
-  const { data: mapping } = await supabase
+  const fallback = QUIZ_FALLBACK_MAPPING[key] ?? null;
+  const { data: mapping, error: mappingError } = await supabase
     .from("quiz_mapping")
     .select("id, primary_product_name_override, primary_product_desc_override, products(name, description, gradient_class, cta_href)")
     .eq("answer_key", key)
     .maybeSingle();
 
-  if (!mapping) return null;
+  if (mappingError || !mapping) return fallback;
 
   const product = mapping.products as unknown as { name: string; description: string | null; gradient_class: string | null; cta_href: string | null } | null;
   const primary: Recommendation = {
@@ -108,20 +110,24 @@ function LeadForm({ answers }: { answers: Answers }) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     setStatus("loading");
-    const { error } = await supabase.from("leads").insert({
-      full_name: form.get("full_name") as string,
-      phone: form.get("phone") as string,
-      source: "quiz",
-      quiz_answers: answers,
-      consent_given: form.get("consent") === "on",
-    });
-    setStatus(error ? "error" : "done");
+    try {
+      const { error } = await supabase.from("leads").insert({
+        full_name: form.get("full_name") as string,
+        phone: form.get("phone") as string,
+        source: "quiz",
+        quiz_answers: answers,
+        consent_given: form.get("consent") === "on",
+      });
+      setStatus(error ? "error" : "done");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "done") {
     return (
       <div className="mt-6 rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm text-center">
-        <p className="text-sm font-semibold text-brand">✓ Cảm ơn bạn! Tư vấn viên VMG sẽ liên hệ trong vòng 24h.</p>
+        <p className="text-sm font-semibold text-brand">✓ Cảm ơn bạn! Tư vấn viên VMG sẽ liên hệ để hỗ trợ.</p>
       </div>
     );
   }
@@ -133,7 +139,7 @@ function LeadForm({ answers }: { answers: Answers }) {
         <input name="full_name" required placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
         <input name="phone" required placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
         <ConsentLabel />
-        {status === "error" && <div className="sm:col-span-2 text-xs text-brand font-semibold">Không gửi được, vui lòng thử lại.</div>}
+        {status === "error" && <div className="sm:col-span-2 text-xs text-brand font-semibold">Chưa gửi được biểu mẫu. Vui lòng gọi <a className="underline" href="tel:1900636838">1900 636 838</a> hoặc nhắn <a className="underline" href="https://zalo.me/3856493312075808344" target="_blank" rel="noreferrer">Zalo VMG</a>.</div>}
         <button disabled={status === "loading"} className="sm:col-span-2 rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit disabled:opacity-60">
           {status === "loading" ? "Đang gửi…" : "Nhận tư vấn miễn phí"}
         </button>

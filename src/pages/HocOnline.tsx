@@ -6,7 +6,7 @@ import { SmartFilter, type SectionValue } from "../components/SmartFilter";
 import { PRODUCTS, NGOAI_NGU_GROUPS, isPublished } from "../data/products";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
 
-const ONLINE_PRODUCTS = PRODUCTS.filter((p) => isPublished(p) && p.format !== "offline" && p.section !== "tesol");
+const ONLINE_PRODUCTS = PRODUCTS.filter((p) => isPublished(p) && p.format !== "offline");
 
 export default function HocOnline() {
   useDocumentMeta(
@@ -29,10 +29,10 @@ export default function HocOnline() {
         <section className="container-vmg py-14 md:py-20">
           <span className="text-xs font-bold uppercase tracking-widest text-brand">Học online</span>
           <h1 className="mt-3 text-3xl md:text-5xl font-display font-extrabold max-w-2xl">
-            Học online, cùng cam kết đầu ra như tại trung tâm
+            Học online linh hoạt, có lộ trình và người đồng hành
           </h1>
           <p className="mt-4 text-neutral-600 max-w-2xl">
-            Học mọi lúc mọi nơi, chủ động thời gian - chọn chương trình phù hợp với mục tiêu của bạn. Chương trình
+            Học mọi lúc mọi nơi, chủ động thời gian và chọn chương trình phù hợp với mục tiêu của bạn. Chính sách đầu ra được áp dụng riêng theo từng chương trình. Chương trình
             gắn tag "Online" là học online-only; tag "Online & Offline" có thể chọn học tại trung tâm hoặc trực tuyến.
           </p>
         </section>

@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
+import { COMPANY } from "../data/company";
 
 export default function ChinhSachBaoMat() {
   useDocumentMeta(
@@ -16,23 +17,20 @@ export default function ChinhSachBaoMat() {
           <span className="text-xs font-bold uppercase tracking-widest text-brand">Pháp lý</span>
           <h1 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Chính sách bảo mật và xử lý dữ liệu cá nhân</h1>
 
-          <div className="mt-6 rounded-2xl border border-dashed border-brand/30 bg-cream/60 p-4 text-xs text-neutral-500">
-            [CẦN RÀ SOÁT PHÁP LÝ: bản dự thảo dưới đây theo cấu trúc Nghị định 13/2023/NĐ-CP, cần bộ phận pháp chế
-            VMG xác nhận trước khi công bố chính thức - chưa điền tên/địa chỉ pháp nhân, đầu mối liên hệ cụ thể.]
-          </div>
+          <p className="mt-4 text-xs text-neutral-500">Cập nhật ngày 16/09/2026</p>
 
           <div className="mt-8 space-y-6 text-sm text-neutral-700 leading-relaxed">
             <section>
               <h2 className="font-display font-bold text-lg text-neutral-900">1. Bên kiểm soát dữ liệu</h2>
               <p className="mt-2">
-                [CẦN XÁC NHẬN: tên pháp nhân, mã số thuế, địa chỉ trụ sở Hệ thống giáo dục và đào tạo Việt Mỹ VMG].
+                {COMPANY.legalName}. Địa chỉ liên hệ: {COMPANY.office}.
               </p>
             </section>
             <section>
               <h2 className="font-display font-bold text-lg text-neutral-900">2. Dữ liệu cá nhân thu thập</h2>
               <p className="mt-2">
-                Họ tên, số điện thoại, và các thông tin bạn cung cấp qua biểu mẫu tư vấn (quiz, đăng ký khóa học,
-                liên hệ, hợp tác trường học/doanh nghiệp) trên website này.
+                Họ tên, số điện thoại, lựa chọn chương trình và các thông tin bạn chủ động cung cấp qua biểu mẫu tư vấn,
+                quiz, liên hệ hoặc đăng ký hợp tác trên website này.
               </p>
             </section>
             <section>
@@ -43,19 +41,23 @@ export default function ChinhSachBaoMat() {
             </section>
             <section>
               <h2 className="font-display font-bold text-lg text-neutral-900">4. Thời gian lưu trữ</h2>
-              <p className="mt-2">[CẦN XÁC NHẬN: thời gian lưu trữ dữ liệu cụ thể theo quy định nội bộ VMG].</p>
+              <p className="mt-2">Dữ liệu được lưu trong thời gian cần thiết để xử lý yêu cầu tư vấn, chăm sóc người học và thực hiện nghĩa vụ có liên quan. VMG định kỳ rà soát để xóa hoặc ẩn danh dữ liệu không còn cần thiết, trừ trường hợp pháp luật yêu cầu lưu lâu hơn.</p>
             </section>
             <section>
-              <h2 className="font-display font-bold text-lg text-neutral-900">5. Quyền của chủ thể dữ liệu</h2>
+              <h2 className="font-display font-bold text-lg text-neutral-900">5. Chia sẻ và bảo vệ dữ liệu</h2>
+              <p className="mt-2">Dữ liệu chỉ được truy cập bởi bộ phận VMG phụ trách nhu cầu của bạn và nhà cung cấp hạ tầng cần thiết để vận hành website. VMG không bán dữ liệu cá nhân và áp dụng biện pháp phù hợp để hạn chế truy cập, mất mát hoặc sử dụng trái phép.</p>
+            </section>
+            <section>
+              <h2 className="font-display font-bold text-lg text-neutral-900">6. Quyền của chủ thể dữ liệu</h2>
               <p className="mt-2">
                 Theo Nghị định 13/2023/NĐ-CP, bạn có quyền được biết, đồng ý, truy cập, rút lại sự đồng ý, xóa, hạn
-                chế xử lý, và khiếu nại về dữ liệu cá nhân của mình. Liên hệ theo thông tin tại mục 6 để thực hiện
+                chế xử lý và khiếu nại về dữ liệu cá nhân của mình. Liên hệ theo thông tin tại mục 7 để thực hiện
                 các quyền này.
               </p>
             </section>
             <section>
-              <h2 className="font-display font-bold text-lg text-neutral-900">6. Liên hệ</h2>
-              <p className="mt-2">[CẦN XÁC NHẬN: email/hotline đầu mối xử lý yêu cầu về dữ liệu cá nhân].</p>
+              <h2 className="font-display font-bold text-lg text-neutral-900">7. Liên hệ</h2>
+              <p className="mt-2">Gửi yêu cầu về dữ liệu cá nhân đến <a className="text-brand underline" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> hoặc liên hệ <a className="text-brand underline" href={COMPANY.hotlineHref}>{COMPANY.hotline}</a>.</p>
             </section>
           </div>
         </section>

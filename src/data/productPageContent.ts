@@ -321,7 +321,7 @@ export const PRODUCT_PAGE_CONTENT: Record<string, ProductPageContent> = {
       { title: "Nhận hướng dẫn", description: "Nhận thông tin truy cập và cách sử dụng khi sản phẩm phù hợp." },
     ],
     faq: [
-      { q: "Ngân hàng đề có những môn nào?", a: "[CẦN XÁC NHẬN NỘI DUNG THẬT: danh sách môn và phạm vi đề hiện có]. Vui lòng để lại nhu cầu để VMG kiểm tra trước khi đăng ký." },
+      { q: "Ngân hàng đề có những môn nào?", a: "Sản phẩm chưa được mở công khai. Danh sách môn và phạm vi đề sẽ được giới thiệu khi hoàn thiện." },
       { q: "Sản phẩm có thay thế khóa học với giáo viên không?", a: "Không. Đây là công cụ luyện đề tự học bổ trợ ngoài giờ." },
     ],
     ctaFinal: "Cho VMG biết môn và khối lớp bạn cần — nhận thông tin đúng phạm vi đề hiện có.",
@@ -446,7 +446,7 @@ export const PRODUCT_PAGE_CONTENT: Record<string, ProductPageContent> = {
       { title: "Nhận đề xuất", description: "VMG tư vấn lớp, lịch và học phí hiện hành." },
     ],
     faq: [
-      { q: "Khóa học kéo dài bao lâu?", a: "[CẦN XÁC NHẬN NỘI DUNG THẬT: thời lượng từng lớp TOEIC]. Thời gian phù hợp còn phụ thuộc đầu vào và mục tiêu của bạn." },
+      { q: "Khóa học kéo dài bao lâu?", a: "Thời lượng được tư vấn theo điểm đầu vào và mục tiêu của từng lớp. VMG sẽ cung cấp lịch học hiện hành trước khi bạn đăng ký." },
       { q: "Có cam kết điểm TOEIC không?", a: "Hiện chưa có dữ liệu xác nhận một chính sách cam kết chung cho trang này. Tư vấn viên chỉ cung cấp cam kết nếu có văn bản áp dụng cho lớp cụ thể." },
     ],
     ctaFinal: "Gửi mốc điểm và deadline của bạn — nhận lộ trình TOEIC phù hợp thay vì học theo cảm tính.",
@@ -616,7 +616,7 @@ export const PRODUCT_PAGE_CONTENT: Record<string, ProductPageContent> = {
     faq: [
       { q: "VMG có đào tạo theo ngành nghề không?", a: "Có thể khảo sát nội dung theo bối cảnh công việc. Phạm vi cuối cùng cần được thống nhất sau khi làm rõ nhu cầu và nguồn lực." },
       { q: "Có đào tạo tại doanh nghiệp không?", a: "Hình thức triển khai cần xác nhận theo địa điểm, quy mô và lịch của hai bên." },
-      { q: "Bao lâu có đề xuất?", a: "[CẦN XÁC NHẬN NỘI DUNG THẬT: SLA phản hồi/đề xuất của Khối Kinh doanh]." },
+      { q: "Quy trình nhận đề xuất như thế nào?", a: "Sau khi tiếp nhận nhu cầu, đội ngũ phụ trách sẽ trao đổi phạm vi, quy mô và mục tiêu trước khi xây dựng đề xuất phù hợp." },
     ],
     ctaFinal: "Cho VMG biết bài toán nhân sự của doanh nghiệp — bắt đầu từ một buổi khảo sát nhu cầu.",
   },
@@ -785,7 +785,7 @@ export const PRODUCT_PAGE_CONTENT: Record<string, ProductPageContent> = {
     ],
     faq: [
       { q: "Mastery khác Express thế nào?", a: "Mastery hướng đến xây nền và có giáo viên kèm; Express ngắn hạn, dành cho người đã có nền và không cam kết đầu ra." },
-      { q: "Khóa học kéo dài bao lâu?", a: "[CẦN XÁC NHẬN NỘI DUNG THẬT: thời lượng VSTEP Mastery]. VMG sẽ cung cấp thời lượng đúng của lớp hiện hành khi tư vấn." },
+      { q: "Khóa học kéo dài bao lâu?", a: "Thời lượng được xác định theo trình độ đầu vào, mục tiêu B1/B2 và lịch của lớp hiện hành. Tư vấn viên sẽ cung cấp lộ trình trước khi đăng ký." },
       { q: "Có cam kết thi đậu không?", a: "Hồ sơ đã xác nhận mục tiêu chuẩn bị đủ kiến thức cho kỳ gần nhất, nhưng điều kiện cam kết cụ thể cần được cung cấp bằng văn bản theo lớp; trang không tự hứa “đậu” cho mọi trường hợp." },
     ],
     ctaFinal: "Gửi mục tiêu B1/B2 và deadline — nhận tư vấn Mastery hay Express phù hợp hơn.",

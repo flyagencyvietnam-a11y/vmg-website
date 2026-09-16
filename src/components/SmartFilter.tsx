@@ -60,7 +60,7 @@ export function SmartFilter({
       {step === "start" && (
         <div>
           <h3 className="text-base font-display font-bold mb-3">Bạn đang tìm chương trình cho ai?</h3>
-          <div className="grid sm:grid-cols-3 gap-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <OptionBtn onClick={() => setStep("child")}>👨‍👩‍👧 Con của tôi</OptionBtn>
             <OptionBtn onClick={() => setStep("self")}>👤 Bản thân tôi</OptionBtn>
             <OptionBtn onClick={() => onSelect("b2b")} active={active === "b2b"}>🏫 Doanh nghiệp</OptionBtn>
@@ -92,6 +92,7 @@ export function SmartFilter({
             <OptionBtn onClick={() => onSelect("adult")} active={active === "adult"}>💬 Giao tiếp</OptionBtn>
             <OptionBtn onClick={() => onSelect("luyenthi")} active={active === "luyenthi"}>📝 Luyện thi & chứng chỉ</OptionBtn>
             <OptionBtn onClick={() => onSelect("tieng-trung")} active={active === "tieng-trung"}>🀄 Tiếng Trung</OptionBtn>
+            <OptionBtn onClick={() => onSelect("tesol")} active={active === "tesol"}>🎓 TESOL</OptionBtn>
           </div>
         </div>
       )}

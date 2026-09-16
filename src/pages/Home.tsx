@@ -8,7 +8,7 @@ import {
   OnlineCoursesSection,
   DuHocSection,
   ValuesSection,
-  Testimonials,
+  HallOfFame,
   Partners,
   NewsSection,
   Newsletter,
@@ -46,7 +46,7 @@ export default function Home() {
         <OnlineCoursesSection />
         <DuHocSection />
         <ValuesSection />
-        <Testimonials />
+        <HallOfFame />
         <Partners />
         <NewsSection />
         <Newsletter />

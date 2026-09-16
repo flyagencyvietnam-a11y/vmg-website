@@ -1,5 +1,7 @@
 # AGENTS.md - Context vận hành cho dự án Website VMG
 
+> Bổ sung nguồn ngày 12/09/2026: Người dùng đã yêu cầu lấy nội dung/ảnh từ website VMG cũ. Xem `docs/context/LEGACY_CONTENT_AUDIT.md` và `src/data/company.ts`, `src/data/centers.ts`, `src/data/legacyNews.ts` cho dữ liệu đã đối chiếu. Các mục “chưa có dữ liệu” bên dưới phản ánh thời điểm viết ban đầu; không đổi dữ liệu có nguồn mới trở lại placeholder. Giữ nguyên quy tắc không bịa và các ràng buộc sản phẩm.
+
 > File này để Codex tự đọc và hiểu bối cảnh VMG trước khi code hoặc sinh nội dung.
 > Đặt file này ở root của repo. Không xóa các mục "KHÔNG ĐƯỢC BỊA" - đây là phần quan trọng nhất file.
 

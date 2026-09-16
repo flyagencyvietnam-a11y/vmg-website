@@ -8,14 +8,18 @@ export function B2BLeadForm() {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     setStatus("loading");
-    const { error } = await supabase.from("b2g_inquiries").insert({
-      organization: form.get("organization") as string,
-      contact_name: form.get("contact_name") as string,
-      phone: form.get("phone") as string,
-      need_notes: form.get("need_notes") as string,
-      consent_given: form.get("consent") === "on",
-    });
-    setStatus(error ? "error" : "done");
+    try {
+      const { error } = await supabase.from("b2g_inquiries").insert({
+        organization: form.get("organization") as string,
+        contact_name: form.get("contact_name") as string,
+        phone: form.get("phone") as string,
+        need_notes: form.get("need_notes") as string,
+        consent_given: form.get("consent") === "on",
+      });
+      setStatus(error ? "error" : "done");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "done") {
@@ -38,7 +42,7 @@ export function B2BLeadForm() {
         <input type="checkbox" required className="mt-0.5" name="consent" />
         Tôi đồng ý với <a href="/chinh-sach-bao-mat" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
       </label>
-      {status === "error" && <div className="text-xs text-brand font-semibold">Không gửi được, vui lòng thử lại.</div>}
+      {status === "error" && <div className="text-xs text-brand font-semibold">Chưa gửi được biểu mẫu. Vui lòng gọi <a className="underline" href="tel:1900636838">1900 636 838</a> hoặc nhắn <a className="underline" href="https://zalo.me/3856493312075808344" target="_blank" rel="noreferrer">Zalo VMG</a>.</div>}
       <button disabled={status === "loading"} className="rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit disabled:opacity-60">
         {status === "loading" ? "Đang gửi…" : "Gửi yêu cầu hợp tác"}
       </button>

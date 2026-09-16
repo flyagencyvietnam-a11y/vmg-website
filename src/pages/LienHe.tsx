@@ -2,6 +2,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { LeadCaptureForm } from "../components/LeadCaptureForm";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
+import { COMPANY } from "../data/company";
 
 export default function LienHe() {
   useDocumentMeta(
@@ -28,9 +29,13 @@ export default function LienHe() {
           <div className="rounded-3xl bg-cream border border-black/5 p-6 md:p-7">
             <h2 className="font-display font-bold text-lg mb-4">Thông tin VMG</h2>
             <ul className="space-y-3 text-sm text-neutral-600">
-              <li>Hotline: 1900 xxxx</li>
-              <li>Trung tâm: Đồng Nai · Học online: toàn quốc</li>
-              <li>Zalo · Messenger</li>
+              <li><span className="block font-bold text-neutral-900">Trụ sở chính</span>{COMPANY.headquarters}</li>
+              <li><span className="block font-bold text-neutral-900">Văn phòng đại diện</span>{COMPANY.office}</li>
+              <li><a className="text-brand font-bold" href={COMPANY.hotlineHref}>Hotline: {COMPANY.hotline}</a></li>
+              <li><a href={COMPANY.mobileHref}>{COMPANY.mobile}</a></li>
+              <li><a className="text-brand" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></li>
+              <li className="flex flex-wrap gap-4"><a href={COMPANY.zalo} target="_blank" rel="noreferrer" className="underline">Zalo</a><a href={COMPANY.messenger} target="_blank" rel="noreferrer" className="underline">Messenger</a><a href={COMPANY.facebook} target="_blank" rel="noreferrer" className="underline">Facebook</a></li>
+              <li><a href="/he-thong-trung-tam" className="font-bold text-brand">Tìm trung tâm &amp; chỉ đường →</a></li>
             </ul>
           </div>
         </section>

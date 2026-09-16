@@ -17,7 +17,7 @@ function JourneyBlock({ stage }: { stage: JourneyStage }) {
     thieunhi: "Xây nền tiếng Anh",
     teen: "Bứt phá chứng chỉ",
     duhoc: "Du học hè & dài hạn",
-    huongnghiep: "TESOL & việc làm quốc tế",
+    huongnghiep: "Định hướng tương lai",
   };
 
   return (

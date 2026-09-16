@@ -3,8 +3,7 @@ import { ArrowRight, Building2, Eye, GraduationCap, MapPin, Network, Target } fr
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
-import chairmanImage from "../assets/vmg/chairman-nguyen-quoc-khanh.png";
-import chairmanSignature from "../assets/vmg/chairman-nguyen-quoc-khanh-signature.png";
+import { COMPANY, COMPANY_HISTORY } from "../data/company";
 
 const PILLARS = [
   {
@@ -35,7 +34,9 @@ const PARTNERS = [
 
 export default function VeVmg() {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const target = window.location.hash && document.getElementById(window.location.hash.slice(1));
+    if (target) target.scrollIntoView();
+    else window.scrollTo(0, 0);
   }, []);
 
   useDocumentMeta(
@@ -117,27 +118,27 @@ export default function VeVmg() {
           <div className="container-vmg">
             <div className="max-w-2xl">
               <span className="text-xs font-bold uppercase tracking-[.18em] text-gold-soft">Định hướng phát triển</span>
-              <h2 className="mt-3 text-3xl font-display font-extrabold tracking-tight md:text-5xl">Tầm nhìn và sứ mệnh</h2>
+              <h2 className="mt-3 text-3xl font-display font-extrabold tracking-tight md:text-5xl">Trách nhiệm trong từng giá trị giáo dục</h2>
               <p className="mt-4 text-sm leading-6 text-white/60">
-                Hai nội dung dưới đây đang chờ VMG cung cấp bản chính thức trước khi xuất bản.
+                Chất lượng đào tạo bắt đầu từ con người, chương trình học và sự tận tâm với mỗi học viên.
               </p>
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               <article className="rounded-[2rem] border border-white/10 bg-white/5 p-7 md:p-9">
                 <Eye className="h-7 w-7 text-gold-soft" />
-                <h3 className="mt-6 text-2xl font-display font-bold">Tầm nhìn</h3>
-                <p className="mt-4 text-sm leading-7 text-white/55">[CẦN NỘI DUNG THẬT: tuyên bố tầm nhìn chính thức của VMG]</p>
+                <h3 className="mt-6 text-2xl font-display font-bold">Trách nhiệm &amp; chất lượng</h3>
+                <p className="mt-4 text-sm leading-7 text-white/80">{COMPANY.responsibility}</p>
               </article>
               <article className="rounded-[2rem] border border-white/10 bg-white/5 p-7 md:p-9">
                 <Target className="h-7 w-7 text-gold-soft" />
                 <h3 className="mt-6 text-2xl font-display font-bold">Sứ mệnh</h3>
-                <p className="mt-4 text-sm leading-7 text-white/55">[CẦN NỘI DUNG THẬT: tuyên bố sứ mệnh chính thức của VMG]</p>
+                <p className="mt-4 text-sm leading-7 text-white/80">{COMPANY.mission}</p>
               </article>
             </div>
           </div>
         </section>
 
-        <section className="brand-pattern py-16 md:py-24">
+        <section id="thong-diep-chu-tich" className="brand-pattern scroll-mt-24 py-16 md:py-24">
           <div className="container-vmg grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:gap-12">
             <div className="relative min-h-[430px] overflow-hidden rounded-[2.25rem] bg-gradient-to-br from-[#f0dfba] via-[#d2a95d] to-[#98651f] p-7 text-[#331c10] shadow-xl shadow-gold/15">
               <div className="absolute -bottom-12 -right-8 h-60 w-60 rounded-full border border-white/30" aria-hidden="true" />
@@ -149,23 +150,20 @@ export default function VeVmg() {
                 <div className="mt-4 font-display text-2xl font-extrabold">Ông Nguyễn Quốc Khánh</div>
               </div>
               <img
-                src={chairmanImage}
-                alt="Chủ tịch Nguyễn Quốc Khánh cùng đại diện các thế hệ học viên"
-                className="absolute bottom-0 left-1/2 z-[1] w-[112%] max-w-none -translate-x-1/2 drop-shadow-2xl sm:w-[96%]"
+                src={COMPANY.chairmanImage}
+                alt="Ông Nguyễn Quốc Khánh, Chủ tịch kiêm Tổng Giám đốc VMG"
+                className="relative mx-auto mt-8 w-full max-w-sm object-contain"
+                loading="lazy"
               />
             </div>
             <div className="flex flex-col justify-center">
               <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Thông điệp Chủ tịch</span>
               <h2 className="mt-3 text-3xl font-display font-extrabold tracking-tight md:text-5xl">Một lời dẫn cho hành trình phía trước</h2>
-              <div className="mt-7 rounded-3xl border border-dashed border-brand/25 bg-white/70 p-6 text-sm leading-7 text-neutral-500">
-                [CẦN NỘI DUNG THẬT: thông điệp chính thức của Chủ tịch Nguyễn Quốc Khánh. Không sử dụng nội dung mô phỏng hoặc trích dẫn chưa được duyệt.]
-              </div>
-              <img
-                src={chairmanSignature}
-                alt="Chữ ký Chủ tịch Nguyễn Quốc Khánh"
-                className="mt-6 h-14 w-auto self-start object-contain"
-                loading="lazy"
-              />
+              <blockquote cite={COMPANY.source} className="mt-7 space-y-5 border-l-4 border-gold-soft pl-6 text-base leading-8 text-neutral-700">
+                {COMPANY.chairmanMessage.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </blockquote>
+              <p className="mt-6 font-display font-bold">Ông {COMPANY.chairmanName}</p>
+              <p className="mt-1 text-sm text-neutral-500">{COMPANY.chairmanRole}</p>
             </div>
           </div>
         </section>
@@ -175,7 +173,7 @@ export default function VeVmg() {
             <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm">
               <GraduationCap className="h-6 w-6 text-brand" />
               <div className="mt-5 text-3xl font-display font-extrabold">23 năm</div>
-              <p className="mt-2 text-sm text-neutral-600">Hành trình giáo dục và đào tạo từ giai đoạn 2002–2003.</p>
+              <p className="mt-2 text-sm text-neutral-600">Từ trung tâm Nguyễn Văn Linh năm 2003 đến hệ sinh thái giáo dục hôm nay.</p>
             </div>
             <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm">
               <MapPin className="h-6 w-6 text-brand" />
@@ -188,6 +186,18 @@ export default function VeVmg() {
               <p className="mt-2 text-sm text-neutral-600">Hơn 42.000 học sinh trong hệ thống trường học đối tác.</p>
             </div>
           </div>
+        </section>
+
+        <section className="container-vmg py-16 md:py-20">
+          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Hành trình VMG</span>
+          <h2 className="mt-3 text-3xl font-display font-extrabold md:text-4xl">Những cột mốc phát triển</h2>
+          <ol className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {COMPANY_HISTORY.map((milestone) => <li key={milestone.year} className="border-l-2 border-gold-soft pl-6 py-2">
+              <div className="font-display text-2xl font-extrabold text-brand">{milestone.year}</div>
+              <p className="mt-3 text-sm leading-7 text-neutral-600">{milestone.text}</p>
+            </li>)}
+          </ol>
+          <a className="mt-8 inline-flex text-sm font-bold text-brand hover:underline" href="/doi-ngu-giao-vien">Gặp gỡ đội ngũ giáo viên →</a>
         </section>
 
         <section className="border-y border-black/5 bg-cream py-16 md:py-20">

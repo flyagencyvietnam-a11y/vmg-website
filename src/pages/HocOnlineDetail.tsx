@@ -9,7 +9,7 @@ import { getProductSupplementalPhotos } from "../data/vmgPhotoLibrary";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
 
 function InfoRow({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
+  if (!value || value.trim().startsWith("[CẦN")) return null;
   return (
     <div className="py-4 border-b border-black/5 grid sm:grid-cols-[160px_1fr] gap-1 sm:gap-4">
       <div className="text-xs font-bold uppercase tracking-widest text-neutral-400">{label}</div>
@@ -52,7 +52,7 @@ export default function HocOnlineDetail() {
       }
     : null;
   const catalogHref = product.section === "tesol"
-    ? "/huong-nghiep"
+    ? product.format === "online" ? "/hoc-online" : "/ngoai-ngu"
     : product.section === "b2b"
       ? "/truong-hoc-doanh-nghiep"
       : product.format === "online"
@@ -293,7 +293,7 @@ export default function HocOnlineDetail() {
                 <div className="py-10 border-b border-black/5">
                   <h2 className="text-xl font-display font-extrabold">Câu hỏi thường gặp</h2>
                   <div className="mt-4 space-y-4">
-                    {(content?.faq || hero?.faq || []).map((f, i) => (
+                    {(content ? verifiedFaq : hero?.faq || []).filter((f) => !f.a.startsWith("[CẦN")).map((f, i) => (
                       <div key={i}>
                         <div className="font-semibold text-sm text-neutral-900">{f.q}</div>
                         <p className="mt-1 text-sm text-neutral-600 leading-relaxed">{f.a}</p>
@@ -303,11 +303,11 @@ export default function HocOnlineDetail() {
                 </div>
               )}
 
-              {/* ---- Testimonial placeholder ---- */}
+              {/* General VMG stories; do not imply these are testimonials for this product. */}
               {!content && hero?.testimonialPending && (
                 <div className="py-10">
                   <div className="rounded-2xl border border-dashed border-black/15 bg-cream/60 p-6 text-center text-sm text-neutral-500">
-                    [Vị trí testimonial: chờ UGC thật — không tự viết]
+                    <a href="/hall-of-fame" className="font-bold text-brand hover:underline">Khám phá câu chuyện học viên và chia sẻ phụ huynh trong hệ thống VMG →</a>
                   </div>
                 </div>
               )}

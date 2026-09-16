@@ -25,8 +25,8 @@ export default function NgoaiNgu() {
             Tiếng Anh mọi độ tuổi, Tiếng Trung, luyện thi & chứng chỉ
           </h1>
           <p className="mt-4 text-neutral-600 max-w-2xl">
-            Trụ cột Ngoại ngữ của VMG gồm tiếng Anh (mọi độ tuổi) và tiếng Trung (HSK). TESOL và Xuất khẩu lao động thuộc trụ cột Hướng nghiệp.
-            Phần lớn chương trình có cả hình thức Online và Offline - xem tag trên từng thẻ chương trình.
+            Trụ cột Ngoại ngữ của VMG gồm tiếng Anh cho nhiều độ tuổi, tiếng Trung, luyện thi chứng chỉ và VMG TESOL.
+            Hình thức học được ghi rõ trên từng chương trình; xuất khẩu lao động được giới thiệu tại website riêng của VMP.
           </p>
         </section>
 

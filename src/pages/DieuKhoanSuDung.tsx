@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useDocumentMeta } from "../lib/useDocumentMeta";
+import { COMPANY } from "../data/company";
 
 export default function DieuKhoanSuDung() {
   useDocumentMeta(
@@ -16,9 +17,7 @@ export default function DieuKhoanSuDung() {
           <span className="text-xs font-bold uppercase tracking-widest text-brand">Pháp lý</span>
           <h1 className="mt-3 text-3xl md:text-4xl font-display font-extrabold">Điều khoản sử dụng</h1>
 
-          <div className="mt-6 rounded-2xl border border-dashed border-brand/30 bg-cream/60 p-4 text-xs text-neutral-500">
-            [CẦN RÀ SOÁT PHÁP LÝ: bản dự thảo, cần bộ phận pháp chế VMG xác nhận trước khi công bố chính thức.]
-          </div>
+          <p className="mt-4 text-xs text-neutral-500">Cập nhật ngày 16/09/2026</p>
 
           <div className="mt-8 space-y-6 text-sm text-neutral-700 leading-relaxed">
             <section>
@@ -42,8 +41,16 @@ export default function DieuKhoanSuDung() {
               </p>
             </section>
             <section>
-              <h2 className="font-display font-bold text-lg text-neutral-900">4. Liên hệ</h2>
-              <p className="mt-2">[CẦN XÁC NHẬN: email/hotline đầu mối tiếp nhận thắc mắc về điều khoản sử dụng].</p>
+              <h2 className="font-display font-bold text-lg text-neutral-900">4. Liên kết bên ngoài</h2>
+              <p className="mt-2">Website có thể dẫn tới VMP, mạng xã hội, bản đồ hoặc website đối tác. Nội dung và chính sách tại các website đó do đơn vị tương ứng quản lý.</p>
+            </section>
+            <section>
+              <h2 className="font-display font-bold text-lg text-neutral-900">5. Sử dụng website</h2>
+              <p className="mt-2">Bạn đồng ý cung cấp thông tin chính xác khi gửi yêu cầu, không can thiệp vào hoạt động của website và không sử dụng nội dung cho mục đích trái pháp luật hoặc gây nhầm lẫn về VMG.</p>
+            </section>
+            <section>
+              <h2 className="font-display font-bold text-lg text-neutral-900">6. Liên hệ</h2>
+              <p className="mt-2">Liên hệ VMG qua <a className="text-brand underline" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> hoặc hotline <a className="text-brand underline" href={COMPANY.hotlineHref}>{COMPANY.hotline}</a>. Văn phòng đại diện: {COMPANY.office}.</p>
             </section>
           </div>
         </section>

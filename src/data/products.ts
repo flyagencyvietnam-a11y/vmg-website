@@ -27,7 +27,7 @@ export type NgoaiNguSection =
   | "adult" // 2.2 Giao tiếp người lớn
   | "luyenthi" // 2.3 Luyện thi & chứng chỉ: IELTS/TOEIC/VSTEP/Cambridge
   | "tieng-trung" // Tiếng Trung (HSK) - part of the pillar per CLAUDE.md §2, no numbered sitemap slot of its own
-  | "tesol" // Career pillar: offline 120H/140H + online TESOL E-PATH
+  | "tesol" // VMG TESOL offline + TESOL E-PATH online
   | "b2b"; // 2.5 Đào tạo doanh nghiệp (B2B)
 
 // Full "hero page" copywrite - only present for products with a finished copy
@@ -100,7 +100,7 @@ export const PRODUCTS: Product[] = [
       painParagraph: "Giai đoạn mầm non là \"cửa sổ vàng\" để trẻ tiếp thu ngôn ngữ một cách tự nhiên — nhưng môi trường học không phù hợp có thể khiến trẻ sợ tiếng Anh trước khi kịp yêu thích nó.",
       solutionParagraph: "E-Pioneer được xây dựng nội dung học riêng cho giai đoạn đầu đời, giúp trẻ tiếp cận tiếng Anh tự nhiên qua các hoạt động phù hợp lứa tuổi, không tạo áp lực học thuật sớm.",
       faq: [
-        { q: "Độ tuổi nào phù hợp để bắt đầu?", a: "[CẦN XÁC NHẬN: độ tuổi tuyển sinh cụ thể]" },
+        { q: "Độ tuổi nào phù hợp để bắt đầu?", a: "Chương trình dành cho trẻ mầm non từ 3 đến 5 tuổi. VMG sẽ tư vấn lớp theo độ tuổi và khả năng tương tác hiện tại của con." },
         { q: "Con chưa nói sõi tiếng Việt có học được không?", a: "Chương trình thiết kế phù hợp với giai đoạn phát triển ngôn ngữ đầu đời, đội ngũ tư vấn sẽ đánh giá cụ thể theo từng trường hợp." },
       ],
       ctaFinal: "Đăng ký tham quan lớp học thử cho con.",
@@ -197,7 +197,7 @@ export const PRODUCTS: Product[] = [
         "SAT 1400 — Nâng cao: hướng top đầu và học bổng quốc tế.",
         "SAT 1550+ — Elite: chinh phục điểm top, mentoring sát sao.",
       ],
-      nextSteps: [{ label: "Tư vấn du học VMP", note: "Sau khi có điểm SAT mục tiêu, xây dựng hồ sơ ứng tuyển (nội dung Du học cần chị Hằng phê duyệt riêng)" }],
+      nextSteps: [{ label: "Tư vấn du học VMP", note: "Sau khi có điểm SAT mục tiêu, trao đổi cùng VMP để xây dựng lộ trình hồ sơ phù hợp." }],
       faq: [],
       ctaFinal: "Đăng ký kiểm tra trình độ để xác định đúng cấp độ SAT phù hợp với bạn.",
       testimonialPending: true,
@@ -227,6 +227,7 @@ export const PRODUCTS: Product[] = [
     tag: "Luyện đề tự học",
     desc: "Ngân hàng đề thi dạng số (MOOC/Automation) - luyện đề tự học thêm ngoài giờ học chính khóa hoặc lớp offline.",
     overlay: "from-teal-500/80 to-slate-700/85", ageGroup: "teens", section: "luyenthi", format: "online",
+    published: false, // chưa có danh sách môn/phạm vi đề được xác nhận để công bố
     audience: "Học sinh cần luyện đề tự học thêm ngoài giờ học chính khóa hoặc lớp offline.",
   },
   {
@@ -483,7 +484,7 @@ export const PRODUCTS: Product[] = [
         "IDP Platinum Partner + British Council — \"Học đâu thi đó\", không lo đề lạ.",
         "7 cấp độ IE1 → IE7, từ band 4.0 đến 6.5+ — biết chính xác mình đang ở đâu và cần bao lâu.",
         "Hệ sinh thái EdTech tích hợp — theo dõi tiến độ real-time, kho học liệu không giới hạn.",
-        "[CẦN XÁC NHẬN: số năm đào tạo IELTS cụ thể của mảng này — khác với mốc 23 năm thành lập VMG, cần chốt lại con số đúng trước khi đăng]",
+        "Lộ trình IE1–IE7 giúp người học xác định rõ cấp độ hiện tại và mục tiêu của từng chặng.",
         "Cam kết đầu ra từng cấp — học không đạt, học lại không tính phí.",
       ],
       nextSteps: [
@@ -553,7 +554,6 @@ export const PRODUCTS: Product[] = [
     duration: "2 tháng/khóa – 36 giờ/khóa – 5 cấp độ",
     teachers: "50% GVNN + 50% GVVN",
     priceList: "6.700.000đ",
-    priceCurrent: "[CẦN XÁC NHẬN GIÁ THÁNG 7 — giá KM 35% (4.355.000đ) đã hết hạn từ cuối T6/2026, chưa có giá chính thức mới để công bố]",
     commitment: "Tự tin giao tiếp tiếng Anh hàng ngày và trong môi trường công việc.",
     hero: {
       metaTitle: "E-Speak – Tiếng Anh Giao Tiếp, 50% Giáo Viên Nước Ngoài | VMG",
@@ -630,12 +630,12 @@ export const PRODUCTS: Product[] = [
     tag: "Giải pháp phát triển đội ngũ giáo viên",
     desc: "Giải pháp bồi dưỡng tiếng Anh và năng lực giảng dạy bằng tiếng Anh dành cho đội ngũ giáo viên tại trường học.",
     overlay: "from-emerald-500/80 to-teal-700/85", ageGroup: "b2b", section: "b2b", format: "online",
+    published: false, // sản phẩm đang hoàn thiện; ẩn khỏi website public cho tới khi dữ liệu được chốt
     audience: "Trường học và cơ sở giáo dục cần phát triển năng lực tiếng Anh, Classroom English và giảng dạy song ngữ cho đội ngũ giáo viên.",
     duration: "2–3 tháng tự học (bản online)",
     teachers: "Online 100% (bản online)",
     priceList: "9.900.000đ",
     priceCurrent: "7.920.000đ (KM 20%)",
-    commitment: "[CẦN XÁC NHẬN: sản phẩm còn đang hoàn thiện, chưa có 5 học viên thật/testimonial]",
   },
 ];
 
@@ -659,8 +659,8 @@ export const FORMAT_LABEL: Record<ProductFormat, string> = {
   hybrid: "Online & Offline",
 };
 
-// Public groups belonging to the Ngoại ngữ pillar. TESOL is intentionally
-// excluded because it belongs to Hướng nghiệp.
+// Public learning groups. Hướng nghiệp remains a separate coming-soon pillar;
+// TESOL is listed here and in the online catalog according to the agreed sitemap.
 export const NGOAI_NGU_GROUPS: { title: string; note?: string; section: NgoaiNguSection }[] = [
   { title: "Mầm non (3-5 tuổi)", section: "mamnon" },
   { title: "Thiếu nhi (6-11 tuổi)", section: "thieunhi" },
@@ -668,6 +668,7 @@ export const NGOAI_NGU_GROUPS: { title: string; note?: string; section: NgoaiNgu
   { title: "Giao tiếp người lớn", section: "adult" },
   { title: "Luyện thi & chứng chỉ", note: "IELTS, TOEIC, VSTEP, Cambridge", section: "luyenthi" },
   { title: "Tiếng Trung", section: "tieng-trung" },
+  { title: "VMG TESOL", note: "Chương trình đào tạo nghiệp vụ giảng dạy tiếng Anh trực tiếp và trực tuyến.", section: "tesol" },
   {
     title: "Đào tạo doanh nghiệp",
     note: "Chương trình tiếng Anh cho doanh nghiệp - để lại thông tin tại trang Trường học & Doanh nghiệp để được tư vấn.",

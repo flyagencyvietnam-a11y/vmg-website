@@ -14,10 +14,10 @@ export type JourneyStage = {
   gradientTo: string;
 };
 
-import childPerson from "../assets/hero-child-v3.png";
-import teenPerson from "../assets/hero-teen-v3.png";
-import studyAbroadPerson from "../assets/hero-study-abroad-v3.png";
-import careerPerson from "../assets/hero-career-v3.png";
+import childPerson from "../assets/hero-child-v3.webp";
+import teenPerson from "../assets/hero-teen-v3.webp";
+import studyAbroadPerson from "../assets/hero-study-abroad-v3.webp";
+import careerPerson from "../assets/hero-career-v3.webp";
 
 export const HERO_JOURNEY_STAGES: JourneyStage[] = [
   { stageId: "thieunhi", label: "Thiếu nhi", heightDesktop: 150, imageSrc: childPerson, link: { type: "program-filter", filter: "kids" }, order: 1, gradientFrom: "#f472b6", gradientTo: "#9d174d" },

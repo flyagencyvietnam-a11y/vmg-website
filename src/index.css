@@ -342,6 +342,35 @@ html { scroll-behavior: smooth; overflow-x: clip; }
   filter: blur(2px);
 }
 
+.hall-of-fame-marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+}
+
+.hall-of-fame-track {
+  animation: hall-of-fame-scroll 52s linear infinite;
+  will-change: transform;
+}
+
+.hall-of-fame-marquee:hover .hall-of-fame-track {
+  animation-play-state: paused;
+}
+
+@keyframes hall-of-fame-scroll {
+  to { transform: translateX(calc(-50% - .375rem)); }
+}
+
+@media (min-width: 768px) {
+  @keyframes hall-of-fame-scroll {
+    to { transform: translateX(calc(-50% - .625rem)); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hall-of-fame-marquee { overflow-x: auto; }
+  .hall-of-fame-track { animation: none; }
+}
+
 .partner-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease; }
 .partner-card:hover { transform: translateY(-6px); border-color: rgba(190,32,47,.18); box-shadow: 0 22px 48px -34px rgba(80,19,26,.6); }
 

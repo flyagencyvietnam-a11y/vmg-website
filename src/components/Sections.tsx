@@ -2,19 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Image, Network, Quote, Target } from "lucide-react";
 import { PRODUCTS, FORMAT_LABEL, isLearningProduct, type AgeGroupFilter } from "../data/products";
 import { getProductVisual } from "../data/productVisuals";
-import suKienDuHocImage from "../assets/products/su-kien-du-hoc.png";
+import workAbroadImage from "../assets/products/xuat-khau-lao-dong.webp";
 import vmpLogo from "../assets/vmp/vmp-logo.webp";
 import vmpShortTermImage from "../assets/vmp/short-term-study.webp";
 import vmpGlobalStudyImage from "../assets/vmp/global-study-pathways.webp";
-import chairmanImage from "../assets/vmg/chairman-nguyen-quoc-khanh.png";
 import ft15Object from "../assets/product-objects/ft15-3d.webp";
 import ieltsExpressObject from "../assets/product-objects/ielts-express-3d.webp";
 import vstepObject from "../assets/product-objects/vstep-3d.webp";
 import giaoTiepObject from "../assets/product-objects/giao-tiep-3d.webp";
 import tesolObject from "../assets/product-objects/tesol-3d.webp";
 import edunextObject from "../assets/product-objects/edunext-3d.webp";
-import { STUDENT_MOMENTS } from "../data/vmgPhotoLibrary";
 import { supabase } from "../lib/supabase";
+import { COMPANY } from "../data/company";
+import { LEGACY_NEWS } from "../data/legacyNews";
+import { VMP } from "../data/vmp";
 
 // The 6 flagship online-first products get their own homepage highlight
 // (OnlineCoursesSection) - everything else shows in the general carousel.
@@ -199,13 +200,10 @@ export function OnlineCoursesSection() {
 }
 
 /* ---------------- Du học (VMP) teaser ---------------- */
-// Content pending chị Hằng's approval per AGENTS.md - short catalog descriptions only,
-// no specific claims beyond what's confirmed in AGENTS.md §5B.
-
 const DU_HOC_ITEMS = [
-  { name: "Du học hè", desc: "Mỹ, Úc, Canada, Singapore và Philippines.", image: vmpShortTermImage, alt: "Hình ảnh chương trình trải nghiệm du học ngắn hạn của VMP" },
-  { name: "Du học dài hạn", desc: "Mỹ, Úc, Canada và Đài Loan.", image: vmpGlobalStudyImage, alt: "Không gian tư vấn và bản đồ thế giới thể hiện hành trình du học toàn diện của VMP" },
-  { name: "Sự kiện du học", desc: "[CẦN CẬP NHẬT: lịch sự kiện/triển lãm du học sắp tới – chưa có dữ liệu thật]", image: suKienDuHocImage, alt: "Gia đình tìm hiểu trường đại học tại triển lãm giáo dục quốc tế" },
+  { name: "Du học hè 2026", desc: "Trải nghiệm học tập và văn hóa tại Mỹ, Úc, Singapore hoặc Philippines.", href: VMP.studyAbroad, image: vmpShortTermImage, alt: "Hình ảnh chương trình trải nghiệm du học ngắn hạn của VMP" },
+  { name: "Du học dài hạn", desc: "Tìm hiểu lộ trình quốc gia, ngành học, hồ sơ trường, học bổng và visa.", href: VMP.studyAbroad, image: vmpGlobalStudyImage, alt: "Không gian tư vấn và bản đồ thế giới thể hiện hành trình du học toàn diện của VMP" },
+  { name: "Xuất khẩu lao động", desc: "Xem thông tin và điều kiện chương trình được VMP cập nhật trên website chuyên biệt.", href: VMP.workAbroad, image: workAbroadImage, alt: "Minh họa hành trình làm việc quốc tế cùng VMP" },
 ];
 
 export function DuHocSection() {
@@ -222,9 +220,9 @@ export function DuHocSection() {
           </div>
           <div className="lg:pb-1">
             <p className="max-w-xl text-sm leading-6 text-white/75 md:text-base md:leading-7">
-              Khám phá các hướng đồng hành chính của VMP. Nội dung chi tiết đang chờ đội VMP xác nhận trước khi công bố đầy đủ.
+              VMP tư vấn lộ trình cá nhân hóa, hỗ trợ hồ sơ và cập nhật thông tin chương trình trên website chuyên biệt dành cho du học.
             </p>
-            <a href="https://duhocvmp.com/" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#ffad31] transition hover:text-white">
+            <a href={VMP.website} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#ffad31] transition hover:text-white">
               Khám phá website VMP <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
@@ -232,7 +230,7 @@ export function DuHocSection() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {DU_HOC_ITEMS.map((it) => (
-            <a href="/du-hoc" aria-label={`Tìm hiểu ${it.name}`} key={it.name} className="vmp-program-card group flex min-h-[410px] flex-col overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-[0_26px_60px_-35px_rgba(0,0,0,.75)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_34px_70px_-34px_rgba(0,0,0,.85)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ffad31]/50">
+            <a href={it.href} target="_blank" rel="noreferrer" aria-label={`Tìm hiểu ${it.name} trên website VMP`} key={it.name} className="vmp-program-card group flex min-h-[410px] flex-col overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-[0_26px_60px_-35px_rgba(0,0,0,.75)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_34px_70px_-34px_rgba(0,0,0,.85)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ffad31]/50">
               <div className="relative h-[230px] shrink-0 overflow-hidden bg-[#dcecf8]">
                 <img src={it.image} alt={it.alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
                 <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-[#071a73]/88 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-white shadow-sm backdrop-blur">VMP by VMG</span>
@@ -288,34 +286,35 @@ export function ValuesSection() {
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl border border-white/12 bg-white/8 p-5 backdrop-blur-sm">
                 <Eye className="h-5 w-5 text-gold-soft" />
-                <h3 className="mt-4 font-display text-lg font-bold">Tầm nhìn</h3>
-                <p className="mt-2 text-sm leading-6 text-white/65">Nội dung chính thức đang chờ VMG xác nhận.</p>
+                <h3 className="mt-4 font-display text-lg font-bold">Trách nhiệm &amp; chất lượng</h3>
+                <p className="mt-2 text-sm leading-6 text-white/80">{COMPANY.responsibility}</p>
               </div>
               <div className="rounded-3xl border border-white/12 bg-white/8 p-5 backdrop-blur-sm">
                 <Target className="h-5 w-5 text-gold-soft" />
                 <h3 className="mt-4 font-display text-lg font-bold">Sứ mệnh</h3>
-                <p className="mt-2 text-sm leading-6 text-white/65">Nội dung chính thức đang chờ VMG xác nhận.</p>
+                <p className="mt-2 text-sm leading-6 text-white/80">{COMPANY.mission}</p>
               </div>
             </div>
             <div className="mt-4 flex flex-1 flex-col justify-between rounded-3xl bg-white p-6 text-neutral-900">
               <Quote className="h-7 w-7 text-brand/30" />
               <p className="mt-4 text-sm leading-6 text-neutral-500">
-                [CẦN NỘI DUNG THẬT: thông điệp của Chủ tịch Nguyễn Quốc Khánh]
+                “{COMPANY.chairmanMessage[0]}”
               </p>
               <div className="mt-5 flex items-center gap-4 border-t border-black/5 pt-4">
                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-gradient-to-br from-cream to-[#ead7ae]">
                   <img
-                    src={chairmanImage}
-                    alt="Chủ tịch Nguyễn Quốc Khánh cùng đại diện các thế hệ học viên"
-                    className="absolute bottom-0 left-1/2 w-[160%] max-w-none -translate-x-1/2"
+                    src={COMPANY.chairmanImage}
+                    alt="Chủ tịch Nguyễn Quốc Khánh"
+                    className="h-full w-full object-cover object-top"
                     loading="lazy"
                   />
                 </div>
                 <div>
                   <div className="font-display font-bold">Ông Nguyễn Quốc Khánh</div>
-                  <div className="text-xs text-neutral-500">Chủ tịch VMG</div>
+                  <div className="text-xs text-neutral-500">{COMPANY.chairmanRole}</div>
                 </div>
               </div>
+              <a href="/ve-vmg#thong-diep-chu-tich" className="mt-4 text-sm font-bold text-brand hover:underline">Đọc thông điệp Chủ tịch →</a>
             </div>
           </div>
         </div>
@@ -324,54 +323,46 @@ export function ValuesSection() {
   );
 }
 
-/* ---------------- Testimonials / Student stories ---------------- */
+/* ---------------- Hall of Fame ---------------- */
 
-export function Testimonials() {
-  const smallSlots = [
-    "[Cần nội dung thật: cảm nhận phụ huynh – chưa có dữ liệu]",
-    "[Cần nội dung thật: thành tích IELTS/Cambridge cụ thể – chưa có dữ liệu]",
-    "[Cần nội dung thật: cảm nhận học viên đi làm – chưa có dữ liệu]",
-    "[Cần nội dung thật: câu chuyện tiến bộ học viên – chưa có dữ liệu]",
-  ];
+const IELTS_HALL_OF_FAME = Array.from({ length: 16 }, (_, index) => ({
+  src: `/hall-of-fame/ielts-${String(index + 1).padStart(2, "0")}.webp`,
+  alt: `Học viên IELTS VMG được vinh danh ${index + 1}`,
+}));
+
+export function HallOfFame() {
   return (
-    <section className="testimonial-stage relative overflow-hidden bg-[#2b1116] py-16 md:py-24">
-      <div className="container-vmg">
+    <section id="hall-of-fame" className="testimonial-stage relative overflow-hidden bg-[#2b1116] py-16 md:py-24">
+      <div className="container-vmg relative z-10">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-gold-soft">Câu chuyện học viên</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-gold-soft">Vinh danh học viên VMG</span>
           <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold text-white">
-            Những câu chuyện thật sẽ sớm được kể tại đây
+            Hall of Fame
           </h2>
-          <p className="mt-3 text-white/70 text-sm">
-            VMG đang tổng hợp thành tích, hình ảnh và chia sẻ được phép công bố từ học viên, phụ huynh.
+          <p className="mt-3 text-sm leading-6 text-white/70">
+            Vinh danh những học viên VMG đã chinh phục các cột mốc IELTS ấn tượng.
           </p>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-          {STUDENT_MOMENTS.map((photo) => (
-            <figure key={photo.src} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-              <div className="overflow-hidden">
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                  style={{ objectPosition: photo.position ?? "center" }}
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className="px-4 py-3 text-[11px] leading-5 text-white/65">{photo.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
-        <div className="mt-10 grid lg:grid-cols-3 gap-5">
-          <div className="lg:col-span-2 lg:row-span-2 rounded-3xl bg-white/5 border border-dashed border-white/25 p-8 flex flex-col items-center justify-center text-center min-h-[260px]">
-            <p className="text-sm text-white/50 leading-relaxed max-w-md">
-              [Cần nội dung thật: câu chuyện học viên nổi bật (ảnh + tên + thành tích + trích dẫn) – chưa có dữ liệu, xem CLAUDE.md mục 2]
-            </p>
+        <div className="hall-of-fame-marquee mt-10 overflow-hidden" role="region" aria-label="Danh sách học viên IELTS được vinh danh">
+          <div className="hall-of-fame-track flex w-max gap-3 md:gap-5">
+            {[...IELTS_HALL_OF_FAME, ...IELTS_HALL_OF_FAME].map((student, index) => {
+              const isDuplicate = index >= IELTS_HALL_OF_FAME.length;
+              return (
+                <figure
+                  key={`${student.src}-${isDuplicate ? "duplicate" : "original"}`}
+                  className="group w-[72vw] max-w-[280px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_18px_45px_-24px_rgba(0,0,0,.8)] sm:w-[38vw] md:w-[270px] md:rounded-3xl lg:w-[290px]"
+                  aria-hidden={isDuplicate || undefined}
+                >
+                  <img
+                    src={student.src}
+                    alt={isDuplicate ? "" : student.alt}
+                    className="aspect-[3/4] w-full object-cover transition duration-500 ease-out group-hover:scale-[1.025]"
+                    loading="lazy"
+                  />
+                </figure>
+              );
+            })}
           </div>
-          {smallSlots.map((text, i) => (
-            <div key={i} className="rounded-3xl bg-white/5 border border-dashed border-white/25 p-6 flex flex-col items-center justify-center text-center min-h-[120px]">
-              <p className="text-xs text-white/50 leading-relaxed">{text}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -424,7 +415,7 @@ const NEWS_CATEGORY_LABELS: Record<string, string> = {
 };
 
 export function NewsSection() {
-  const [news, setNews] = useState<NewsItem[]>([]);
+  const [news, setNews] = useState<NewsItem[]>(LEGACY_NEWS);
   const [loading, setLoading] = useState(true);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -440,7 +431,7 @@ export function NewsSection() {
         .limit(10);
 
       if (active) {
-        setNews((data as NewsItem[] | null) ?? []);
+        setNews(data?.length ? (data as NewsItem[]) : LEGACY_NEWS);
         setLoading(false);
       }
     }
@@ -464,7 +455,7 @@ export function NewsSection() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Tin tức VMG</span>
-          <h2 id="home-news-title" className="mt-2 text-3xl md:text-4xl font-display font-extrabold tracking-tight">Đang diễn ra tại VMG</h2>
+          <h2 id="home-news-title" className="mt-2 text-3xl md:text-4xl font-display font-extrabold tracking-tight">Nhịp sống VMG</h2>
         </div>
         <div className="hidden sm:flex items-center gap-2">
           <button type="button" onClick={() => scroll(-1)} aria-label="Xem tin trước" className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white text-neutral-700 transition hover:border-brand hover:text-brand">
@@ -481,7 +472,7 @@ export function NewsSection() {
 
       <div ref={scrollerRef} className="scrollbar-hide mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
         {news.map((item) => (
-          <a key={item.id} href="/tin-tuc" className="editorial-card group w-[82vw] max-w-[360px] shrink-0 snap-start overflow-hidden rounded-[1.5rem] border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <a key={item.id} href={LEGACY_NEWS.some((entry) => entry.slug === item.slug) ? `/tin-tuc/${item.slug}` : "/tin-tuc"} className="editorial-card group w-[82vw] max-w-[360px] shrink-0 snap-start overflow-hidden rounded-[1.5rem] border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-brand via-brand-dark to-plum">
               {item.image_url ? (
                 <img src={item.image_url} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
@@ -517,22 +508,19 @@ export function NewsSection() {
 /* ---------------- Newsletter ---------------- */
 
 export function Newsletter() {
-  const [done, setDone] = useState(false);
   return (
     <section className="container-vmg pb-16">
       <div className="newsletter-surface relative overflow-hidden rounded-[36px] px-6 md:px-12 py-10 md:py-14 flex flex-col md:flex-row items-center gap-6 justify-between">
         <div className="max-w-lg">
-          <h3 className="text-2xl md:text-3xl font-display font-extrabold text-neutral-900">Đăng ký nhận tin từ VMG</h3>
+          <h3 className="text-2xl md:text-3xl font-display font-extrabold text-neutral-900">Theo dõi nhịp sống VMG</h3>
           <p className="mt-2 text-sm text-neutral-700/80">
-            Nhận các cập nhật về chương trình học, sự kiện và hoạt động mới từ VMG.
+            Xem chương trình học, sự kiện và những hoạt động mới nhất trên kênh chính thức của VMG.
           </p>
         </div>
-        <form onSubmit={(e) => { e.preventDefault(); setDone(true); }} className="flex w-full md:w-auto items-center gap-2 bg-white rounded-full p-1.5 shadow-md min-w-[300px]">
-          <input required type="email" placeholder="Email của bạn" className="flex-1 bg-transparent px-4 py-2 text-sm focus:outline-none" />
-          <button className="rounded-full bg-brand text-white px-5 py-2.5 text-sm font-bold hover:bg-brand-dark transition-colors">
-            {done ? "✓ Đã đăng ký" : "Đăng ký"}
-          </button>
-        </form>
+        <div className="flex w-full flex-wrap gap-3 md:w-auto md:justify-end">
+          <a href="/tin-tuc" className="rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-dark">Xem tin tức →</a>
+          <a href={COMPANY.facebook} target="_blank" rel="noreferrer" className="rounded-full border border-brand/20 bg-white px-5 py-3 text-sm font-bold text-brand transition-colors hover:border-brand">Facebook VMG ↗</a>
+        </div>
       </div>
     </section>
   );
