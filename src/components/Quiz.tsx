@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { B2BLeadForm } from "./B2BLeadForm";
 import { QUIZ_FALLBACK_MAPPING } from "../data/quizFallback";
+import { ArrowRight } from "lucide-react";
 
 type Audience = "child" | "self" | "abroad" | "b2b";
 type ChildAge = "3-5" | "6-11" | "12-16";
@@ -70,9 +71,9 @@ const OptionButton = ({ onClick, children }: { onClick: () => void; children: Re
   <button
     type="button"
     onClick={onClick}
-    className="quiz-option text-left rounded-2xl border border-neutral-200 bg-white/90 px-5 py-4 text-sm font-semibold text-neutral-800 transition-all hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg"
+    className="quiz-choice"
   >
-    {children}
+    <span>{children}</span><ArrowRight aria-hidden="true" />
   </button>
 );
 
@@ -187,18 +188,19 @@ export function Quiz() {
     <>
     <section id="quiz" className="quiz-section-band relative overflow-hidden py-14 md:py-20 scroll-mt-24">
       <div className="container-vmg relative">
-      <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
-        <div className="quiz-surface relative overflow-hidden rounded-[2rem] border border-brand/10 p-6 md:p-10 shadow-[0_30px_80px_-55px_rgba(146,24,36,.7)]">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-brand">Chưa chắc nên chọn gì?</span>
-              <h2 className="mt-2 text-2xl md:text-3xl font-display font-extrabold">
-                Trả lời vài câu để VMG gợi ý đúng chương trình
-              </h2>
-            </div>
+      <div className="quiz-composition">
+        <div className="quiz-intro">
+          <span className="home-eyebrow">Bắt đầu từ bạn</span>
+          <h2>Một lựa chọn đúng.<br /><span>Mở nhiều cơ hội.</span></h2>
+          <p>Vài câu hỏi nhỏ để tìm chương trình phù hợp với độ tuổi và mục tiêu của bạn.</p>
+          <a href="#chuong-trinh" className="home-text-link">Xem toàn bộ chương trình <ArrowRight aria-hidden="true" /></a>
+        </div>
+        <div className="quiz-panel" aria-live="polite">
+          <div className="quiz-panel-top">
+            <span>{step === "audience" ? "01 / Chọn nhu cầu" : step === "result" ? "Lộ trình của bạn" : "Cùng tìm hiểu thêm"}</span>
             {step !== "audience" && (
               <button onClick={reset} className="hidden md:inline text-xs font-semibold text-neutral-500 hover:text-brand">
-                ✕ Bắt đầu lại
+                Bắt đầu lại
               </button>
             )}
           </div>
@@ -207,10 +209,10 @@ export function Quiz() {
             <div>
               <h3 className="text-lg md:text-xl font-display font-bold mb-4">Bạn đang tìm chương trình học cho ai?</h3>
               <div className="grid sm:grid-cols-2 gap-3">
-                <OptionButton onClick={() => { setAnswers({ audience: "child" }); setStep("q1"); }}>👨‍👩‍👧 Con của tôi</OptionButton>
-                <OptionButton onClick={() => { setAnswers({ audience: "self" }); setStep("q1"); }}>👤 Bản thân tôi</OptionButton>
-                <OptionButton onClick={() => { setAnswers({ audience: "abroad" }); setStep("q1"); }}>✈️ Tìm hiểu du học</OptionButton>
-                <OptionButton onClick={() => { setAnswers({ audience: "b2b" }); setStep("b2b"); }}>🏫 Trường học / Doanh nghiệp</OptionButton>
+                <OptionButton onClick={() => { setAnswers({ audience: "child" }); setStep("q1"); }}>Con của tôi</OptionButton>
+                <OptionButton onClick={() => { setAnswers({ audience: "self" }); setStep("q1"); }}>Bản thân tôi</OptionButton>
+                <OptionButton onClick={() => { setAnswers({ audience: "abroad" }); setStep("q1"); }}>Tìm hiểu du học</OptionButton>
+                <OptionButton onClick={() => { setAnswers({ audience: "b2b" }); setStep("b2b"); }}>Trường học / Doanh nghiệp</OptionButton>
               </div>
             </div>
           )}
@@ -231,9 +233,9 @@ export function Quiz() {
               <ProgressNav onBack={() => setStep("q1")} onExit={reset} stepLabel="Bước 3/3" />
               <h3 className="text-lg md:text-xl font-display font-bold mb-4">Mục tiêu chính của gia đình là gì?</h3>
               <div className="grid sm:grid-cols-3 gap-3">
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "communication" })); setStep("result"); }}>💬 Giao tiếp tự tin</OptionButton>
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "cambridge" })); setStep("result"); }}>🏅 Cambridge / Quốc tế</OptionButton>
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "study-abroad" })); setStep("result"); }}>🌍 Nền tảng du học</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "communication" })); setStep("result"); }}>Giao tiếp tự tin</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "cambridge" })); setStep("result"); }}>Cambridge / Quốc tế</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, childGoal: "study-abroad" })); setStep("result"); }}>Nền tảng du học</OptionButton>
               </div>
             </div>
           )}
@@ -243,9 +245,9 @@ export function Quiz() {
               <ProgressNav onBack={() => setStep("audience")} onExit={reset} stepLabel="Bước 2/3" />
               <h3 className="text-lg md:text-xl font-display font-bold mb-4">Mục tiêu học tập của bạn?</h3>
               <div className="grid sm:grid-cols-3 gap-3">
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "work" })); setStep("q2"); }}>💼 Giao tiếp công việc</OptionButton>
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "exam" })); setStep("q2"); }}>📝 IELTS/TOEIC/VSTEP</OptionButton>
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "tesol" })); setStep("q2"); }}>🎓 Chứng chỉ TESOL</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "work" })); setStep("q2"); }}>Giao tiếp công việc</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "exam" })); setStep("q2"); }}>IELTS/TOEIC/VSTEP</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfGoal: "tesol" })); setStep("q2"); }}>Chứng chỉ TESOL</OptionButton>
               </div>
             </div>
           )}
@@ -254,8 +256,8 @@ export function Quiz() {
               <ProgressNav onBack={() => setStep("q1")} onExit={reset} stepLabel="Bước 3/3" />
               <h3 className="text-lg md:text-xl font-display font-bold mb-4">Bạn muốn học theo hình thức nào?</h3>
               <div className="grid sm:grid-cols-2 gap-3">
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfFormat: "center" as SelfFormat })); setStep("result"); }}>🏫 Tại trung tâm</OptionButton>
-                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfFormat: "online" as SelfFormat })); setStep("result"); }}>💻 Học online</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfFormat: "center" as SelfFormat })); setStep("result"); }}>Tại trung tâm</OptionButton>
+                <OptionButton onClick={() => { setAnswers((a) => ({ ...a, selfFormat: "online" as SelfFormat })); setStep("result"); }}>Học online</OptionButton>
               </div>
             </div>
           )}
@@ -266,9 +268,9 @@ export function Quiz() {
               <h3 className="text-lg md:text-xl font-display font-bold mb-4">Bạn đang ở giai đoạn nào?</h3>
               <div className="grid sm:grid-cols-3 gap-3">
                 {([
-                  ["explore", "🔎 Mới tìm hiểu"],
-                  ["application", "📁 Cần làm hồ sơ"],
-                  ["scholarship", "🏆 Tìm học bổng"],
+                  ["explore", "Mới tìm hiểu"],
+                  ["application", "Cần làm hồ sơ"],
+                  ["scholarship", "Tìm học bổng"],
                 ] as [AbroadStage, string][]).map(([v, label]) => (
                   <OptionButton key={v} onClick={() => { setAnswers((a) => ({ ...a, abroadStage: v })); setStep("result"); }}>{label}</OptionButton>
                 ))}
@@ -280,7 +282,7 @@ export function Quiz() {
 
           {step === "result" && (
             <div>
-              <ProgressNav onBack={() => setStep("q2")} onExit={reset} stepLabel="Hoàn tất" />
+              <ProgressNav onBack={() => setStep(answers.audience === "abroad" ? "q1" : "q2")} onExit={reset} stepLabel="Hoàn tất" />
               <div className="rounded-2xl border border-dashed border-brand/30 bg-white p-6 text-center">
                 <div className="text-2xl">✓</div>
                 <p className="mt-2 text-sm font-semibold text-neutral-800">Đã tìm thấy gợi ý phù hợp cho bạn!</p>
@@ -290,20 +292,6 @@ export function Quiz() {
           )}
         </div>
 
-        <aside className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-plum to-[#271942] p-6 text-white shadow-xl shadow-plum/15 lg:sticky lg:top-24">
-          <div className="absolute -right-9 -top-8 h-32 w-32 rounded-full border border-white/15" aria-hidden="true" />
-          <img src="/vmg-flower-gold.png" alt="" className="absolute -bottom-8 -right-6 h-32 w-32 object-contain opacity-15" aria-hidden="true" />
-          <div className="relative">
-          <div className="text-xs font-bold uppercase tracking-widest text-lemon">Muốn tự xem trước?</div>
-          <h3 className="mt-2 text-xl font-display font-extrabold leading-snug">Mở toàn bộ bản đồ chương trình</h3>
-          <p className="mt-2 text-sm leading-6 text-white/70">
-            Các nhóm sản phẩm theo độ tuổi và mục tiêu được trình bày ngay bên dưới để bạn chủ động khám phá.
-          </p>
-          <a href="#chuong-trinh" className="mt-5 inline-flex items-center gap-2 rounded-full bg-lemon px-4 py-2.5 text-sm font-bold text-neutral-900 transition hover:-translate-y-0.5 hover:bg-white">
-            Xem chương trình Ngoại ngữ →
-          </a>
-          </div>
-        </aside>
       </div>
       </div>
     </section>

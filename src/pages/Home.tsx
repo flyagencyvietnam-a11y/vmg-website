@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "../styles/home.css";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { Quiz } from "../components/Quiz";
@@ -37,7 +38,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="home-refined min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         <Hero />

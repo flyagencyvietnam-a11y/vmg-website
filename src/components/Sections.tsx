@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Image, Network, Quote, Target } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Image } from "lucide-react";
 import { PRODUCTS, FORMAT_LABEL, isLearningProduct, type AgeGroupFilter } from "../data/products";
 import { getProductVisual } from "../data/productVisuals";
 import workAbroadImage from "../assets/products/xuat-khau-lao-dong.webp";
@@ -70,9 +70,8 @@ export function ProgramsSection() {
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-              filter === f.key ? "bg-brand text-white" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
-            }`}
+            aria-pressed={filter === f.key}
+            className="program-tab"
           >
             {f.label}
           </button>
@@ -85,7 +84,7 @@ export function ProgramsSection() {
         {visible.slice(0, 6).map((p, index) => (
           <a
             key={p.name}
-            href="/ngoai-ngu"
+            href={`/hoc-online/${p.slug}`}
             aria-label={`Tìm hiểu chương trình ${p.name}`}
             className="editorial-card group relative block h-[390px] overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-md transition duration-500 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 md:h-[420px]"
           >
@@ -145,53 +144,38 @@ const ONLINE_OBJECTS: Record<string, { image: string; surface: string; accent: s
 
 export function OnlineCoursesSection() {
   return (
-    <section id="hoc-online" className="online-universe relative isolate overflow-hidden py-16 md:py-28">
-      <div className="brand-atmosphere-orb brand-atmosphere-orb-one" aria-hidden="true" />
-      <div className="brand-atmosphere-orb brand-atmosphere-orb-two" aria-hidden="true" />
+    <section id="hoc-online" className="online-studio">
       <div className="container-vmg">
-        <div className="grid items-end gap-6 lg:grid-cols-[1.1fr_.9fr]">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Học online</span>
-            <h2 className="mt-3 text-3xl md:text-5xl font-display font-extrabold tracking-tight">Mỗi mục tiêu,<br />một công cụ để tiến xa.</h2>
+        <div className="online-heading">
+          <div>
+            <span className="home-eyebrow">Học online cùng VMG</span>
+            <h2>Học theo cách của bạn.<br /><span>Tiến xa theo mục tiêu.</span></h2>
           </div>
-          <div className="rounded-[1.75rem] border border-white/70 bg-white/55 p-5 shadow-sm backdrop-blur md:p-6">
-            <p className="text-sm leading-6 text-neutral-600">Từ luyện thi đến phát triển nghề nghiệp, chọn cách học phù hợp với nhịp sống của bạn. Cam kết đầu ra được áp dụng theo điều kiện của từng chương trình.</p>
-            <div className="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[.12em] text-brand"><span className="h-2 w-2 rounded-full bg-brand" /> Online-first · Có giáo viên đồng hành</div>
-          </div>
+          <p>Luyện thi, giao tiếp hay phát triển nghề nghiệp — chọn một lộ trình phù hợp với nhịp sống của bạn.</p>
         </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {FLAGSHIP_ONLINE_PRODUCTS.map((c) => {
+        <div className="online-composition">
+          {FLAGSHIP_ONLINE_PRODUCTS.map((c, index) => {
             const object = ONLINE_OBJECTS[c.code] ?? ONLINE_OBJECTS.EDU;
             return (
             <a
               key={c.code}
               href={`/hoc-online/${c.slug}`}
-              className={`product-object-card group relative isolate flex h-[420px] overflow-hidden rounded-[2rem] bg-gradient-to-br ${object.surface} p-6 shadow-[0_24px_55px_-38px_rgba(40,25,30,.55)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_65px_-36px_rgba(40,25,30,.65)]`}
+              className={`online-course online-course-${c.code.toLowerCase()} group bg-gradient-to-br ${object.surface}`}
             >
-              <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-white/65 bg-white/20" aria-hidden="true" />
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="rounded-full border border-black/8 bg-white/65 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-700 backdrop-blur">{c.tag}</span>
-                    <span className="rounded-full border border-black/8 bg-white/65 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-700 backdrop-blur">{FORMAT_LABEL[c.format]}</span>
-                  </div>
-                  <span className={`font-display text-sm font-extrabold ${object.accent}`}>{c.code}</span>
-                </div>
-                <div className="mt-2 flex min-h-0 flex-1 items-center justify-center">
-                  <img src={object.image} alt="" aria-hidden="true" className="product-object h-48 drop-shadow-2xl transition duration-700 group-hover:-translate-y-2 group-hover:rotate-2 group-hover:scale-105 md:h-52" loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-display font-extrabold leading-tight text-neutral-950 md:text-2xl">{c.name}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-700">{c.desc}</p>
-                  <span className={`mt-4 inline-flex items-center gap-1.5 text-sm font-extrabold ${object.accent}`}>Khám phá <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-                </div>
+              <div className="online-course-top"><span>{index === 0 ? "Speaking chuyên sâu" : c.code === "IE" ? "Luyện thi IELTS" : c.code === "VSTEP" ? "Chứng chỉ B1 / B2" : c.code === "GT" ? "Giao tiếp" : "Nghiệp vụ giảng dạy"}</span><ArrowUpRight aria-hidden="true" /></div>
+              <img src={object.image} alt="" aria-hidden="true" className="online-object" loading="lazy" />
+              <div className="online-course-copy">
+                <h3>{c.name}</h3>
+                <p>{c.desc}</p>
+                <span className="online-course-link">Xem chương trình <ArrowRight aria-hidden="true" /></span>
               </div>
             </a>
           )})}
         </div>
-        <div className="mt-8 flex justify-end border-t border-brand/10 pt-6">
-          <a href="/hoc-online" className="inline-flex items-center gap-2 rounded-full bg-white border-2 border-brand text-brand px-6 py-3 text-sm font-bold hover:bg-brand hover:text-white transition-colors">
-            Xem chi tiết từng khóa học →
+        <div className="online-footer">
+          <p>Chính sách đầu ra được áp dụng riêng theo từng chương trình.</p>
+          <a href="/hoc-online" className="home-text-link">
+            Tất cả khóa học online <ArrowUpRight aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -252,70 +236,43 @@ export function DuHocSection() {
 
 export function ValuesSection() {
   return (
-    <section className="values-surface overflow-hidden py-16 md:py-24">
-      <div className="container-vmg grid items-stretch gap-8 lg:grid-cols-[1.04fr_.96fr] lg:gap-12">
-        <div className="flex flex-col justify-center">
-          <span className="text-xs font-bold uppercase tracking-[.18em] text-brand">Về VMG</span>
-          <h2 className="mt-3 max-w-2xl text-3xl font-display font-extrabold tracking-tight md:text-5xl">
-            Một hệ sinh thái cho những hành trình học tập dài lâu
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-7 text-neutral-600">
-            Hệ thống Giáo dục và Đào tạo Việt Mỹ VMG kết nối ba trụ cột Ngoại ngữ, Du học và Hướng nghiệp,
-            mở rộng lựa chọn học tập trực tiếp và online cho nhiều giai đoạn phát triển.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            {["Ngoại ngữ", "Du học", "Hướng nghiệp"].map((pillar) => (
-              <span key={pillar} className="rounded-full border border-brand/15 bg-white px-4 py-2 text-sm font-bold text-brand shadow-sm">
-                {pillar}
-              </span>
-            ))}
+    <section id="gia-tri-vmg" className="values-editorial" aria-labelledby="values-title">
+      <div className="container-vmg">
+        <header className="values-heading">
+          <div>
+            <span className="home-eyebrow">Về VMG / Điều chúng tôi theo đuổi</span>
+            <h2 id="values-title">Giáo dục bằng tâm huyết.<br /><span>Đồng hành bằng trách nhiệm.</span></h2>
           </div>
-          <a href="/ve-vmg" className="button-lift mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-white shadow-lg shadow-brand/20 transition hover:bg-brand-dark">
-            Khám phá VMG <ArrowRight className="h-4 w-4" />
-          </a>
+          <a href="/ve-vmg" className="home-text-link">Khám phá VMG <ArrowUpRight aria-hidden="true" /></a>
+        </header>
+
+        <div className="values-story">
+          <figure className="values-team">
+            <img src="/legacy/team-bien-hoa.jpg" alt="Đội ngũ VMG tại Biên Hòa" width="900" height="600" loading="lazy" />
+            <figcaption><span>Những con người VMG</span><span>Đồng hành cùng hành trình học tập của bạn</span></figcaption>
+          </figure>
+          <div className="values-principles">
+            <article>
+              <span className="values-number" aria-hidden="true">01</span>
+              <div><h3>Sứ mệnh</h3><p>{COMPANY.mission}</p></div>
+            </article>
+            <article>
+              <span className="values-number" aria-hidden="true">02</span>
+              <div><h3>Trách nhiệm &amp; chất lượng</h3><p>{COMPANY.responsibility}</p></div>
+            </article>
+            <p className="values-pillars">Ngoại ngữ <span aria-hidden="true">/</span> Du học <span aria-hidden="true">/</span> Hướng nghiệp</p>
+          </div>
         </div>
 
-        <div className="relative min-h-[440px] overflow-hidden rounded-[2.25rem] bg-gradient-to-br from-[#761722] via-brand-dark to-[#3f1017] p-6 text-white shadow-2xl shadow-brand/15 md:p-8">
-          <div className="absolute -right-16 -top-16 h-60 w-60 rounded-full border border-white/10" aria-hidden="true" />
-          <div className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full border border-gold-soft/20" aria-hidden="true" />
-          <div className="relative flex h-full flex-col">
-            <div className="flex items-center gap-3 text-gold-soft">
-              <Network className="h-6 w-6" strokeWidth={1.8} />
-              <span className="text-xs font-bold uppercase tracking-[.18em]">VMG - Dẫn Lối Tương Lai</span>
-            </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-white/12 bg-white/8 p-5 backdrop-blur-sm">
-                <Eye className="h-5 w-5 text-gold-soft" />
-                <h3 className="mt-4 font-display text-lg font-bold">Trách nhiệm &amp; chất lượng</h3>
-                <p className="mt-2 text-sm leading-6 text-white/80">{COMPANY.responsibility}</p>
-              </div>
-              <div className="rounded-3xl border border-white/12 bg-white/8 p-5 backdrop-blur-sm">
-                <Target className="h-5 w-5 text-gold-soft" />
-                <h3 className="mt-4 font-display text-lg font-bold">Sứ mệnh</h3>
-                <p className="mt-2 text-sm leading-6 text-white/80">{COMPANY.mission}</p>
-              </div>
-            </div>
-            <div className="mt-4 flex flex-1 flex-col justify-between rounded-3xl bg-white p-6 text-neutral-900">
-              <Quote className="h-7 w-7 text-brand/30" />
-              <p className="mt-4 text-sm leading-6 text-neutral-500">
-                “{COMPANY.chairmanMessage[0]}”
-              </p>
-              <div className="mt-5 flex items-center gap-4 border-t border-black/5 pt-4">
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-gradient-to-br from-cream to-[#ead7ae]">
-                  <img
-                    src={COMPANY.chairmanImage}
-                    alt="Chủ tịch Nguyễn Quốc Khánh"
-                    className="h-full w-full object-cover object-top"
-                    loading="lazy"
-                  />
-                </div>
-                <div>
-                  <div className="font-display font-bold">Ông Nguyễn Quốc Khánh</div>
-                  <div className="text-xs text-neutral-500">{COMPANY.chairmanRole}</div>
-                </div>
-              </div>
-              <a href="/ve-vmg#thong-diep-chu-tich" className="mt-4 text-sm font-bold text-brand hover:underline">Đọc thông điệp Chủ tịch →</a>
-            </div>
+        <div className="chairman-editorial">
+          <figure className="chairman-portrait">
+            <img src={COMPANY.chairmanImage} alt={`Ông ${COMPANY.chairmanName}, ${COMPANY.chairmanRole}`} width="1137" height="1200" loading="lazy" />
+          </figure>
+          <div className="chairman-letter">
+            <span className="home-eyebrow">Thông điệp từ Chủ tịch</span>
+            <blockquote><p>“{COMPANY.chairmanMessage[0]}”</p></blockquote>
+            <div className="chairman-byline"><span>Ông {COMPANY.chairmanName}</span><span>{COMPANY.chairmanRole}</span></div>
+            <a href="/ve-vmg#thong-diep-chu-tich" className="home-text-link">Đọc trọn thông điệp <ArrowUpRight aria-hidden="true" /></a>
           </div>
         </div>
       </div>
