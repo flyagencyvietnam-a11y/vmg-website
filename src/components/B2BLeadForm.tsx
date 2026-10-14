@@ -1,23 +1,30 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
+import { createLeadSubmitter } from "../lib/leadSubmission";
+import { LeadFormFields, LeadFormError } from "./LeadFormFields";
 
-export function B2BLeadForm() {
+export function B2BLeadForm({ source = "truong-hoc-doanh-nghiep" }: { source?: string }) {
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [submit] = useState(() => createLeadSubmitter());
+  const [error, setError] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (status === "loading") return;
     const form = new FormData(e.currentTarget);
     setStatus("loading");
     try {
-      const { error } = await supabase.from("b2g_inquiries").insert({
+      await submit({
+        kind: "partnership", source,
         organization: form.get("organization") as string,
-        contact_name: form.get("contact_name") as string,
+        full_name: form.get("contact_name") as string,
         phone: form.get("phone") as string,
         need_notes: form.get("need_notes") as string,
         consent_given: form.get("consent") === "on",
+        website: String(form.get("website") || ""),
       });
-      setStatus(error ? "error" : "done");
-    } catch {
+      setStatus("done");
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Chưa gửi được biểu mẫu.");
       setStatus("error");
     }
   };
@@ -32,17 +39,14 @@ export function B2BLeadForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-3">
-      <input name="organization" required placeholder="Tên trường / công ty" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+      <input name="organization" required minLength={2} maxLength={200} autoComplete="organization" aria-label="Tên trường hoặc công ty" placeholder="Tên trường / công ty" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
       <div className="grid sm:grid-cols-2 gap-3">
-        <input name="contact_name" required placeholder="Người liên hệ" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-        <input name="phone" required placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+        <input name="contact_name" required minLength={2} maxLength={120} autoComplete="name" aria-label="Người liên hệ" placeholder="Người liên hệ" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+        <input name="phone" type="tel" inputMode="tel" required maxLength={30} autoComplete="tel" aria-label="Số điện thoại" placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
       </div>
-      <textarea name="need_notes" placeholder="Nhu cầu cụ thể" rows={3} className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-      <label className="flex items-start gap-2 text-xs text-neutral-500">
-        <input type="checkbox" required className="mt-0.5" name="consent" />
-        Tôi đồng ý với <a href="/chinh-sach-bao-mat" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
-      </label>
-      {status === "error" && <div className="text-xs text-brand font-semibold">Chưa gửi được biểu mẫu. Vui lòng gọi <a className="underline" href="tel:1900636838">1900 636 838</a> hoặc nhắn <a className="underline" href="https://zalo.me/3856493312075808344" target="_blank" rel="noreferrer">Zalo VMG</a>.</div>}
+      <textarea name="need_notes" maxLength={2000} aria-label="Nhu cầu cụ thể" placeholder="Nhu cầu cụ thể" rows={3} className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
+      <LeadFormFields />
+      {status === "error" && <LeadFormError message={error} />}
       <button disabled={status === "loading"} className="rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit disabled:opacity-60">
         {status === "loading" ? "Đang gửi…" : "Gửi yêu cầu hợp tác"}
       </button>

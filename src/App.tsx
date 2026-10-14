@@ -28,6 +28,7 @@ const NewsPage = lazy(() => import("./admin/pages/NewsPage"));
 const QuizMappingPage = lazy(() => import("./admin/pages/QuizMappingPage"));
 const LeadsPage = lazy(() => import("./admin/pages/LeadsPage"));
 const B2GPage = lazy(() => import("./admin/pages/B2GPage"));
+const LeadDeliveryPage = lazy(() => import("./admin/pages/LeadDeliveryPage"));
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
           <Route path="quiz-mapping" element={<QuizMappingPage />} />
           <Route path="leads" element={<LeadsPage />} />
           <Route path="b2g" element={<B2GPage />} />
+          <Route path="lead-delivery" element={<LeadDeliveryPage />} />
         </Route>
 
         <Route path="*" element={<PlaceholderPage title="Không tìm thấy trang" />} />

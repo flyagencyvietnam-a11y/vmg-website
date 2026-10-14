@@ -9,9 +9,10 @@ export default function B2GPage() {
         { key: "organization", label: "Trường / Công ty" },
         { key: "contact_name", label: "Người liên hệ" },
         { key: "phone", label: "SĐT" },
+        { key: "owner_team", label: "Nhóm tiếp nhận" },
         { key: "created_at", label: "Thời gian", render: (r) => new Date(r.created_at as string).toLocaleString("vi-VN") },
       ]}
-      csvColumns={["organization", "contact_name", "phone", "need_notes", "status", "created_at"]}
+      csvColumns={["id", "request_id", "organization", "contact_name", "phone", "need_notes", "source", "owner_team", "attribution", "consent_given", "consent_at", "consent_version", "status", "created_at"]}
     />
   );
 }

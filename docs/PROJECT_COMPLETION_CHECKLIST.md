@@ -15,6 +15,16 @@ Phạm vi: toàn bộ route public, dữ liệu tĩnh, form, Supabase, khu vực
 
 ## 1. Kết luận nhanh
 
+### Cập nhật kỹ thuật 14/10/2026
+
+- [x] Khôi phục build Tin tức; hoàn tất index của 138 bài import và kiểm tra nội dung/HTML/asset cục bộ.
+- [x] Người dùng Resume Supabase; DNS, Auth health, API trung tâm và quiz đã kiểm tra thành công.
+- [x] Chuẩn bị API nhận lead, migration/RLS, idempotency, chống spam cơ bản, định tuyến nhóm, CSV và hàng đợi CRM/thông báo; 10 kiểm thử PostgreSQL cục bộ đã đạt.
+- [ ] Áp dụng migration và cấp quyền admin trên project thật; cấu hình server key, chạy smoke test ghi/đọc lead thật.
+- [ ] Chỉ định receiver CRM/thông báo, cấu hình webhook và scheduler, xác nhận việc giao lead ngoài hệ thống.
+- Phần duyệt nội dung/pháp lý không thuộc lượt triển khai này. Các checkbox cũ bên dưới cần đối chiếu với ghi chú cập nhật trước khi làm lại.
+- Hướng dẫn kỹ thuật và các bước còn thiếu: `docs/BACKEND_LEADS_SETUP.md`.
+
 Website hiện đã có bộ nội dung public khá đầy đủ, dữ liệu giới thiệu công ty, 10 trung tâm, thông điệp Chủ tịch, đội ngũ giáo viên từ website cũ, Hall of Fame và 5 bài tin đã đối chiếu. Build production chạy thành công.
 
 Các mục nội dung/frontend sau đây đã được xử lý trong vòng hoàn thiện 16/09/2026:

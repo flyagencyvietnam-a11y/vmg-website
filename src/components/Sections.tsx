@@ -372,7 +372,7 @@ const NEWS_CATEGORY_LABELS: Record<string, string> = {
 };
 
 export function NewsSection() {
-  const [news, setNews] = useState<NewsItem[]>(LEGACY_NEWS);
+  const [news, setNews] = useState<NewsItem[]>(LEGACY_NEWS.slice(0, 10));
   const [loading, setLoading] = useState(true);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -388,7 +388,7 @@ export function NewsSection() {
         .limit(10);
 
       if (active) {
-        setNews(data?.length ? (data as NewsItem[]) : LEGACY_NEWS);
+        setNews(data?.length ? (data as NewsItem[]) : LEGACY_NEWS.slice(0, 10));
         setLoading(false);
       }
     }

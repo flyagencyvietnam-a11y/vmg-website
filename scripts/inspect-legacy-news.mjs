@@ -1,0 +1,10 @@
+import { load } from 'cheerio';
+const url = process.argv[2] || 'https://vmgenglish.edu.vn/tin-tuc.html';
+const html = await (await fetch(url)).text();
+const $ = load(html);
+console.log('TITLE', $('title').text());
+console.log('LINKS', $('a[href]').map((_, a) => ({text:$(a).text().trim().slice(0,70),href:$(a).attr('href')})).get().filter(a=>/-cn\d|page|start=/.test(a.href)));
+console.log('HEADINGS', $('h1').map((_,e)=>({text:$(e).text(),parent:$(e).parent().attr('class')})).get());
+console.log('META', $('.goodstudy-box-detail').children().map((_,e)=>({tag:e.tagName,class:$(e).attr('class'),text:$(e).text().trim().slice(0,250)})).get());
+console.log('PAGINATION', $('[class*=pagin]').html());
+console.log('ARTICLE LINKS', $('a[href]').map((_,a)=>$(a).attr('href')).get().filter(a=>/-n\d+|cg\d|good|hoc-tot/.test(a)));

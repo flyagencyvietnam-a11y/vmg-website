@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { LeadCaptureForm } from "./LeadCaptureForm";
 import { B2BLeadForm } from "./B2BLeadForm";
 import { QUIZ_FALLBACK_MAPPING } from "../data/quizFallback";
 import { ArrowRight } from "lucide-react";
@@ -32,6 +33,7 @@ function buildAnswerKey(a: Answers): string | null {
 
 async function fetchQuizResult(key: string): Promise<QuizResult> {
   const fallback = QUIZ_FALLBACK_MAPPING[key] ?? null;
+  try {
   const { data: mapping, error: mappingError } = await supabase
     .from("quiz_mapping")
     .select("id, primary_product_name_override, primary_product_desc_override, products(name, description, gradient_class, cta_href)")
@@ -65,6 +67,7 @@ async function fetchQuizResult(key: string): Promise<QuizResult> {
   });
 
   return { primary, crossSell };
+  } catch { return fallback; }
 }
 
 const OptionButton = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => (
@@ -95,60 +98,6 @@ function ProgressNav({ onBack, onExit, stepLabel }: { onBack?: () => void; onExi
   );
 }
 
-function ConsentLabel() {
-  return (
-    <label className="sm:col-span-2 flex items-start gap-2 text-xs text-neutral-500">
-      <input type="checkbox" required className="mt-0.5" name="consent" />
-      Tôi đồng ý với <a href="/chinh-sach-bao-mat" className="underline text-brand">Chính sách bảo mật và xử lý dữ liệu cá nhân</a>
-    </label>
-  );
-}
-
-function LeadForm({ answers }: { answers: Answers }) {
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    setStatus("loading");
-    try {
-      const { error } = await supabase.from("leads").insert({
-        full_name: form.get("full_name") as string,
-        phone: form.get("phone") as string,
-        source: "quiz",
-        quiz_answers: answers,
-        consent_given: form.get("consent") === "on",
-      });
-      setStatus(error ? "error" : "done");
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "done") {
-    return (
-      <div className="mt-6 rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm text-center">
-        <p className="text-sm font-semibold text-brand">✓ Cảm ơn bạn! Tư vấn viên VMG sẽ liên hệ để hỗ trợ.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-6 rounded-3xl bg-white border border-neutral-200 p-6 md:p-7 shadow-sm">
-      <div className="text-sm font-semibold text-neutral-700 mb-3">Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:</div>
-      <form onSubmit={onSubmit} className="grid sm:grid-cols-2 gap-3">
-        <input name="full_name" required placeholder="Họ và tên" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-        <input name="phone" required placeholder="Số điện thoại" className="rounded-xl border border-neutral-200 px-4 py-3 text-sm" />
-        <ConsentLabel />
-        {status === "error" && <div className="sm:col-span-2 text-xs text-brand font-semibold">Chưa gửi được biểu mẫu. Vui lòng gọi <a className="underline" href="tel:1900636838">1900 636 838</a> hoặc nhắn <a className="underline" href="https://zalo.me/3856493312075808344" target="_blank" rel="noreferrer">Zalo VMG</a>.</div>}
-        <button disabled={status === "loading"} className="sm:col-span-2 rounded-full bg-brand text-white px-6 py-3 text-sm font-bold w-fit disabled:opacity-60">
-          {status === "loading" ? "Đang gửi…" : "Nhận tư vấn miễn phí"}
-        </button>
-      </form>
-    </div>
-  );
-}
-
 function B2BForm({ onBack, onExit }: { onBack: () => void; onExit: () => void }) {
   return (
     <div>
@@ -156,7 +105,7 @@ function B2BForm({ onBack, onExit }: { onBack: () => void; onExit: () => void })
       <p className="text-sm text-neutral-600 mb-4">
         VMG có chương trình riêng cho trường học và doanh nghiệp: đào tạo tiếng Anh in-house, hoạt động ngoại khóa.
       </p>
-      <B2BLeadForm />
+      <B2BLeadForm source="quiz-partnership" />
     </div>
   );
 }
@@ -176,13 +125,15 @@ export function Quiz() {
     const key = buildAnswerKey(answers);
     if (!key) { setResult(null); return; }
     setResultLoading(true);
+    let active = true;
     fetchQuizResult(key).then((r) => {
+      if (!active) return;
       setResult(r);
       setResultLoading(false);
     });
     resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
+    return () => { active = false; };
+  }, [step, answers]);
 
   return (
     <>
@@ -358,7 +309,7 @@ export function Quiz() {
             </div>
           )}
 
-          <LeadForm answers={answers} />
+          <div className="mt-6"><LeadCaptureForm key={buildAnswerKey(answers)} source="quiz" extra={answers} title="Để lại thông tin, VMG sẽ liên hệ tư vấn chi tiết:" /></div>
         </div>
       </section>
     )}

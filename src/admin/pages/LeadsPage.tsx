@@ -9,9 +9,10 @@ export default function LeadsPage() {
         { key: "full_name", label: "Họ tên" },
         { key: "phone", label: "SĐT" },
         { key: "source", label: "Nguồn" },
+        { key: "owner_team", label: "Nhóm tiếp nhận" },
         { key: "created_at", label: "Thời gian", render: (r) => new Date(r.created_at as string).toLocaleString("vi-VN") },
       ]}
-      csvColumns={["full_name", "phone", "source", "quiz_answers", "status", "created_at"]}
+      csvColumns={["id", "request_id", "full_name", "phone", "source", "owner_team", "quiz_answers", "attribution", "consent_given", "consent_at", "consent_version", "status", "created_at"]}
     />
   );
 }

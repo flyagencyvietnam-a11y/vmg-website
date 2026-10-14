@@ -326,7 +326,7 @@ export default function HocOnlineDetail() {
               ) : (
                 <LeadCaptureForm
                   source="hoc-online-detail"
-                  extra={{ product_code: product.code, product_slug: product.slug }}
+                  extra={{ product_code: product.code, product_slug: product.slug, product_section: product.section, product_format: product.format }}
                   title={content ? content.ctaPrimary : `Đăng ký tư vấn ${product.name}`}
                   submitLabel="Nhận tư vấn miễn phí"
                 />

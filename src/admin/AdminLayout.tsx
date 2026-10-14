@@ -1,5 +1,5 @@
 import { NavLink, Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./useAuth";
 import { Logo } from "../components/Logo";
 
 const NAV = [
@@ -9,15 +9,17 @@ const NAV = [
   { to: "/admin/quiz-mapping", label: "Quiz mapping" },
   { to: "/admin/leads", label: "Leads" },
   { to: "/admin/b2g", label: "B2G / B2B" },
+  { to: "/admin/lead-delivery", label: "Chuyển lead & thông báo" },
 ];
 
 export default function AdminLayout() {
-  const { session, loading, signOut } = useAuth();
+  const { session, loading, isAdmin, adminLoading, accessError, signOut } = useAuth();
 
-  if (loading) {
+  if (loading || (session && adminLoading)) {
     return <div className="min-h-screen grid place-items-center text-sm text-neutral-500">Đang tải…</div>;
   }
   if (!session) return <Navigate to="/admin/login" replace />;
+  if (!isAdmin) return <div className="min-h-screen grid place-items-center bg-cream"><div className="rounded-2xl bg-white p-8 max-w-lg"><p role="alert">{accessError || "Không có quyền quản trị."}</p><button onClick={() => window.location.reload()} className="mt-4 mr-4 text-brand underline">Thử lại</button><button onClick={() => signOut()} className="text-brand underline">Đăng xuất</button></div></div>;
 
   return (
     <div className="min-h-screen flex bg-cream">
